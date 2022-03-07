@@ -2058,7 +2058,7 @@ pre .javascript .function {
   box-sizing: border-box;
   width: 100%;
   overflow: hidden;
-  background: url("/images/bg.svg") center center/cover no-repeat;
+  background: url("/images/罗小黑战记.png") center center/cover no-repeat;
   background-position-y: 70px;
 }
 @media (max-width: 780px) {
@@ -2078,11 +2078,14 @@ pre .javascript .function {
   height: 90%;
 }
 .first-screen-container .content .description {
+  background: rgba(50,50,50,0.4); /*字体背景颜色和透明的*/
+  padding: 5px 20px; /*字体背景框的大小*/
+  border-radius: 5px; /*圆角*/
   font-weight: bold;
   font-size: 2rem;
   line-height: 1.8;
   text-align: center;
-  color: var(--default-text-color);
+  color: #e6e6e6; /*字体颜色*/
 }
 @media (max-width: 780px) {
   .first-screen-container .content .description {
