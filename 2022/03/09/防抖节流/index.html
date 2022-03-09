@@ -9,7 +9,7 @@
     
     <title>
         
-            标签: JavaScript |
+            防抖节流 |
         
         灵感胜于汗水
     </title>
@@ -137,49 +137,118 @@
 
                 
                     <div class="fade-in-down-animation">
-    <div class="tag-container">
-        <div class="tag-name"><i class="fas fa-tag"></i>&nbsp;JavaScript
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">防抖节流</span>
         </div>
-        <div class="tag-post-list">
-            
-<div class="archive-list-container">
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="https://cdn.jsdelivr.net/gh/cjhsyc/image-hosting@master/%E5%A4%B4%E5%83%8F.677yiujw5980.webp">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">灵感胜于汗水</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2022-03-09 14:58:35</span>
+        <span class="mobile">2022-03-09 14:58</span>
+    </span>
     
-        <section class="archive-item">
-            <div class="archive-item-header">
-                <span class="archive-year">2022</span>
-                <span class="archive-year-post-count">[2]</span>
-            </div>
-            <ul class="article-list">
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
                 
-                    <li class="article-item">
-                        <a class="article-title"
-                           href="/2022/03/09/%E9%98%B2%E6%8A%96%E8%8A%82%E6%B5%81/"
-                        >防抖节流</a>
-                        <span class="article-date">03-09</span>
-                    </li>
-                
-                    <li class="article-item">
-                        <a class="article-title"
-                           href="/2022/03/09/js%E4%B8%A5%E6%A0%BC%E6%A8%A1%E5%BC%8F/"
-                        >js严格模式</a>
-                        <span class="article-date">03-09</span>
+                    <li>
+                        <a href="/tags/JavaScript/">JavaScript</a>&nbsp;
                     </li>
                 
             </ul>
-        </section>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
     
 </div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h1 id="防抖"><a href="#防抖" class="headerlink" title="防抖"></a>防抖</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">debounce</span>(<span class="params">fn, duration = <span class="number">500</span></span>) &#123;<span class="comment">//自定义防抖函数,默认0.5秒内没有再次触发该函数时执行</span></span><br><span class="line">    <span class="keyword">let</span> timer</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">function</span> (<span class="params">...args</span>) &#123;</span><br><span class="line">        timer &amp;&amp; <span class="built_in">clearTimeout</span>(timer)</span><br><span class="line">        timer = <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">typeof</span> fn === <span class="string">&#x27;function&#x27;</span> &amp;&amp; fn.<span class="title function_">apply</span>(<span class="variable language_">this</span>, args)</span><br><span class="line">        &#125;, duration)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> input = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;input&#x27;</span>)</span><br><span class="line">input.<span class="title function_">addEventListener</span>(<span class="string">&#x27;input&#x27;</span>, <span class="title function_">debounce</span>(<span class="function"><span class="params">event</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(event.<span class="property">target</span>.<span class="property">value</span>)</span><br><span class="line">&#125;));</span><br></pre></td></tr></table></figure>
+
+<h1 id="节流"><a href="#节流" class="headerlink" title="节流"></a>节流</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">throttle</span>(<span class="params">fn, duration = <span class="number">1000</span></span>) &#123;<span class="comment">//自定义节流函数，1秒内只触发一次</span></span><br><span class="line">    <span class="keyword">let</span> time = <span class="number">0</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">function</span> (<span class="params">...args</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">new</span> <span class="title class_">Date</span>() - time &gt; duration) &#123;</span><br><span class="line">            <span class="keyword">typeof</span> fn === <span class="string">&#x27;function&#x27;</span> &amp;&amp; fn.<span class="title function_">apply</span>(<span class="variable language_">this</span>, args)</span><br><span class="line">            time = <span class="keyword">new</span> <span class="title class_">Date</span>()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> btn = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;btn&#x27;</span>)</span><br><span class="line">btn.<span class="title function_">addEventListener</span>(<span class="string">&#x27;click&#x27;</span>, <span class="title function_">throttle</span>(<span class="function"><span class="params">event</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(event.<span class="property">target</span>.<span class="property">innerText</span>)</span><br><span class="line">&#125;));</span><br></pre></td></tr></table></figure>
+
 
         </div>
-    </div>
 
-    <div class="tag-paginator">
-        <div class="paginator">
-    
-
-    
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：防抖节流</li>
+        <li>本文作者：灵感胜于汗水</li>
+        <li>创建时间：2022-03-09 14:58:35</li>
+        <li>
+            本文链接：https://cjhsyc.github.io/2022/03/09/防抖节流/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
 </div>
 
+            </div>
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/JavaScript/">#JavaScript</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2022/03/09/js%E4%B8%A5%E6%A0%BC%E6%A8%A1%E5%BC%8F/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">js严格模式</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
     </div>
 </div>
 
@@ -227,6 +296,23 @@
     </div>
 
     
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
 
     <div class="right-bottom-side-tools">
         <div class="side-tools-container">
@@ -272,6 +358,14 @@
 
     </div>
 
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%98%B2%E6%8A%96"><span class="nav-number">1.</span> <span class="nav-text">防抖</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%8A%82%E6%B5%81"><span class="nav-number">2.</span> <span class="nav-text">节流</span></a></li></ol>
+    </div>
+</div>
+        </aside>
     
 
     <div class="image-viewer-container">
@@ -327,6 +421,8 @@
 
 
 <div class="post-scripts pjax">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/toc.js"></script>
     
 </div>
 
