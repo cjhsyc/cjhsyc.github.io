@@ -223,6 +223,10 @@
 
     
     
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>220 字</span>
+        </span>
+    
     
     
         <span class="article-pv article-meta-item">
@@ -237,7 +241,13 @@
         
 
         <div class="article-content markdown-body">
-            
+            <h1 id="canvas"><a href="#canvas" class="headerlink" title="canvas"></a>canvas</h1><h2 id="canvas基本使用"><a href="#canvas基本使用" class="headerlink" title="canvas基本使用"></a>canvas基本使用</h2><p>canvas标签</p>
+ <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--canvas：画布，html5新增--&gt;</span></span><br><span class="line"><span class="comment">&lt;!--有默认宽高：300 * 150--&gt;</span></span><br><span class="line"><span class="comment">&lt;!--浏览器默认canvas标签是一张图片--&gt;</span></span><br><span class="line"><span class="comment">&lt;!--给canvas添加文本和子节点无效--&gt;</span></span><br><span class="line"><span class="comment">&lt;!--需要通过js操作画布显示内容--&gt;</span></span><br><span class="line"><span class="comment">&lt;!--不要通过样式设置canvas的宽高，而通过标签的属性来设置--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">canvas</span> <span class="attr">width</span>=<span class="string">&quot;500px&quot;</span> <span class="attr">height</span>=<span class="string">&quot;300px&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>通过js操作canvas</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> canvas = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;canvas&#x27;</span>)</span><br><span class="line"><span class="comment">// 获取画布上下文</span></span><br><span class="line"><span class="keyword">let</span> ctx = canvas.<span class="title function_">getContext</span>(<span class="string">&#x27;2d&#x27;</span>)</span><br><span class="line"><span class="comment">// 绘制线段(起点)</span></span><br><span class="line">ctx.<span class="title function_">moveTo</span>(<span class="number">100</span>, <span class="number">200</span>)</span><br><span class="line">ctx.<span class="title function_">lineTo</span>(<span class="number">200</span>, <span class="number">250</span>)<span class="comment">//终点（第二个点）</span></span><br><span class="line">ctx.<span class="title function_">lineTo</span>(<span class="number">150</span>, <span class="number">300</span>)<span class="comment">//第三点</span></span><br><span class="line">ctx.<span class="title function_">closePath</span>()<span class="comment">//连接起点和第三个点</span></span><br><span class="line">ctx.<span class="property">fillStyle</span> = <span class="string">&#x27;red&#x27;</span><span class="comment">//设置填充的颜色</span></span><br><span class="line">ctx.<span class="title function_">fill</span>()<span class="comment">//填充</span></span><br><span class="line">ctx.<span class="property">strokeStyle</span> = <span class="string">&#x27;blue&#x27;</span><span class="comment">//设置线段颜色</span></span><br><span class="line">ctx.<span class="property">lineWidth</span> = <span class="string">&#x27;5&#x27;</span><span class="comment">//设置线段宽度</span></span><br><span class="line">ctx.<span class="title function_">stroke</span>()<span class="comment">//画出线/三角形边框</span></span><br></pre></td></tr></table></figure>
+
+
         </div>
 
         
@@ -413,7 +423,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#canvas"><span class="nav-number">1.</span> <span class="nav-text">canvas</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#canvas%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="nav-number">1.1.</span> <span class="nav-text">canvas基本使用</span></a></li></ol></li></ol>
     </div>
 </div>
         </aside>
