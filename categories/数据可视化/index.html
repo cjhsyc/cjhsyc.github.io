@@ -162,52 +162,34 @@
             <div class="main-content">
 
                 
-                    <div class="fade-in-down-animation">
-    <div class="category-container">
-        <div class="category-name">
-            <i class="fas fa-folder"></i>&nbsp;数据可视化
-        </div>
-        <div class="category-post-list">
-            
-<div class="archive-list-container">
-    
-        <section class="archive-item">
-            <div class="archive-item-header">
-                <span class="archive-year">2022</span>
-                <span class="archive-year-post-count">[2]</span>
-            </div>
-            <ul class="article-list">
-                
-                    <li class="article-item">
-                        <a class="article-title"
-                           href="/2022/03/20/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"
-                        >数据可视化</a>
-                        <span class="article-date">03-20</span>
-                    </li>
-                
-                    <li class="article-item">
-                        <a class="article-title"
-                           href="/2022/03/06/Echarts%E7%9A%84%E5%AE%B9%E5%99%A8%E5%AE%BD%E9%AB%98%E4%BD%BF%E7%94%A8rem%EF%BC%8C%E6%B8%B2%E6%9F%93%E5%87%BA%E7%9A%84%E5%9B%BE%E8%A1%A8%E5%BE%88%E5%B0%8F%E7%9A%84%E9%97%AE%E9%A2%98/"
-                        >Echarts的容器宽高使用rem，渲染出的图表很小的问题</a>
-                        <span class="article-date">03-06</span>
-                    </li>
-                
-            </ul>
-        </section>
-    
-</div>
+                    $category-name-font-size = 1.6rem;
 
-        </div>
-    </div>
-    <div class="category-paginator">
-        <div class="paginator">
-    
+.category-container {
 
-    
-</div>
+  keep-container(false, 0, 0, 30px, 30px);
 
-    </div>
-</div>
+  .category-name {
+    color: var(--second-text-color);
+    font-size: $category-name-font-size;
+
+    i {
+      color: var(--second-text-color);
+    }
+
+    +keep-tablet() {
+      font-size: $category-name-font-size * 0.9;
+    }
+
+    +keep-mobile() {
+      font-size: $category-name-font-size * 0.8;
+    }
+
+    font-weight: 600;
+    padding-bottom: 20px;
+    margin-bottom: $component-spacing-value;
+    border-bottom: 1px solid var(--border-color);
+  }
+}
 
 
                 
@@ -255,46 +237,119 @@
     
 
     <div class="right-bottom-side-tools">
-        <div class="side-tools-container">
-    <ul class="side-tools-list">
-        <li class="tools-item tool-font-adjust-plus flex-center">
-            <i class="fas fa-search-plus"></i>
-        </li>
+        $tools-item-width = 32px;
+$tools-item-font-size = 1.1rem;
+$tools-item-border-radius = 1px;
 
-        <li class="tools-item tool-font-adjust-minus flex-center">
-            <i class="fas fa-search-minus"></i>
-        </li>
 
-        <li class="tools-item tool-expand-width flex-center">
-            <i class="fas fa-arrows-alt-h"></i>
-        </li>
+.side-tools-container {
+  position: relative;
 
-        <li class="tools-item tool-dark-light-toggle flex-center">
-            <i class="fas fa-moon"></i>
-        </li>
+  .tools-item {
+    width: $tools-item-width;
+    height: $tools-item-width;
+    font-size: $tools-item-font-size;
+    margin-bottom: 3px;
+    cursor: pointer;
+    border-right: none;
+    border-radius: $tools-item-border-radius;
+    box-shadow: 1px 1px 3px var(--shadow-color);
+    color: var(--default-text-color);
+    background: var(--background-color);
 
-        <!-- rss -->
-        
+    i {
+      color: var(--default-text-color);
+    }
 
-        
+    &:hover {
+      color: var(--background-color);
+      background: var(--primary-color);
+      box-shadow: 2px 2px 6px var(--shadow-color);
 
-        <li class="tools-item tool-scroll-to-bottom flex-center">
-            <i class="fas fa-arrow-down"></i>
-        </li>
-    </ul>
+      i {
+        color: var(--background-color);
+      }
+    }
 
-    <ul class="exposed-tools-list">
-        <li class="tools-item tool-toggle-show flex-center">
-            <i class="fas fa-cog fa-spin"></i>
-        </li>
-        
-            <li class="tools-item tool-scroll-to-top flex-center">
-                <i class="arrow-up fas fa-arrow-up"></i>
-                <span class="percent"></span>
-            </li>
-        
-    </ul>
-</div>
+    +keep-tablet() {
+      width: $tools-item-width * 0.9;
+      height: $tools-item-width * 0.9;
+      font-size: $tools-item-font-size * 0.9;
+      margin-bottom: 2px;
+    }
+
+    &.rss {
+
+      a {
+        border-radius: $tools-item-border-radius;
+        width: 100%;
+        height: 100%;
+
+        &:hover {
+          color: var(--background-color);
+          background: var(--primary-color);
+          box-shadow: 2px 2px 6px var(--shadow-color);
+        }
+      }
+    }
+  }
+
+
+  .side-tools-list {
+    opacity: 0;
+    transform: translateX(100%);
+    transition-t("transform, opacity", "0, 0", "0.2, 0.2", "linear, linear");
+
+    .tool-expand-width {
+      +keep-tablet() {
+        display: none;
+      }
+    }
+
+
+    &.show {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+
+  .exposed-tools-list {
+
+    if (hexo-config('style.scroll.percent.enable') == true) {
+      .tool-scroll-to-top {
+        display: none;
+
+        &.show {
+          display: flex;
+        }
+
+        &:hover {
+
+          .percent {
+            display: none;
+          }
+
+          .arrow-up {
+            display: flex;
+          }
+
+        }
+
+        .arrow-up {
+          display: none;
+        }
+
+        .percent {
+          display: flex;
+          font-size: 1rem;
+        }
+
+      }
+
+    }
+  }
+}
 
     </div>
 
