@@ -194,11 +194,15 @@
             <ul>
                 
                     <li>
-                        <a href="/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E6%B8%B2%E6%9F%93/">服务器端渲染</a>&nbsp;
+                        <a href="/categories/SEO/">SEO</a>&nbsp;
                     </li>
                 
                     <li>
-                        &gt; <a href="/categories/SEO/">SEO</a>&nbsp;
+                        &gt; <a href="/categories/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%B8%B2%E6%9F%93/">服务端渲染</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%B8%B2%E6%9F%93/NUXT/">NUXT</a>&nbsp;
                     </li>
                 
             </ul>
@@ -228,7 +232,7 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>101 字</span>
+            <i class="fas fa-file-word"></i>&nbsp;<span>1.2k 字</span>
         </span>
     
     
@@ -255,9 +259,94 @@
 <ol>
 <li>vue项目是SPA：单页面应用</li>
 <li>vue项目只有一套title、描述、关键词</li>
-<li>vue项目的内容是通过引入js文件加载的，无法通过HTML文件中直接读取</li>
+<li>vue项目的内容是通过引入js文件加载的，无法通过源代码的HTML文件中直接读取</li>
 </ol>
-<h1 id="预渲染"><a href="#预渲染" class="headerlink" title="预渲染"></a>预渲染</h1><h1 id="服务器渲染"><a href="#服务器渲染" class="headerlink" title="服务器渲染"></a>服务器渲染</h1><p><a class="link"   target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1GT4y1X7aC?p=2&t=614.3" >参考视频<i class="fas fa-external-link-alt"></i></a></p>
+<h1 id="预渲染"><a href="#预渲染" class="headerlink" title="预渲染"></a>预渲染</h1><p>在html页面生成之前数据就已经加载完成。预渲染的流程：</p>
+<ul>
+<li><p>读取配置，获取需要预渲染的页面</p>
+</li>
+<li><p>发布机模拟浏览器环境打开页面</p>
+</li>
+<li><p>页面脚本触发渲染时机</p>
+</li>
+<li><p>渲染出当前的页面内容</p>
+</li>
+<li><p>获取当前所有的DOM结构</p>
+</li>
+<li><p>生成HTML文件</p>
+</li>
+</ul>
+<h2 id="prerender-spa-plugin"><a href="#prerender-spa-plugin" class="headerlink" title="prerender-spa-plugin"></a>prerender-spa-plugin</h2><p>提供一个预渲染解决方案。</p>
+<p>安装插件prerender-spa-plugin：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i prerender-spa-plugin</span><br></pre></td></tr></table></figure>
+
+<p>在vue.config.js中进行配置：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>)</span><br><span class="line"><span class="keyword">const</span> <span class="title class_">PrerenderSPAPlugin</span> = <span class="built_in">require</span>(<span class="string">&#x27;prerender-spa-plugin&#x27;</span>)</span><br><span class="line"> </span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">	<span class="attr">publicPath</span>:<span class="string">&#x27;./&#x27;</span>,</span><br><span class="line">	<span class="attr">configureWebpack</span>:&#123;</span><br><span class="line">    	<span class="attr">plugins</span>: [</span><br><span class="line">	        <span class="keyword">new</span> <span class="title class_">PrerenderSPAPlugin</span>(&#123;</span><br><span class="line">          		<span class="attr">staticDir</span>: path.<span class="title function_">join</span>(__dirname, <span class="string">&#x27;dist&#x27;</span>),</span><br><span class="line">          		<span class="comment">//将指定的路由分别预渲染为HTML页面(打包后生成多个HTML页面)</span></span><br><span class="line">         		<span class="attr">routes</span>: [ <span class="string">&#x27;/&#x27;</span>, <span class="string">&#x27;/about&#x27;</span>, <span class="string">&#x27;/some/deep/nested/route&#x27;</span> ],</span><br><span class="line">        	&#125;)</span><br><span class="line">      	]</span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="vue-meta-info"><a href="#vue-meta-info" class="headerlink" title="vue-meta-info"></a>vue-meta-info</h2><p>修改title、描述、关键词。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i vue-meta-info</span><br></pre></td></tr></table></figure>
+
+<p>在路由对应 的Vue文件中设置对应的meta-info：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    ...</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"> </span><br><span class="line">&lt;script&gt;</span><br><span class="line">  export default &#123;</span><br><span class="line">    metaInfo: &#123;</span><br><span class="line">      title: &#x27;My Example App&#x27;, // 设置title</span><br><span class="line">      meta: [&#123;                 </span><br><span class="line">        name: &#x27;keyWords&#x27;,//关键字</span><br><span class="line">        content: &#x27;My Example App&#x27;//描述</span><br><span class="line">      &#125;]</span><br><span class="line">      /*link: [&#123;//设置link</span><br><span class="line">        rel: &#x27;asstes&#x27;,</span><br><span class="line">        href: &#x27;https://assets-cdn.github.com/&#x27;</span><br><span class="line">      &#125;]*/</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&lt;/script&gt; </span><br></pre></td></tr></table></figure>
+
+<h2 id="存在的问题"><a href="#存在的问题" class="headerlink" title="存在的问题"></a>存在的问题</h2><p>prerender-spa-plugin无法配置动态路由，适合一个项目只需要其中几个页面需要做seo。</p>
+<p>vue-meta-info无法给title、描述和关键字设置动态数据。</p>
+<h1 id="服务器渲染（SSR）"><a href="#服务器渲染（SSR）" class="headerlink" title="服务器渲染（SSR）"></a>服务器渲染（SSR）</h1><p>在客户端和后端之间再添加一个服务器端（比如node.js）,后端将返回的数据交给服务器端，服务器端将html返回给客户端。</p>
+<h2 id="NUXT"><a href="#NUXT" class="headerlink" title="NUXT"></a>NUXT</h2><p><a class="link"   target="_blank" rel="noopener" href="https://www.nuxtjs.cn/" >NUXT中文官网<i class="fas fa-external-link-alt"></i></a></p>
+<p>一个基于 <a class="link"   target="_blank" rel="noopener" href="https://vuejs.org/" >Vue.js<i class="fas fa-external-link-alt"></i></a> 的服务端渲染应用框架</p>
+<p>安装:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx create-nuxt-app &lt;项目名&gt;</span><br></pre></td></tr></table></figure>
+
+<p>安装时需要进行一些选择</p>
+<h3 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h3><p><code>pages</code>：文件夹中放置路由组件。在该文件夹下的组件会在.nuxt文件夹下的<code>router.js</code>中自动配置路由。</p>
+<p><code>components</code>：文件夹中放置全局组件，使用其中的组件时无需import，可直接使用。因为配置文件<code>nuxt.config.js</code>配置文件中的components: true（改为false后需要手动引入组件）</p>
+<p><code>store</code>：<code>store</code> 目录用于组织应用的 <a class="link"   target="_blank" rel="noopener" href="http://vuex.vuejs.org/" >Vuex 状态树<i class="fas fa-external-link-alt"></i></a> 文件。 Nuxt.js 框架集成了 <a class="link"   target="_blank" rel="noopener" href="http://vuex.vuejs.org/" >Vuex 状态树<i class="fas fa-external-link-alt"></i></a> 的相关功能配置，在 <code>store</code> 目录下创建一个 <code>index.js</code> 文件可激活这些配置。</p>
+<h3 id="NUXT生命周期"><a href="#NUXT生命周期" class="headerlink" title="NUXT生命周期"></a>NUXT生命周期</h3><h4 id="服务端生命周期"><a href="#服务端生命周期" class="headerlink" title="服务端生命周期"></a>服务端生命周期</h4><h5 id="nuxtServerInit"><a href="#nuxtServerInit" class="headerlink" title="nuxtServerInit"></a>nuxtServerInit</h5><p>在<code>store</code> 目录下新建<code>index.js</code>。在vuex的actions模块中使用nuxtServerInit</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> <span class="title function_">state</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> mutations = &#123;&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> actions = &#123;</span><br><span class="line">  <span class="comment">//参数1：vuex上下文</span></span><br><span class="line">  <span class="comment">//参数2：nuxt上下文</span></span><br><span class="line">  <span class="comment">//只能在index.js中使用，其他的js文件会被当成子模块，子模块中使用nuxtServerInit无效</span></span><br><span class="line">  <span class="title function_">nuxtServerInit</span>(<span class="params">store, context</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;nuxtServerInit&#x27;</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="middleware（中间件）"><a href="#middleware（中间件）" class="headerlink" title="middleware（中间件）"></a>middleware（中间件）</h5><p>根目录下新建<code>middleware</code>目录，添加js文件（name.js）:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> (&#123;store,route,req,res,redirect&#125;) =&gt; &#123;<span class="comment">//可接收很多参数</span></span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;middleware&#x27;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>全局middleware：<code>nuxt.config.js</code>中添加：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">router</span>:&#123;</span><br><span class="line">  <span class="attr">middleware</span>:<span class="string">&#x27;name&#x27;</span>,<span class="comment">//对应middleware目录下的js文件名</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>局部（组件内）middleware：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;Tutorial/&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &#x27;IndexPage&#x27;,</span><br><span class="line">  // middleware:&#x27;name&#x27;,</span><br><span class="line">  middleware()&#123;//不需要在middleware目录下写js文件</span><br><span class="line">    console.log(&#x27;局部middleware&#x27;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h5 id="validate"><a href="#validate" class="headerlink" title="validate"></a>validate</h5><p>用于校验路由参数</p>
+<p>在组件中使用：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;Tutorial/&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &#x27;IndexPage&#x27;,</span><br><span class="line">  validate(&#123;params,query&#125;)&#123;//接收路由的参数</span><br><span class="line">    console.log(&#x27;validate&#x27;)</span><br><span class="line">    return /^\d+$/.test(query.id)//返回值为true时才能正常访问</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h5 id="asyncData"><a href="#asyncData" class="headerlink" title="asyncData"></a>asyncData</h5><p>只能在页面组件中使用，在组件每次加载之前调用，一般用来发送请求、获取数据。</p>
+<h5 id="fetch"><a href="#fetch" class="headerlink" title="fetch"></a>fetch</h5><p>可以在所有组件中使用</p>
+<h4 id="服务端和客户端共有的生命周期"><a href="#服务端和客户端共有的生命周期" class="headerlink" title="服务端和客户端共有的生命周期"></a>服务端和客户端共有的生命周期</h4><h5 id="beforeCreate-x2F-created"><a href="#beforeCreate-x2F-created" class="headerlink" title="beforeCreate&#x2F;created"></a>beforeCreate&#x2F;created</h5><p>在NUXT服务器和客户端都执行</p>
+<h4 id="客户端生命周期"><a href="#客户端生命周期" class="headerlink" title="客户端生命周期"></a>客户端生命周期</h4><p>和vue中一致：</p>
+<ul>
+<li><p>beforeMount&#x2F;mounted</p>
+</li>
+<li><p>beforeUpdate&#x2F;updated</p>
+</li>
+<li><p>beforeDestroy&#x2F;destroyed</p>
+</li>
+</ul>
+<h3 id="NUXT路由"><a href="#NUXT路由" class="headerlink" title="NUXT路由"></a>NUXT路由</h3><h4 id="nuxt-link"><a href="#nuxt-link" class="headerlink" title="nuxt-link"></a>nuxt-link</h4><p><code>&lt;nuxt-link&gt;</code> 的作用和<code>&lt;router-link&gt;</code>一致。为了提高 Nuxt.js 应用程序的响应能力，当链接将显示在视口中时，Nuxt.js 将自动预获取代码分割页面。</p>
+<h4 id="子路由"><a href="#子路由" class="headerlink" title="子路由"></a>子路由</h4><p>在<code>pages</code>目录下新一个和父路由同名的文件夹，该文件夹下的.vue文件为子路由</p>
+<h4 id="动态路由"><a href="#动态路由" class="headerlink" title="动态路由"></a>动态路由</h4><p>.vue文件以下划线（’_’）开头的为动态路由</p>
+<h4 id="手动配置router-js"><a href="#手动配置router-js" class="headerlink" title="手动配置router.js"></a>手动配置router.js</h4><p>使用@nuxtjs&#x2F;router</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i @nuxtjs/router</span><br></pre></td></tr></table></figure>
+
+<p><code>nuxt.config.js</code>中配置：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">modules</span>:[</span><br><span class="line">	<span class="string">&#x27;@nuxtjs/router&#x27;</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+<p><a class="link"   target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1GT4y1X7aC?p=2&t=614.3" >参考视频<i class="fas fa-external-link-alt"></i></a></p>
 
         </div>
 
@@ -449,7 +538,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SEO%EF%BC%9A%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E4%BC%98%E5%8C%96"><span class="nav-number">1.</span> <span class="nav-text">SEO：搜索引擎优化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A2%84%E6%B8%B2%E6%9F%93"><span class="nav-number">2.</span> <span class="nav-text">预渲染</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%B8%B2%E6%9F%93"><span class="nav-number">3.</span> <span class="nav-text">服务器渲染</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SEO%EF%BC%9A%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E4%BC%98%E5%8C%96"><span class="nav-number">1.</span> <span class="nav-text">SEO：搜索引擎优化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A2%84%E6%B8%B2%E6%9F%93"><span class="nav-number">2.</span> <span class="nav-text">预渲染</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#prerender-spa-plugin"><span class="nav-number">2.1.</span> <span class="nav-text">prerender-spa-plugin</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vue-meta-info"><span class="nav-number">2.2.</span> <span class="nav-text">vue-meta-info</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">2.3.</span> <span class="nav-text">存在的问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%B8%B2%E6%9F%93%EF%BC%88SSR%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">服务器渲染（SSR）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#NUXT"><span class="nav-number">3.1.</span> <span class="nav-text">NUXT</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="nav-number">3.1.1.</span> <span class="nav-text">目录结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NUXT%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="nav-number">3.1.2.</span> <span class="nav-text">NUXT生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E7%AB%AF%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="nav-number">3.1.2.1.</span> <span class="nav-text">服务端生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#nuxtServerInit"><span class="nav-number">3.1.2.1.1.</span> <span class="nav-text">nuxtServerInit</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#middleware%EF%BC%88%E4%B8%AD%E9%97%B4%E4%BB%B6%EF%BC%89"><span class="nav-number">3.1.2.1.2.</span> <span class="nav-text">middleware（中间件）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#validate"><span class="nav-number">3.1.2.1.3.</span> <span class="nav-text">validate</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#asyncData"><span class="nav-number">3.1.2.1.4.</span> <span class="nav-text">asyncData</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#fetch"><span class="nav-number">3.1.2.1.5.</span> <span class="nav-text">fetch</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%92%8C%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%85%B1%E6%9C%89%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="nav-number">3.1.2.2.</span> <span class="nav-text">服务端和客户端共有的生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#beforeCreate-x2F-created"><span class="nav-number">3.1.2.2.1.</span> <span class="nav-text">beforeCreate&#x2F;created</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="nav-number">3.1.2.3.</span> <span class="nav-text">客户端生命周期</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NUXT%E8%B7%AF%E7%94%B1"><span class="nav-number">3.1.3.</span> <span class="nav-text">NUXT路由</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#nuxt-link"><span class="nav-number">3.1.3.1.</span> <span class="nav-text">nuxt-link</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AD%90%E8%B7%AF%E7%94%B1"><span class="nav-number">3.1.3.2.</span> <span class="nav-text">子路由</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E8%B7%AF%E7%94%B1"><span class="nav-number">3.1.3.3.</span> <span class="nav-text">动态路由</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%89%8B%E5%8A%A8%E9%85%8D%E7%BD%AErouter-js"><span class="nav-number">3.1.3.4.</span> <span class="nav-text">手动配置router.js</span></a></li></ol></li></ol></li></ol></li></ol>
     </div>
 </div>
         </aside>
