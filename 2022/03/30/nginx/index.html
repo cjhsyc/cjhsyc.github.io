@@ -220,7 +220,7 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>29 字</span>
+            <i class="fas fa-file-word"></i>&nbsp;<span>1k 字</span>
         </span>
     
     
@@ -237,9 +237,123 @@
         
 
         <div class="article-content markdown-body">
-            <h1 id="安装CentOS7-4"><a href="#安装CentOS7-4" class="headerlink" title="安装CentOS7.4"></a>安装CentOS7.4</h1><p><a class="link"   target="_blank" rel="noopener" href="https://vault.centos.org/7.4.1708/isos/x86_64/" >CentOS7.4下载地址<i class="fas fa-external-link-alt"></i></a></p>
+            <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>已准备好如下软件：</p>
+<ul>
+<li>VMware</li>
+<li>Xshell和Xftp</li>
+</ul>
+<h1 id="安装CentOS7-4"><a href="#安装CentOS7-4" class="headerlink" title="安装CentOS7.4"></a>安装CentOS7.4</h1><h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p><a class="link"   target="_blank" rel="noopener" href="https://vault.centos.org/7.4.1708/isos/x86_64/" >CentOS7.4下载地址<i class="fas fa-external-link-alt"></i></a></p>
 <p>选择CentOS-7-x86_64-Minimal-1708.iso进行下载</p>
 <p>使用VMware运行虚拟机</p>
+<h2 id="联网"><a href="#联网" class="headerlink" title="联网"></a>联网</h2><p>修改网卡配置文件：</p>
+<p><code>vi /etc/sysconfig/network-scripts/ifcfg-ens33</code></p>
+<p>将<code>ONBOOT=no</code>改为<code>ONBOOT=yes</code></p>
+<p>保存退出后，执行：（重启网卡）</p>
+<p><code>systemctl restart network</code></p>
+<p>使用<code>ping</code>命令测试可以联网</p>
+<p>重启网卡失败有可能是VMware软件的问题，可卸载重装</p>
+<h2 id="设置静态ip"><a href="#设置静态ip" class="headerlink" title="设置静态ip"></a>设置静态ip</h2><p>使用Xshell连接虚拟机（Xshell终端的操作更方便）：</p>
+<p>使用<code>ip addr</code>查看ens33的IP地址</p>
+<p>打开Xshell新建连接：</p>
+<ul>
+<li>名称随意、主机填写IP地址</li>
+<li>填写用户名（root）和密码、完成连接</li>
+</ul>
+<p>修改配置文件：</p>
+<p><code>vi /etc/sysconfig/network-scripts/ifcfg-ens33</code></p>
+<p>将<code>BOOTPROTO=dhcp</code>改为<code>BOOTPROTO=static</code></p>
+<p>添加如下配置ip地址、子网掩码、网关、DNS：（每人的ip地址不同）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">IPADDR=192.168.181.128</span><br><span class="line">NETMASK=255.255.255.0</span><br><span class="line">GATEWAY=192.168.181.2</span><br><span class="line">DNS1=8.8.8.8</span><br></pre></td></tr></table></figure>
+
+<p>查看网关是否正确：</p>
+<ul>
+<li>VMware左上角点击编辑</li>
+<li>虚拟网络编辑器</li>
+<li>更改设置</li>
+<li>选择VMnet8</li>
+<li>点击<code>NET设置</code>即可查看网关</li>
+</ul>
+<p>重启网卡：<code>systemctl restart network</code></p>
+<p><code>ping</code>命令测试联网成功（ping 8.8.8.8）</p>
+<h1 id="Nginx安装和启动"><a href="#Nginx安装和启动" class="headerlink" title="Nginx安装和启动"></a>Nginx安装和启动</h1><p>在安装之前可将虚拟机克隆一份</p>
+<p><a class="link"   target="_blank" rel="noopener" href="http://nginx.org/" >nginx官网<i class="fas fa-external-link-alt"></i></a></p>
+<p>下载地址：<a class="link"   target="_blank" rel="noopener" href="http://nginx.org/en/download.html" > nginx-1.21.6<i class="fas fa-external-link-alt"></i></a></p>
+<p>点击<code>nginx-1.21.6</code>进行下载、完成后通过Xftp将压缩包传到虚拟机上</p>
+<p>也可以直接在虚拟机里使用<code>wget</code>下载</p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45745641/article/details/119223601" >可参考文章<i class="fas fa-external-link-alt"></i></a></p>
+<p>安装所需环境：</p>
+<ul>
+<li><p>安装gcc：<code>yum install -y gcc</code></p>
+</li>
+<li><p>安装PCRE pcre-devel：<code>yum install -y pcre pcre-devel</code></p>
+</li>
+<li><p>安装zlib：<code>yum install -y zlib zlib-devel</code></p>
+</li>
+</ul>
+<p>解压安装nginx：</p>
+<ul>
+<li>解压：<code>tar zxvf nginx-1.21.6.tar.gz</code> </li>
+<li>进入 ：<code>cd nginx-1.21.6</code></li>
+<li>配置并指定安装目录：<code>./configure --prefix=/usr/local/nginx</code></li>
+<li>编译、安装：<code>make</code>；<code>make install</code></li>
+</ul>
+<p>启动nginx：</p>
+<ul>
+<li>进入安装目录：<code>cd /usr/local/nginx/sbin/</code></li>
+<li>启动：<code>./nginx</code></li>
+<li>验证：浏览器访问虚拟机的ip地址（需关闭防火墙）</li>
+</ul>
+<p>防火墙：</p>
+<ul>
+<li>关闭：<code>systemctl stop firewalld.service</code></li>
+<li>禁止防火墙开机启动：<code>systemctl disable firewalld.service</code></li>
+</ul>
+<p>nginx服务脚本：</p>
+<ul>
+<li><p>创建脚本文件：<code>vi /usr/lib/systemd/system/nginx.service</code></p>
+</li>
+<li><p>文件内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=nginx - web server</span><br><span class="line">After=network.target remote-fs.target nss-lookup.target</span><br><span class="line">[Service]</span><br><span class="line">Type=forking</span><br><span class="line">PIDFile=/usr/local/nginx/logs/nginx.pid</span><br><span class="line">ExecStartPre=/usr/local/nginx/sbin/nginx -t -c /usr/local/nginx/conf/nginx.conf</span><br><span class="line">ExecStart=/usr/local/nginx/sbin/nginx -c /usr/local/nginx/conf/nginx.conf</span><br><span class="line">ExecReload=/usr/local/nginx/sbin/nginx -s reload</span><br><span class="line">ExecStop=/usr/local/nginx/sbin/nginx -s stop</span><br><span class="line">ExecQuit=/usr/local/nginx/sbin/nginx -s quit</span><br><span class="line">PrivateTmp=true</span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>保存退出</p>
+</li>
+<li><p>重新加载系统服务：<code>systemctl daemon-reload</code></p>
+</li>
+<li><p>关闭nginx：<code>./nginx -s stop</code></p>
+</li>
+<li><p>启动服务：<code>systemctl start nginx.service</code></p>
+</li>
+<li><p>查看：<code>systemctl status nginx.service</code>，出现<code>active (running)</code>表示成功</p>
+</li>
+<li><p>开机启动： <code>systemctl enable nginx.service</code></p>
+</li>
+<li><p>重启：<code>reboot</code>，等待一会后浏览器可访问虚拟机ip地址表示脚本成功执行</p>
+</li>
+</ul>
+<h1 id="nginx基本使用"><a href="#nginx基本使用" class="headerlink" title="nginx基本使用"></a>nginx基本使用</h1><h2 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h2><p>可使用Xftp查看&#x2F;usr&#x2F;local&#x2F;nginx&#x2F;</p>
+<ul>
+<li>conf：配置文件</li>
+<li>html：静态页面</li>
+<li>logs：日志</li>
+<li>sbin：nginx的主程序</li>
+</ul>
+<p>“_temp”结尾的文件夹是nginx运行时才生成的</p>
+<h2 id="基本运行原理"><a href="#基本运行原理" class="headerlink" title="基本运行原理"></a>基本运行原理</h2><p>nginx启动后有一个主进程（Master）和多个子进程（Worker）</p>
+<p>Master校验配置文件，协调子进程</p>
+<p>Worker处理和响应请求</p>
+<h2 id="配置文件（nginx-conf）"><a href="#配置文件（nginx-conf）" class="headerlink" title="配置文件（nginx.conf）"></a>配置文件（nginx.conf）</h2><p>进入&#x2F;usr&#x2F;local&#x2F;nginx&#x2F;conf&#x2F;</p>
+<p>使用Xftp时，右键文件可以通过记事本进行编辑</p>
+<p>编辑nginx.conf：（如下是开头的两行）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#user  nobody;#该符号表示注释</span><br><span class="line">worker_processes  1;</span><br></pre></td></tr></table></figure>
+
+<p>先不看带注释的配置：（最小配置文件）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">worker_processes  1; #子进程个数</span><br><span class="line">events &#123;</span><br><span class="line">    worker_connections  1024; #单个子进程可接受的连接数</span><br><span class="line">&#125;</span><br><span class="line">http &#123;</span><br><span class="line">    include       mime.types; #include：引入其他配置文件；mime.types：指定各种文件后缀的资源类型</span><br><span class="line">    default_type  application/octet-stream; #默认类型</span><br><span class="line">    </span><br><span class="line">    sendfile        on; #使用linux的 sendfile(socket, file, len) 高效网络传输，也就是数据0拷贝。</span><br><span class="line">    </span><br><span class="line">    keepalive_timeout  65;</span><br><span class="line">    </span><br><span class="line">    server &#123; #虚拟主机，可以有多个（vhost）</span><br><span class="line">        listen       80; #监听的端口号</span><br><span class="line">        server_name  localhost; #域名或主机名</span><br><span class="line">        location / &#123; #uri</span><br><span class="line">            root   html;</span><br><span class="line">            index  index.html index.htm; #默认页</span><br><span class="line">        &#125;</span><br><span class="line">        error_page   500 502 503 504  /50x.html; #服务器错误时的页面</span><br><span class="line">        location = /50x.html &#123;</span><br><span class="line">            root   html;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p><a class="link"   target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1yS4y1N76R?p=3&t=35.2" >参考视频<i class="fas fa-external-link-alt"></i></a></p>
 
         </div>
 
@@ -412,7 +526,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85CentOS7-4"><span class="nav-number">1.</span> <span class="nav-text">安装CentOS7.4</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85CentOS7-4"><span class="nav-number">2.</span> <span class="nav-text">安装CentOS7.4</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD"><span class="nav-number">2.1.</span> <span class="nav-text">下载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%81%94%E7%BD%91"><span class="nav-number">2.2.</span> <span class="nav-text">联网</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E9%9D%99%E6%80%81ip"><span class="nav-number">2.3.</span> <span class="nav-text">设置静态ip</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Nginx%E5%AE%89%E8%A3%85%E5%92%8C%E5%90%AF%E5%8A%A8"><span class="nav-number">3.</span> <span class="nav-text">Nginx安装和启动</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#nginx%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="nav-number">4.</span> <span class="nav-text">nginx基本使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="nav-number">4.1.</span> <span class="nav-text">目录结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86"><span class="nav-number">4.2.</span> <span class="nav-text">基本运行原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%EF%BC%88nginx-conf%EF%BC%89"><span class="nav-number">4.3.</span> <span class="nav-text">配置文件（nginx.conf）</span></a></li></ol></li></ol>
     </div>
 </div>
         </aside>
