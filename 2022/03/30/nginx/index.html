@@ -220,7 +220,7 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>1k 字</span>
+            <i class="fas fa-file-word"></i>&nbsp;<span>1.9k 字</span>
         </span>
     
     
@@ -275,7 +275,11 @@
 </ul>
 <p>重启网卡：<code>systemctl restart network</code></p>
 <p><code>ping</code>命令测试联网成功（ping 8.8.8.8）</p>
-<h1 id="Nginx安装和启动"><a href="#Nginx安装和启动" class="headerlink" title="Nginx安装和启动"></a>Nginx安装和启动</h1><p>在安装之前可将虚拟机克隆一份</p>
+<h1 id="Nginx安装和启动"><a href="#Nginx安装和启动" class="headerlink" title="Nginx安装和启动"></a>Nginx安装和启动</h1><p>在安装之前可将虚拟机克隆一份：</p>
+<ul>
+<li>虚拟机关机</li>
+<li>右键-管理-克隆</li>
+</ul>
 <p><a class="link"   target="_blank" rel="noopener" href="http://nginx.org/" >nginx官网<i class="fas fa-external-link-alt"></i></a></p>
 <p>下载地址：<a class="link"   target="_blank" rel="noopener" href="http://nginx.org/en/download.html" > nginx-1.21.6<i class="fas fa-external-link-alt"></i></a></p>
 <p>点击<code>nginx-1.21.6</code>进行下载、完成后通过Xftp将压缩包传到虚拟机上</p>
@@ -330,7 +334,8 @@
 <li><p>重启：<code>reboot</code>，等待一会后浏览器可访问虚拟机ip地址表示脚本成功执行</p>
 </li>
 </ul>
-<h1 id="nginx基本使用"><a href="#nginx基本使用" class="headerlink" title="nginx基本使用"></a>nginx基本使用</h1><h2 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h2><p>可使用Xftp查看&#x2F;usr&#x2F;local&#x2F;nginx&#x2F;</p>
+<h1 id="nginx基本使用"><a href="#nginx基本使用" class="headerlink" title="nginx基本使用"></a>nginx基本使用</h1><p>在修改配置之前克隆一份虚拟机</p>
+<h2 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h2><p>可使用Xftp查看&#x2F;usr&#x2F;local&#x2F;nginx&#x2F;</p>
 <ul>
 <li>conf：配置文件</li>
 <li>html：静态页面</li>
@@ -347,12 +352,76 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#user  nobody;#该符号表示注释</span><br><span class="line">worker_processes  1;</span><br></pre></td></tr></table></figure>
 
 <p>先不看带注释的配置：（最小配置文件）</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">worker_processes  1; #子进程个数</span><br><span class="line">events &#123;</span><br><span class="line">    worker_connections  1024; #单个子进程可接受的连接数</span><br><span class="line">&#125;</span><br><span class="line">http &#123;</span><br><span class="line">    include       mime.types; #include：引入其他配置文件；mime.types：指定各种文件后缀的资源类型</span><br><span class="line">    default_type  application/octet-stream; #默认类型</span><br><span class="line">    </span><br><span class="line">    sendfile        on; #使用linux的 sendfile(socket, file, len) 高效网络传输，也就是数据0拷贝。</span><br><span class="line">    </span><br><span class="line">    keepalive_timeout  65;</span><br><span class="line">    </span><br><span class="line">    server &#123; #虚拟主机，可以有多个（vhost）</span><br><span class="line">        listen       80; #监听的端口号</span><br><span class="line">        server_name  localhost; #域名或主机名</span><br><span class="line">        location / &#123; #uri</span><br><span class="line">            root   html;</span><br><span class="line">            index  index.html index.htm; #默认页</span><br><span class="line">        &#125;</span><br><span class="line">        error_page   500 502 503 504  /50x.html; #服务器错误时的页面</span><br><span class="line">        location = /50x.html &#123;</span><br><span class="line">            root   html;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">worker_processes  1; #子进程个数</span><br><span class="line">events &#123;</span><br><span class="line">    worker_connections  1024; #单个子进程可接受的连接数</span><br><span class="line">&#125;</span><br><span class="line">http &#123;</span><br><span class="line">    include       mime.types; #include：引入其他配置文件；mime.types：指定各种文件后缀的资源类型</span><br><span class="line">    default_type  application/octet-stream; #默认类型</span><br><span class="line">    </span><br><span class="line">    sendfile        on; #使用linux的 sendfile(socket, file, len) 高效网络传输，也就是数据0拷贝。</span><br><span class="line">    </span><br><span class="line">    keepalive_timeout  65;</span><br><span class="line">    </span><br><span class="line">    server &#123; #虚拟主机，可以有多个（vhost）</span><br><span class="line">        listen       80; #监听的端口号</span><br><span class="line">        server_name  localhost; #域名或主机名（可以写多个，用空格隔开）</span><br><span class="line">        location / &#123; #uri</span><br><span class="line">            root   html; #根目录（html相当于/usr/local/nginx/html/）</span><br><span class="line">            index  index.html index.htm; #默认页</span><br><span class="line">        &#125;</span><br><span class="line">        error_page   500 502 503 504  /50x.html; #服务器错误时的页面</span><br><span class="line">        location = /50x.html &#123;</span><br><span class="line">            root   html;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<h3 id="虚拟主机"><a href="#虚拟主机" class="headerlink" title="虚拟主机"></a>虚拟主机</h3><p>配置多个server：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">server &#123; </span><br><span class="line">    listen       80; </span><br><span class="line">    server_name  www.my.com; #(需在阿里云购买域名)</span><br><span class="line">    location / &#123;</span><br><span class="line">        root   /www/www; #在虚拟机上创建对应的目录和目录下的资源</span><br><span class="line">        index  index.html index.htm; </span><br><span class="line">    &#125;</span><br><span class="line">    error_page   500 502 503 504  /50x.html;</span><br><span class="line">    location = /50x.html &#123;</span><br><span class="line">        root   html;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server &#123; </span><br><span class="line">    listen       80; </span><br><span class="line">    server_name  *.my.com; # *号表示通配符（匹配所有的三级域名），域名解析时先匹配前面的server，再匹配第二个</span><br><span class="line">    location / &#123;</span><br><span class="line">        root   /www/video;</span><br><span class="line">        index  index.html index.htm; </span><br><span class="line">    &#125;</span><br><span class="line">    error_page   500 502 503 504  /50x.html;</span><br><span class="line">    location = /50x.html &#123;</span><br><span class="line">        root   html;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<p>修改配置后重新加载nginx：<code>ststemctl reload nginx</code></p>
+<p>server_name:还可以使用正则表达式进行匹配</p>
+<p>可以修改本机的hosts文件进行server_name的测试：C:\Windows\System32\drivers\etc\hosts（需管理员权限）</p>
+<p>在最后添加：<code>192.168.181.128 x.com</code>,前者为虚拟机ip地址，后者为自定义域名</p>
+<p>修改后可以在本机通过域名访问虚拟机ip地址</p>
+<h2 id="反向代理"><a href="#反向代理" class="headerlink" title="反向代理"></a>反向代理</h2><p>反向代理服务器（比如nginx）位于用户和目标服务器（比如Tomcat）之间，用户无法直接访问Tomcat，而由nginx接收请求，然后转发给Tomcat，返回数据给nginx后，再返回给用户。</p>
+<h3 id="proxy-pass"><a href="#proxy-pass" class="headerlink" title="proxy_pass"></a>proxy_pass</h3><p>配置反向代理：</p>
+<pre><code>server &#123;
+    listen       80;
+    server_name  localhost;
+    location / &#123; #在这里配置proxy_pass，且不需要root和index
+        proxy_pass  http://www.qq.com; #指定服务器
+        #root   html;
+        #index  index.html index.htm;
+    &#125;
+    error_page   500 502 503 504  /50x.html;
+    location = /50x.html &#123;
+        root   html;
+    &#125;
+&#125;
+</code></pre>
+<p>重新加载nginx：<code>systemctl reload nginx</code></p>
+<p>浏览器再次访问虚拟机ip会重定向到腾讯网（外网服务器）(301：重定向，地址栏改变)</p>
+<p>测试代理内网服务器：</p>
+<ul>
+<li><p>克隆一份虚拟机（刚安装配置好nginx的状态）</p>
+</li>
+<li><p>修改配置文件：<code>vi /etc/sysconfig/network-scripts/ifcfg-ens33</code></p>
+</li>
+<li><p>修改<code>IPADDR=192.168.181.128</code>为<code>IPADDR=192.168.181.129</code></p>
+</li>
+<li><p>重启网卡：<code>systemctl restart network</code></p>
+</li>
+<li><p>Xshell连接192.168.181.129</p>
+</li>
+<li><p>修改&#x2F;usr&#x2F;local&#x2F;nginx&#x2F;html&#x2F;index.html</p>
+</li>
+<li><p>Xshell连接192.168.181.128</p>
+</li>
+<li><p>修改配置：<code>proxy_pass http://192.168.181.129 ; #指定服务器</code></p>
+</li>
+<li><p>重新加载nginx：<code>systemctl reload nginx</code></p>
+</li>
+<li><p>浏览器访问192.168.181.128，显示192.168.181.129上的index.html（地址栏不变）</p>
+</li>
+</ul>
+<h3 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h3><p>反向代理多个服务器，当nginx接收到请求时，通过轮询的方式将请求转发给服务器（轮流）</p>
+<p>按照之前的流程再克隆一个虚拟机，ip设置为192.168.181.130并修改index.html</p>
+<p>Xshell连接192.168.181.128，进行配置：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">upstream httpds&#123; #upstream:对应多组服务器，httpds：自定名称</span><br><span class="line">	server 192.168.181.129;</span><br><span class="line">	server 192.168.181.130;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name  localhost;</span><br><span class="line">    location / &#123;</span><br><span class="line">    	proxy_pass  http://httpds; #httpds:对应upstream的名称</span><br><span class="line">    &#125;</span><br><span class="line">    error_page   500 502 503 504  /50x.html;</span><br><span class="line">    location = /50x.html &#123;</span><br><span class="line">        root   html;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-
-
+<p>upstream和server同级</p>
+<p>重新加载nginx：<code>systemctl reload nginx</code></p>
+<p>浏览器多次访问192.168.181.128，轮流显示两个服务器中index.html的内容</p>
+<h4 id="负载均衡策略"><a href="#负载均衡策略" class="headerlink" title="负载均衡策略"></a>负载均衡策略</h4><ul>
+<li><p>权重 weight</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">upstream httpds&#123;</span><br><span class="line">	server 192.168.181.129 weight=8; #添加weight：值越大，访问该服务器的概率越大</span><br><span class="line">	server 192.168.181.130 weight=2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>下线 down</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">upstream httpds&#123;</span><br><span class="line">	server 192.168.181.129 weight=8 down; #down：该服务器不会被访问（出现故障时下线该服务器）</span><br><span class="line">	server 192.168.181.130 weight=2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>备用 backup</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">upstream httpds&#123;</span><br><span class="line">	server 192.168.181.129 weight=8 down;</span><br><span class="line">	server 192.168.181.130 weight=2 backup; #backup：备用机，只有其他服务器都不可用时才会被使用</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>都需要手动配置文件然后reload nginx</p>
 <p><a class="link"   target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1yS4y1N76R?p=3&t=35.2" >参考视频<i class="fas fa-external-link-alt"></i></a></p>
 
         </div>
@@ -526,7 +595,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85CentOS7-4"><span class="nav-number">2.</span> <span class="nav-text">安装CentOS7.4</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD"><span class="nav-number">2.1.</span> <span class="nav-text">下载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%81%94%E7%BD%91"><span class="nav-number">2.2.</span> <span class="nav-text">联网</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E9%9D%99%E6%80%81ip"><span class="nav-number">2.3.</span> <span class="nav-text">设置静态ip</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Nginx%E5%AE%89%E8%A3%85%E5%92%8C%E5%90%AF%E5%8A%A8"><span class="nav-number">3.</span> <span class="nav-text">Nginx安装和启动</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#nginx%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="nav-number">4.</span> <span class="nav-text">nginx基本使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="nav-number">4.1.</span> <span class="nav-text">目录结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86"><span class="nav-number">4.2.</span> <span class="nav-text">基本运行原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%EF%BC%88nginx-conf%EF%BC%89"><span class="nav-number">4.3.</span> <span class="nav-text">配置文件（nginx.conf）</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85CentOS7-4"><span class="nav-number">2.</span> <span class="nav-text">安装CentOS7.4</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD"><span class="nav-number">2.1.</span> <span class="nav-text">下载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%81%94%E7%BD%91"><span class="nav-number">2.2.</span> <span class="nav-text">联网</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E9%9D%99%E6%80%81ip"><span class="nav-number">2.3.</span> <span class="nav-text">设置静态ip</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Nginx%E5%AE%89%E8%A3%85%E5%92%8C%E5%90%AF%E5%8A%A8"><span class="nav-number">3.</span> <span class="nav-text">Nginx安装和启动</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#nginx%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="nav-number">4.</span> <span class="nav-text">nginx基本使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="nav-number">4.1.</span> <span class="nav-text">目录结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86"><span class="nav-number">4.2.</span> <span class="nav-text">基本运行原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%EF%BC%88nginx-conf%EF%BC%89"><span class="nav-number">4.3.</span> <span class="nav-text">配置文件（nginx.conf）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA"><span class="nav-number">4.3.1.</span> <span class="nav-text">虚拟主机</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86"><span class="nav-number">4.4.</span> <span class="nav-text">反向代理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#proxy-pass"><span class="nav-number">4.4.1.</span> <span class="nav-text">proxy_pass</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="nav-number">4.4.2.</span> <span class="nav-text">负载均衡</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%AD%96%E7%95%A5"><span class="nav-number">4.4.2.1.</span> <span class="nav-text">负载均衡策略</span></a></li></ol></li></ol></li></ol></li></ol>
     </div>
 </div>
         </aside>
