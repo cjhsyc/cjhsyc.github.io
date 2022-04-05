@@ -9,8 +9,6 @@
     
     <title>
         
-            分类 |
-        
         灵感胜于汗水
     </title>
     
@@ -62,7 +60,7 @@
                 <ul class="menu-list">
                     
                         <li class="menu-item">
-                            <a class=""
+                            <a class="active"
                                href="/"
                             >
                                 首页
@@ -78,7 +76,7 @@
                         </li>
                     
                         <li class="menu-item">
-                            <a class="active"
+                            <a class=""
                                href="/categories"
                             >
                                 分类
@@ -123,7 +121,7 @@
         <ul class="drawer-menu-list">
             
                 <li class="drawer-menu-item flex-center">
-                    <a class=""
+                    <a class="active"
                        href="/">首页</a>
                 </li>
             
@@ -133,7 +131,7 @@
                 </li>
             
                 <li class="drawer-menu-item flex-center">
-                    <a class="active"
+                    <a class=""
                        href="/categories">分类</a>
                 </li>
             
@@ -162,14 +160,63 @@
             <div class="main-content">
 
                 
-                    <div class="fade-in-down-animation">
-    <div class="category-list-container">
-        <div class="category-list-content">
-            <ul class="all-category-list"><li class="all-category-list-item"><a class="all-category-list-link" href="/categories/HTTP/">HTTP</a><span class="all-category-list-count">1</span><ul class="all-category-list-child"><li class="all-category-list-item"><a class="all-category-list-link" href="/categories/HTTP/HTTP%E7%BC%93%E5%AD%98/">HTTP缓存</a><span class="all-category-list-count">1</span></li></ul></li><li class="all-category-list-item"><a class="all-category-list-link" href="/categories/JavaScript/">JavaScript</a><span class="all-category-list-count">2</span></li><li class="all-category-list-item"><a class="all-category-list-link" href="/categories/SEO/">SEO</a><span class="all-category-list-count">1</span></li><li class="all-category-list-item"><a class="all-category-list-link" href="/categories/nginx/">nginx</a><span class="all-category-list-count">1</span></li><li class="all-category-list-item"><a class="all-category-list-link" href="/categories/vue/">vue</a><span class="all-category-list-count">1</span></li><li class="all-category-list-item"><a class="all-category-list-link" href="/categories/%E5%B7%A5%E7%A8%8B%E5%8C%96/">工程化</a><span class="all-category-list-count">1</span></li><li class="all-category-list-item"><a class="all-category-list-link" href="/categories/%E6%89%8B%E5%86%99/">手写</a><span class="all-category-list-count">2</span></li><li class="all-category-list-item"><a class="all-category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/">数据可视化</a><span class="all-category-list-count">2</span><ul class="all-category-list-child"><li class="all-category-list-item"><a class="all-category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/Echarts/">Echarts</a><span class="all-category-list-count">1</span></li></ul></li><li class="all-category-list-item"><a class="all-category-list-link" href="/categories/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%B8%B2%E6%9F%93/">服务端渲染</a><span class="all-category-list-count">1</span><ul class="all-category-list-child"><li class="all-category-list-item"><a class="all-category-list-link" href="/categories/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%B8%B2%E6%9F%93/NUXT/">NUXT</a><span class="all-category-list-count">1</span></li></ul></li><li class="all-category-list-item"><a class="all-category-list-link" href="/categories/%E6%A0%B7%E5%BC%8F/">样式</a><span class="all-category-list-count">1</span><ul class="all-category-list-child"><li class="all-category-list-item"><a class="all-category-list-link" href="/categories/%E6%A0%B7%E5%BC%8F/less/">less</a><span class="all-category-list-count">1</span></li></ul></li><li class="all-category-list-item"><a class="all-category-list-link" href="/categories/%E7%BD%91%E7%AB%99/">网站</a><span class="all-category-list-count">1</span></li></ul>
-        </div>
-        <div class="category-comments">
-            
-        </div>
+                    <div class="home-content-container fade-in-down-animation">
+    <ul class="home-article-list">
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/2022/03/06/Echarts%E7%9A%84%E5%AE%B9%E5%99%A8%E5%AE%BD%E9%AB%98%E4%BD%BF%E7%94%A8rem%EF%BC%8C%E6%B8%B2%E6%9F%93%E5%87%BA%E7%9A%84%E5%9B%BE%E8%A1%A8%E5%BE%88%E5%B0%8F%E7%9A%84%E9%97%AE%E9%A2%98/">
+                        Echarts的容器宽高使用rem，渲染出的图表很小的问题
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        主要是因为div还没有创建出来echarts就已经加载了，因为获取不到宽高，所以会缩小在一起。参考了几篇文章，我在echarts配置后加入如下代码，解决了问题：
+123456789myChart.setOption(option); //延迟resi...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Sun Mar 06 2022 19:54:11 GMT+0800">2022-03-06</span></span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fas fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/Echarts/">Echarts</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2022/03/06/Echarts%E7%9A%84%E5%AE%B9%E5%99%A8%E5%AE%BD%E9%AB%98%E4%BD%BF%E7%94%A8rem%EF%BC%8C%E6%B8%B2%E6%9F%93%E5%87%BA%E7%9A%84%E5%9B%BE%E8%A1%A8%E5%BE%88%E5%B0%8F%E7%9A%84%E9%97%AE%E9%A2%98/">阅读全文&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+    </ul>
+
+    <div class="home-paginator">
+        <div class="paginator">
+    
+        <a class="prev btn"
+           href="/"
+        >上一页</a>
+    
+
+    
+</div>
+
     </div>
 </div>
 
@@ -301,6 +348,7 @@
     
 
 </main>
+
 
 
 

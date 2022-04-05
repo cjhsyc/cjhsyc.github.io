@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="灵感胜于汗水">
+    
+    <title>
+        
+            手写vue-lazyload |
+        
+        灵感胜于汗水
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/cjhsyc/image-hosting@master/头像.677yiujw5980.webp">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/css/font-awesome.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"cjhsyc.github.io","root":"/","language":"zh-CN","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"https://cdn.jsdelivr.net/gh/cjhsyc/image-hosting@master/头像.677yiujw5980.webp","favicon":"https://cdn.jsdelivr.net/gh/cjhsyc/image-hosting@master/头像.677yiujw5980.webp","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"https://cdn.jsdelivr.net/gh/cjhsyc/image-hosting@master/罗小黑战记.2g12vx9z84u8.webp","description":null},"scroll":{"progress_bar":{"enable":false},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":true},"lazyload":{"enable":false},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fas fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                灵感胜于汗水
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">手写vue-lazyload</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="https://cdn.jsdelivr.net/gh/cjhsyc/image-hosting@master/%E5%A4%B4%E5%83%8F.677yiujw5980.webp">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">灵感胜于汗水</span>
+                        
+                            <span class="author-label">Lv2</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2022-04-03 18:35:16</span>
+        <span class="mobile">2022-04-03 18:35</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E6%89%8B%E5%86%99/">手写</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/vue/">vue</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/vue/">vue</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/vue-lazyload/">vue-lazyload</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E5%9B%BE%E7%89%87%E6%87%92%E5%8A%A0%E8%BD%BD/">图片懒加载</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E6%8F%92%E4%BB%B6/">插件</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8C%87%E4%BB%A4/">自定义指令</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>1.4k 字</span>
+        </span>
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h1 id="vue-lazyload"><a href="#vue-lazyload" class="headerlink" title="vue-lazyload"></a>vue-lazyload</h1><p><code>main.js</code>中引入vue-lazyload：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">Vue</span> <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">App</span> <span class="keyword">from</span> <span class="string">&#x27;./App.vue&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">VueLazyload</span> <span class="keyword">from</span> <span class="string">&quot;vue-lazyload&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="title class_">Vue</span>.<span class="title function_">use</span>(<span class="title class_">VueLazyload</span>,&#123;</span><br><span class="line">  <span class="attr">loading</span>:<span class="string">&#x27;http://localhost:3000/img/loading.gif&#x27;</span>, <span class="comment">//图片加载中显示的图片</span></span><br><span class="line">  <span class="attr">error</span>:<span class="string">&#x27;http://localhost:3000/img/error-img.png&#x27;</span>, <span class="comment">//图片加载错误显示的图片</span></span><br><span class="line">  <span class="attr">preLoad</span>:<span class="number">1</span> <span class="comment">//超出1倍屏幕高度的图片先不加载</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>.vue文件中使用：</p>
+<p>使用指令<code>v-lazy</code>代替img标签的src属性，表示该图片使用懒加载</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div id=&quot;app&quot;&gt;</span><br><span class="line">    &lt;div v-for=&quot;(item,index) in imgData&quot; :key=&quot;index&quot;&gt;</span><br><span class="line">      &lt;div class=&quot;img&quot;&gt;</span><br><span class="line">        &lt;img v-lazy=&quot;item.img&quot; alt=&quot;img&quot;&gt;</span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">      &lt;div class=&quot;content&quot;&gt;&#123;&#123;item.name&#125;&#125;&lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import axios from &#x27;axios&#x27;</span><br><span class="line"></span><br><span class="line">export default &#123;</span><br><span class="line">  name: &#x27;App&#x27;,</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      imgData: []</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  mounted() &#123;</span><br><span class="line">    this.getImgs()</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    async getImgs() &#123;</span><br><span class="line">      const res = await axios.get(&#x27;http://localhost:3000/imgs&#x27;)</span><br><span class="line">      this.imgData = res.data</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h1 id="自定义指令实现v-lazy"><a href="#自定义指令实现v-lazy" class="headerlink" title="自定义指令实现v-lazy"></a>自定义指令实现v-lazy</h1><h2 id="手写插件vue-lazyload"><a href="#手写插件vue-lazyload" class="headerlink" title="手写插件vue-lazyload"></a>手写插件vue-lazyload</h2><p>新建文件<code>modules/vue-lazyload/index.js</code>:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123; <span class="comment">//默认暴露一个带有install方法的对象</span></span><br><span class="line">  <span class="title function_">install</span>(<span class="params">Vue,options</span>)&#123; <span class="comment">//Vue：Vue构造器，options：使用插件时传入的配置对象</span></span><br><span class="line">    </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>main.js</code>中引入自己的插件：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">VueLazyload</span> <span class="keyword">from</span> <span class="string">&quot;./modules/vue-lazyload&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="自定义指令"><a href="#自定义指令" class="headerlink" title="自定义指令"></a>自定义指令</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="title function_">install</span>(<span class="params">Vue, options</span>) &#123;</span><br><span class="line">    <span class="comment">//自定义指令,参数一：自定义指令名，参数二：定义该指令功能的对象</span></span><br><span class="line">    <span class="title class_">Vue</span>.<span class="title function_">directive</span>(<span class="string">&#x27;lazy&#x27;</span>, &#123;</span><br><span class="line">      <span class="comment">//指令定义对象可以调用一些钩子函数：比如bind、inserted</span></span><br><span class="line">      <span class="comment">//钩子函数的参数，el：指令所绑定的元素，binding：一个对象，vnode：虚拟节点</span></span><br><span class="line">      <span class="comment">//bind：只调用一次，指令第一次绑定到元素时调用</span></span><br><span class="line">      <span class="title function_">bind</span>(<span class="params">el,binding,vnode</span>)&#123;</span><br><span class="line"></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="功能实现的类"><a href="#功能实现的类" class="headerlink" title="功能实现的类"></a>功能实现的类</h2><p>接下来就需要在bind钩子函数中实现功能逻辑，为了更好的扩展性，将功能封装成一个类：</p>
+<p>创建<code>modules/vue-lazyload/lazy.js</code>：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> (<span class="params">Vue</span>) &#123; <span class="comment">//暴露一个函数，接收Vue构造器</span></span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">class</span> <span class="title class_">Lazy</span> &#123; <span class="comment">//返回一个类，接收options</span></span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params">options</span>) &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">options</span> = options</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">      <span class="comment">//实现功能的函数</span></span><br><span class="line">    <span class="title function_">bindLazy</span>(<span class="params">el, binding</span>) &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>modules/vue-lazyload/index.js</code>:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> lazy <span class="keyword">from</span> <span class="string">&#x27;./lazy&#x27;</span> <span class="comment">//导入lazy.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="title function_">install</span>(<span class="params">Vue, options</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="title class_">LazyClass</span> = <span class="title function_">lazy</span>(<span class="title class_">Vue</span>)</span><br><span class="line">    <span class="keyword">const</span> lazyload = <span class="keyword">new</span> <span class="title class_">LazyClass</span>(options)</span><br><span class="line">    <span class="title class_">Vue</span>.<span class="title function_">directive</span>(<span class="string">&#x27;lazy&#x27;</span>, &#123;</span><br><span class="line">      <span class="attr">bind</span>: lazyload.<span class="property">bindLazy</span>.<span class="title function_">bind</span>(lazyload) <span class="comment">//绑定函数，注意修改this指向</span></span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>准备一个函数，用于获取dom的最近的滚动父节点（overflow：scroll）</p>
+<p>创建<code>modules/vue-lazyload/util.js</code>:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">function</span> <span class="title function_">getScrollParent</span>(<span class="params">el</span>) &#123;</span><br><span class="line">  <span class="keyword">let</span> _parent = el.<span class="property">parentNode</span></span><br><span class="line">  <span class="keyword">while</span> (_parent) &#123;</span><br><span class="line">      <span class="comment">//getComputedStyle：获取目标的所有css属性</span></span><br><span class="line">    <span class="keyword">const</span> overflow = <span class="title function_">getComputedStyle</span>(_parent)[<span class="string">&#x27;overflow&#x27;</span>] <span class="comment">//获取overflow属性值</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="regexp">/(scroll)|(auto)/</span>.<span class="title function_">test</span>(overflow)) &#123;</span><br><span class="line">      <span class="keyword">return</span> _parent</span><br><span class="line">    &#125;</span><br><span class="line">    _parent = _parent.<span class="property">parentNode</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>lazy.js</code>中使用Vue.nextTick:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;getScrollParent&#125; <span class="keyword">from</span> <span class="string">&#x27;./util&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> (<span class="params">Vue</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">class</span> <span class="title class_">Lazy</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params">options</span>) &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">options</span> = options</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">isAddScrollListener</span> = <span class="literal">false</span> </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">bindLazy</span>(<span class="params">el, binding</span>) &#123;</span><br><span class="line">      <span class="title class_">Vue</span>.<span class="title function_">nextTick</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> scrollParent = <span class="title function_">getScrollParent</span>(el)</span><br><span class="line">        <span class="keyword">if</span> (scrollParent &amp;&amp; !<span class="variable language_">this</span>.<span class="property">isAddScrollListener</span>) &#123; <span class="comment">//如果还没有绑定事件</span></span><br><span class="line">          scrollParent.<span class="title function_">addEventListener</span>(<span class="string">&#x27;scroll&#x27;</span>,<span class="variable language_">this</span>.<span class="property">handleScroll</span>.<span class="title function_">bind</span>(<span class="variable language_">this</span>))</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//滚动事件</span></span><br><span class="line">    <span class="title function_">handleScroll</span>(<span class="params"></span>)&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="图片实例的类"><a href="#图片实例的类" class="headerlink" title="图片实例的类"></a>图片实例的类</h2><p>创建<code>modules/vue-lazyload/lazyimg.js</code>:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">class</span> <span class="title class_">Lazyimg</span> &#123;</span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params">&#123;el, src, options, imgRender&#125;</span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">el</span> = el</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">src</span> = src</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">options</span> = options</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">imgRender</span> = imgRender</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">loaded</span> = <span class="literal">false</span> <span class="comment">//已经加载过</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">state</span> = &#123;</span><br><span class="line">      <span class="attr">loading</span>: <span class="literal">false</span>, <span class="comment">//加载成功</span></span><br><span class="line">      <span class="attr">error</span>: <span class="literal">false</span> <span class="comment">//加载失败</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">i</span><br><span class="line">  <span class="comment">//图片是否在指定范围内</span></span><br><span class="line">  <span class="title function_">checkIsVisible</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123;top&#125; = <span class="variable language_">this</span>.<span class="property">el</span>.<span class="title function_">getBoundingClientRect</span>() <span class="comment">//获取元素距顶部的距离</span></span><br><span class="line">    <span class="keyword">return</span> top &lt; <span class="variable language_">window</span>.<span class="property">innerHeight</span> * (<span class="variable language_">this</span>.<span class="property">options</span>.<span class="property">preLoad</span> || <span class="number">1.3</span>) <span class="comment">//判断是否在范围内，preLoad默认1.3</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//加载图片（未完成，第二个参数先写死成loading，参数一为该图片实例）</span></span><br><span class="line">  <span class="title function_">loadImg</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="title function_">imgRender</span>(<span class="variable language_">this</span>,<span class="string">&#x27;loading&#x27;</span>) <span class="comment">//加载图片，图片加载中时显示的图片</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>lazy.js</code>:每次触发bind时创建一个图片实例，保存到数组</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;getScrollParent&#125; <span class="keyword">from</span> <span class="string">&#x27;./util&#x27;</span></span><br><span class="line"><span class="keyword">import</span> &#123;throttle&#125; <span class="keyword">from</span> <span class="string">&#x27;lodash&#x27;</span> <span class="comment">//节流</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Lazyimg</span> <span class="keyword">from</span> <span class="string">&quot;./lazyimg&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> (<span class="params">Vue</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">class</span> <span class="title class_">Lazy</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params">options</span>) &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">options</span> = options</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">isAddScrollListener</span> = <span class="literal">false</span></span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">lazyimgPool</span> = [] <span class="comment">//图片实例数组</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">bindLazy</span>(<span class="params">el, binding</span>) &#123;</span><br><span class="line">      <span class="title class_">Vue</span>.<span class="title function_">nextTick</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> scrollParent = <span class="title function_">getScrollParent</span>(el)</span><br><span class="line">        <span class="keyword">if</span> (scrollParent &amp;&amp; !<span class="variable language_">this</span>.<span class="property">isAddScrollListener</span>) &#123;</span><br><span class="line">          scrollParent.<span class="title function_">addEventListener</span>(<span class="string">&#x27;scroll&#x27;</span>, <span class="title function_">throttle</span>(<span class="variable language_">this</span>.<span class="property">handleScroll</span>.<span class="title function_">bind</span>(<span class="variable language_">this</span>), <span class="number">200</span>))</span><br><span class="line">          <span class="variable language_">this</span>.<span class="property">isAddScrollListener</span> = <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">          <span class="comment">//创建一个新的图片实例</span></span><br><span class="line">        <span class="keyword">const</span> lazyimg = <span class="keyword">new</span> <span class="title class_">Lazyimg</span>(&#123; </span><br><span class="line">          el,</span><br><span class="line">          <span class="attr">src</span>: binding.<span class="property">value</span>, <span class="comment">//v-lazy指令绑定的值</span></span><br><span class="line">          <span class="attr">options</span>: <span class="variable language_">this</span>.<span class="property">options</span>,</span><br><span class="line">          <span class="attr">imgRender</span>: <span class="variable language_">this</span>.<span class="property">imgRender</span>.<span class="title function_">bind</span>(<span class="variable language_">this</span>)</span><br><span class="line">        &#125;)</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">lazyimgPool</span>.<span class="title function_">push</span>(lazyimg)</span><br><span class="line">        <span class="variable language_">this</span>.<span class="title function_">handleScroll</span>() <span class="comment">//滚动事件在一开始就执行一次</span></span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//滚动事件</span></span><br><span class="line">    <span class="title function_">handleScroll</span>(<span class="params"></span>) &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//图片渲染函数</span></span><br><span class="line">    <span class="title function_">imgRender</span>(<span class="params"></span>) &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="滚动事件"><a href="#滚动事件" class="headerlink" title="滚动事件"></a>滚动事件</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">handleScroll</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">let</span> isVisible = <span class="literal">false</span></span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">lazyimgPool</span>.<span class="title function_">forEach</span>(<span class="function"><span class="params">lazyimg</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (!lazyimg.<span class="property">loaded</span>) &#123; <span class="comment">//图片还没有加载</span></span><br><span class="line">      isVisible = lazyimg.<span class="title function_">checkIsVisible</span>() <span class="comment">//图片是否出现在指定的范围内（perLoad指定的）</span></span><br><span class="line">      isVisible &amp;&amp; lazyimg.<span class="title function_">loadImg</span>() <span class="comment">//如果出现在范围内，则加载图片</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="渲染图片"><a href="#渲染图片" class="headerlink" title="渲染图片"></a>渲染图片</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">imgRender</span>(<span class="params">lazyimg, state</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123;el, options&#125; = lazyimg</span><br><span class="line">  <span class="keyword">const</span> &#123;loading, error&#125; = options</span><br><span class="line">  <span class="keyword">let</span> src = <span class="string">&#x27;&#x27;</span></span><br><span class="line">  <span class="keyword">switch</span> (state) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&#x27;loading&#x27;</span>: <span class="comment">//加载中</span></span><br><span class="line">      src = loading || <span class="string">&#x27;&#x27;</span></span><br><span class="line">      <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">case</span> <span class="string">&#x27;error&#x27;</span>: <span class="comment">//加载错误</span></span><br><span class="line">      src = error || <span class="string">&#x27;&#x27;</span></span><br><span class="line">      <span class="keyword">break</span></span><br><span class="line">    <span class="attr">default</span>: <span class="comment">//加载完成，显示真正的目标图片</span></span><br><span class="line">      src = lazyimg.<span class="property">src</span></span><br><span class="line">  &#125;</span><br><span class="line">  el.<span class="title function_">setAttribute</span>(<span class="string">&#x27;src&#x27;</span>,src) <span class="comment">//设置或改变图片的src</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="渲染完成"><a href="#渲染完成" class="headerlink" title="渲染完成"></a>渲染完成</h2><p><code>util.js</code>中添加：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">function</span> <span class="title function_">imgLoad</span>(<span class="params">src</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promise</span>((<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> oImg = <span class="keyword">new</span> <span class="title class_">Image</span>()</span><br><span class="line">    oImg.<span class="property">src</span> = src</span><br><span class="line">    oImg.<span class="property">onload</span> = resolve <span class="comment">//加载成功</span></span><br><span class="line">    oImg.<span class="property">onerror</span> = reject <span class="comment">//加载失败</span></span><br><span class="line">  &#125;))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>lazy.js</code>:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">loadImg</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="title function_">imgRender</span>(<span class="variable language_">this</span>, <span class="string">&#x27;loading&#x27;</span>)</span><br><span class="line">  <span class="title function_">imgLoad</span>(<span class="variable language_">this</span>.<span class="property">src</span>).<span class="title function_">then</span>(<span class="function">() =&gt;</span> &#123;<span class="comment">//成功</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">state</span>.<span class="property">loading</span> = <span class="literal">true</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="title function_">imgRender</span>(<span class="variable language_">this</span>, <span class="string">&#x27;ok&#x27;</span>) </span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">loaded</span> = <span class="literal">true</span></span><br><span class="line">  &#125;).<span class="title function_">catch</span>(<span class="function">() =&gt;</span> &#123;<span class="comment">//失败</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">state</span>.<span class="property">error</span> = <span class="literal">true</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="title function_">imgRender</span>(<span class="variable language_">this</span>, <span class="string">&#x27;error&#x27;</span>)</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">loaded</span> = <span class="literal">true</span></span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：手写vue-lazyload</li>
+        <li>本文作者：灵感胜于汗水</li>
+        <li>创建时间：2022-04-03 18:35:16</li>
+        <li>
+            本文链接：https://cjhsyc.github.io/2022/04/03/手写vue-lazyload/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/vue/">#vue</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/vue-lazyload/">#vue-lazyload</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E5%9B%BE%E7%89%87%E6%87%92%E5%8A%A0%E8%BD%BD/">#图片懒加载</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E6%8F%92%E4%BB%B6/">#插件</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8C%87%E4%BB%A4/">#自定义指令</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2022/03/30/nginx/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">nginx</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2022&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">灵感胜于汗水</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#vue-lazyload"><span class="nav-number">1.</span> <span class="nav-text">vue-lazyload</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8C%87%E4%BB%A4%E5%AE%9E%E7%8E%B0v-lazy"><span class="nav-number">2.</span> <span class="nav-text">自定义指令实现v-lazy</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%8B%E5%86%99%E6%8F%92%E4%BB%B6vue-lazyload"><span class="nav-number">2.1.</span> <span class="nav-text">手写插件vue-lazyload</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8C%87%E4%BB%A4"><span class="nav-number">2.2.</span> <span class="nav-text">自定义指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0%E7%9A%84%E7%B1%BB"><span class="nav-number">2.3.</span> <span class="nav-text">功能实现的类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%BE%E7%89%87%E5%AE%9E%E4%BE%8B%E7%9A%84%E7%B1%BB"><span class="nav-number">2.4.</span> <span class="nav-text">图片实例的类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BB%9A%E5%8A%A8%E4%BA%8B%E4%BB%B6"><span class="nav-number">2.5.</span> <span class="nav-text">滚动事件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B8%B2%E6%9F%93%E5%9B%BE%E7%89%87"><span class="nav-number">2.6.</span> <span class="nav-text">渲染图片</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B8%B2%E6%9F%93%E5%AE%8C%E6%88%90"><span class="nav-number">2.7.</span> <span class="nav-text">渲染完成</span></a></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/dark-light-toggle.js"></script>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/local-search.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/code-copy.js"></script>
+
+
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/toc.js"></script>
+    
+</div>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>
