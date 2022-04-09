@@ -229,6 +229,10 @@
                         | <a href="/tags/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8C%87%E4%BB%A4/">自定义指令</a>&nbsp;
                     </li>
                 
+                    <li>
+                        | <a href="/tags/IntersectionObserver/">IntersectionObserver</a>&nbsp;
+                    </li>
+                
             </ul>
         </span>
     
@@ -236,7 +240,7 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>1.4k 字</span>
+            <i class="fas fa-file-word"></i>&nbsp;<span>1.9k 字</span>
         </span>
     
     
@@ -298,6 +302,33 @@
 <p><code>lazy.js</code>:</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">loadImg</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="title function_">imgRender</span>(<span class="variable language_">this</span>, <span class="string">&#x27;loading&#x27;</span>)</span><br><span class="line">  <span class="title function_">imgLoad</span>(<span class="variable language_">this</span>.<span class="property">src</span>).<span class="title function_">then</span>(<span class="function">() =&gt;</span> &#123;<span class="comment">//成功</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">state</span>.<span class="property">loading</span> = <span class="literal">true</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="title function_">imgRender</span>(<span class="variable language_">this</span>, <span class="string">&#x27;ok&#x27;</span>) </span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">loaded</span> = <span class="literal">true</span></span><br><span class="line">  &#125;).<span class="title function_">catch</span>(<span class="function">() =&gt;</span> &#123;<span class="comment">//失败</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">state</span>.<span class="property">error</span> = <span class="literal">true</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="title function_">imgRender</span>(<span class="variable language_">this</span>, <span class="string">&#x27;error&#x27;</span>)</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">loaded</span> = <span class="literal">true</span></span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<h1 id="通过IntersectionObserver实现"><a href="#通过IntersectionObserver实现" class="headerlink" title="通过IntersectionObserver实现"></a>通过IntersectionObserver实现</h1><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="title function_">install</span>(<span class="params">Vue, options</span>) &#123;</span><br><span class="line">    <span class="title class_">Vue</span>.<span class="title function_">directive</span>(<span class="string">&#x27;lazy&#x27;</span>, &#123;</span><br><span class="line">      <span class="title function_">bind</span>(<span class="params">el, binding</span>) &#123;</span><br><span class="line">        <span class="title function_">init</span>(el, binding.<span class="property">value</span>, options.<span class="property">loading</span>)</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="title function_">inserted</span>(<span class="params">el</span>) &#123;</span><br><span class="line">        <span class="title function_">observer</span>(el)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 初始化</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">init</span>(<span class="params">el, src, loading</span>) &#123;</span><br><span class="line">  el.<span class="title function_">setAttribute</span>(<span class="string">&#x27;data-src&#x27;</span>, src)</span><br><span class="line">  el.<span class="title function_">setAttribute</span>(<span class="string">&#x27;src&#x27;</span>, loading)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 利用IntersectionObserver监听el</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">observer</span>(<span class="params">el</span>) &#123;</span><br><span class="line">  <span class="keyword">let</span> observer = <span class="keyword">new</span> <span class="title class_">IntersectionObserver</span>(<span class="function"><span class="params">entries</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (entries[<span class="number">0</span>].<span class="property">isIntersecting</span>)&#123; <span class="comment">//进入视口</span></span><br><span class="line">      <span class="keyword">let</span> realSrc=el.<span class="property">dataset</span>.<span class="property">src</span></span><br><span class="line">      <span class="keyword">if</span> (realSrc)&#123;</span><br><span class="line">        el.<span class="title function_">setAttribute</span>(<span class="string">&#x27;src&#x27;</span>,realSrc)</span><br><span class="line">        el.<span class="title function_">removeAttribute</span>(<span class="string">&#x27;data-src&#x27;</span>)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">  observer.<span class="title function_">observe</span>(el)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>生成观察器实例：<code>let observer = new IntersectionObserver(callback,option)</code></p>
+<p>接收两个参数，callback：可见性变化时的回调函数，option：可选的配置项</p>
+<p>callback：</p>
+<p>一般会触发两次。一次是目标元素刚刚进入视口（开始可见），另一次是完全离开视口（开始不可见）。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> io = <span class="keyword">new</span> <span class="title class_">IntersectionObserver</span>(</span><br><span class="line">  <span class="function"><span class="params">entries</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(entries);</span><br><span class="line">  &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>enteries：是一个数组，每个成员是<code>IntersectionObserverEntry</code>对象，如果同时有多个被观察的对象的可见性发生变化，enteries数组就有多个成员。</p>
+<p><code>IntersectionObserverEntry</code>对象的部分属性：</p>
+<ul>
+<li><code>isIntersecting</code>：是否可见</li>
+<li><code>time</code>：可见性发生变化的时间，是一个高精度时间戳，单位为毫秒</li>
+<li><code>boundingClientRect</code>：目标元素的矩形区域信息</li>
+<li><code>intersectionRatio</code>：目标元素的可见比例，完全可见时为<code>1</code>，完全不可见时小于等于<code>0</code></li>
+<li><code>intersectionRect</code>：目标元素与视口（或根元素）的交叉区域的信息</li>
+<li><code>target</code>：目标元素</li>
+<li><code>rootBounds</code>：根元素的矩形区域的信息</li>
+</ul>
+<p>option对象属性：</p>
+<ul>
+<li><code>threshold</code>：数组，决定何时触发回调函数，比如，<code>[0, 0.25, 0.5, 0.75, 1]</code>就表示当目标元素 0%、25%、50%、75%、100% 可见时，会触发回调函数。</li>
+<li><code>root</code>、<code>rootMargin</code>：<code>root</code>属性指定目标元素所在的容器节点（即根元素）。注意，容器元素必须是目标元素的祖先节点。<code>rootMargin</code>属性。后者定义根元素的<code>margin</code>，用来扩展或缩小<code>rootBounds</code>这个矩形的大小，从而影响<code>intersectionRect</code>交叉区域的大小。它使用CSS的定义方法，比如<code>10px 20px 30px 40px</code>，表示 top、right、bottom 和 left 四个方向的值。</li>
+</ul>
+<p><a class="link"   target="_blank" rel="noopener" href="https://www.ruanyifeng.com/blog/2016/11/intersectionobserver_api.html" >参考文档<i class="fas fa-external-link-alt"></i></a></p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1gu411Z71r?t=1.7" >参考视频<i class="fas fa-external-link-alt"></i></a></p>
+
         </div>
 
         
@@ -340,6 +371,10 @@
                 
                     <li class="tag-item">
                         <a href="/tags/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8C%87%E4%BB%A4/">#自定义指令</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/IntersectionObserver/">#IntersectionObserver</a>&nbsp;
                     </li>
                 
             </ul>
@@ -496,7 +531,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#vue-lazyload"><span class="nav-number">1.</span> <span class="nav-text">vue-lazyload</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8C%87%E4%BB%A4%E5%AE%9E%E7%8E%B0v-lazy"><span class="nav-number">2.</span> <span class="nav-text">自定义指令实现v-lazy</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%8B%E5%86%99%E6%8F%92%E4%BB%B6vue-lazyload"><span class="nav-number">2.1.</span> <span class="nav-text">手写插件vue-lazyload</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8C%87%E4%BB%A4"><span class="nav-number">2.2.</span> <span class="nav-text">自定义指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0%E7%9A%84%E7%B1%BB"><span class="nav-number">2.3.</span> <span class="nav-text">功能实现的类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%BE%E7%89%87%E5%AE%9E%E4%BE%8B%E7%9A%84%E7%B1%BB"><span class="nav-number">2.4.</span> <span class="nav-text">图片实例的类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BB%9A%E5%8A%A8%E4%BA%8B%E4%BB%B6"><span class="nav-number">2.5.</span> <span class="nav-text">滚动事件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B8%B2%E6%9F%93%E5%9B%BE%E7%89%87"><span class="nav-number">2.6.</span> <span class="nav-text">渲染图片</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B8%B2%E6%9F%93%E5%AE%8C%E6%88%90"><span class="nav-number">2.7.</span> <span class="nav-text">渲染完成</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#vue-lazyload"><span class="nav-number">1.</span> <span class="nav-text">vue-lazyload</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8C%87%E4%BB%A4%E5%AE%9E%E7%8E%B0v-lazy"><span class="nav-number">2.</span> <span class="nav-text">自定义指令实现v-lazy</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%8B%E5%86%99%E6%8F%92%E4%BB%B6vue-lazyload"><span class="nav-number">2.1.</span> <span class="nav-text">手写插件vue-lazyload</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8C%87%E4%BB%A4"><span class="nav-number">2.2.</span> <span class="nav-text">自定义指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0%E7%9A%84%E7%B1%BB"><span class="nav-number">2.3.</span> <span class="nav-text">功能实现的类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%BE%E7%89%87%E5%AE%9E%E4%BE%8B%E7%9A%84%E7%B1%BB"><span class="nav-number">2.4.</span> <span class="nav-text">图片实例的类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BB%9A%E5%8A%A8%E4%BA%8B%E4%BB%B6"><span class="nav-number">2.5.</span> <span class="nav-text">滚动事件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B8%B2%E6%9F%93%E5%9B%BE%E7%89%87"><span class="nav-number">2.6.</span> <span class="nav-text">渲染图片</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B8%B2%E6%9F%93%E5%AE%8C%E6%88%90"><span class="nav-number">2.7.</span> <span class="nav-text">渲染完成</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%80%9A%E8%BF%87IntersectionObserver%E5%AE%9E%E7%8E%B0"><span class="nav-number">3.</span> <span class="nav-text">通过IntersectionObserver实现</span></a></li></ol>
     </div>
 </div>
         </aside>
