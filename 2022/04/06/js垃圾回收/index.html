@@ -178,7 +178,7 @@
                     <div class="author">
                         <span class="name">灵感胜于汗水</span>
                         
-                            <span class="author-label">Lv2</span>
+                            <span class="author-label">Lv3</span>
                         
                     </div>
                     <div class="meta-info">
@@ -213,6 +213,10 @@
                         | <a href="/tags/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/">垃圾回收</a>&nbsp;
                     </li>
                 
+                    <li>
+                        | <a href="/tags/V8%E5%BC%95%E6%93%8E/">V8引擎</a>&nbsp;
+                    </li>
+                
             </ul>
         </span>
     
@@ -220,7 +224,7 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>375 字</span>
+            <i class="fas fa-file-word"></i>&nbsp;<span>658 字</span>
         </span>
     
     
@@ -258,12 +262,18 @@
 <p>解决：(解除引用)</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="literal">null</span></span><br><span class="line">b = <span class="literal">null</span></span><br></pre></td></tr></table></figure>
 
-
-
-
-
-
-
+<h1 id="V8引擎垃圾回收"><a href="#V8引擎垃圾回收" class="headerlink" title="V8引擎垃圾回收"></a>V8引擎垃圾回收</h1><p>V8是一个由Google开源的采用C++编写的高性能JavaScript和WebAssembly引擎，应用在 Chrome和Node.js等。</p>
+<p>在 V8 中会把堆分为新生代和老生代两个区域，新生代中存放的是生存时间短的对象(大部分对象)，老生代中存放的生存时间久的对象（比如Vue）。</p>
+<p>新生代的内存空间小（16&#x2F;32M），老生代的内存空间大（0.7&#x2F;1.4G）</p>
+<p>新时代的对象被使用很多次之后会被转移到老生代中，老生代使用的垃圾回收机制就是标记清除。</p>
+<p>新时代的垃圾回收机制是<code>Scavenge</code>，<code>Scavenge</code>又是基于cheney算法的：</p>
+<p>cheney算法将内存分为from和to两个区域（各一半），正在使用的对象都存在from中，假如有一个对象被赋值为null（等待垃圾回收）</p>
+<ul>
+<li>将需要被回收的对象留在from中，其他数据转移到to中</li>
+<li>将from和to中的所有数据互换</li>
+<li>将to中的数据回收</li>
+</ul>
+<p>cheney算法用空间换取时间（有一半内存不能用）</p>
 <p><a class="link"   target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1o44y1z7bQ?t=255.2" >参考视频<i class="fas fa-external-link-alt"></i></a></p>
 
         </div>
@@ -296,6 +306,10 @@
                 
                     <li class="tag-item">
                         <a href="/tags/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/">#垃圾回收</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/V8%E5%BC%95%E6%93%8E/">#V8引擎</a>&nbsp;
                     </li>
                 
             </ul>
@@ -452,7 +466,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#js%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6"><span class="nav-number">1.</span> <span class="nav-text">js垃圾回收机制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A0%87%E8%AE%B0%E6%B8%85%E9%99%A4"><span class="nav-number">2.</span> <span class="nav-text">标记清除</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BC%95%E7%94%A8%E8%AE%A1%E6%95%B0"><span class="nav-number">3.</span> <span class="nav-text">引用计数</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#js%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6"><span class="nav-number">1.</span> <span class="nav-text">js垃圾回收机制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A0%87%E8%AE%B0%E6%B8%85%E9%99%A4"><span class="nav-number">2.</span> <span class="nav-text">标记清除</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BC%95%E7%94%A8%E8%AE%A1%E6%95%B0"><span class="nav-number">3.</span> <span class="nav-text">引用计数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#V8%E5%BC%95%E6%93%8E%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6"><span class="nav-number">4.</span> <span class="nav-text">V8引擎垃圾回收</span></a></li></ol>
     </div>
 </div>
         </aside>

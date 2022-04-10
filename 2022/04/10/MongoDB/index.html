@@ -9,7 +9,7 @@
     
     <title>
         
-            防抖节流 |
+            MongoDB |
         
         灵感胜于汗水
     </title>
@@ -166,7 +166,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">防抖节流</span>
+            <span class="title-hover-animation">MongoDB</span>
         </div>
 
         
@@ -185,8 +185,8 @@
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fas fa-edit"></i>&nbsp;
-        <span class="pc">2022-03-09 14:58:35</span>
-        <span class="mobile">2022-03-09 14:58</span>
+        <span class="pc">2022-04-10 17:41:39</span>
+        <span class="mobile">2022-04-10 17:41</span>
     </span>
     
         <span class="article-categories article-meta-item">
@@ -194,11 +194,7 @@
             <ul>
                 
                     <li>
-                        <a href="/categories/JavaScript/">JavaScript</a>&nbsp;
-                    </li>
-                
-                    <li>
-                        &gt; <a href="/categories/%E6%89%8B%E5%86%99/">手写</a>&nbsp;
+                        <a href="/categories/MongoDB/">MongoDB</a>&nbsp;
                     </li>
                 
             </ul>
@@ -210,7 +206,7 @@
             <ul>
                 
                     <li>
-                        <a href="/tags/JavaScript/">JavaScript</a>&nbsp;
+                        <a href="/tags/MongoDB/">MongoDB</a>&nbsp;
                     </li>
                 
             </ul>
@@ -220,7 +216,7 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>161 字</span>
+            <i class="fas fa-file-word"></i>&nbsp;<span>992 字</span>
         </span>
     
     
@@ -237,10 +233,128 @@
         
 
         <div class="article-content markdown-body">
-            <h1 id="防抖"><a href="#防抖" class="headerlink" title="防抖"></a>防抖</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">debounce</span>(<span class="params">fn, duration = <span class="number">500</span></span>) &#123;<span class="comment">//自定义防抖函数,默认0.5秒内没有再次触发该函数时执行</span></span><br><span class="line">    <span class="keyword">let</span> timer</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">function</span> (<span class="params">...args</span>) &#123;</span><br><span class="line">        timer &amp;&amp; <span class="built_in">clearTimeout</span>(timer)</span><br><span class="line">        timer = <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">typeof</span> fn === <span class="string">&#x27;function&#x27;</span> &amp;&amp; fn.<span class="title function_">apply</span>(<span class="variable language_">this</span>, args)</span><br><span class="line">        &#125;, duration)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> input = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;input&#x27;</span>)</span><br><span class="line">input.<span class="title function_">addEventListener</span>(<span class="string">&#x27;input&#x27;</span>, <span class="title function_">debounce</span>(<span class="function"><span class="params">event</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(event.<span class="property">target</span>.<span class="property">value</span>)</span><br><span class="line">&#125;));</span><br></pre></td></tr></table></figure>
+            <h1 id="安装（win系统）"><a href="#安装（win系统）" class="headerlink" title="安装（win系统）"></a>安装（win系统）</h1><h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p><a class="link"   target="_blank" rel="noopener" href="https://www.mongodb.com/try/download/community" >下载地址<i class="fas fa-external-link-alt"></i></a></p>
+<p>下载zip压缩包，并解压。</p>
+<h2 id="创建服务"><a href="#创建服务" class="headerlink" title="创建服务"></a>创建服务</h2><p>在<code>mongodb</code>目录下创建两个目录<code>data</code>和<code>logs</code>，分别用于存放数据和日志（和<code>bin</code>目录同级）</p>
+<p>管理员身份运行cmd，进入<code>mongodb</code>下的<code>bin</code>目录。</p>
+<p>cmd下进行安装：（两个path后输入自己新建的两个目录的地址，<code>logs</code>目录后需要加上<code>mongodb.log</code>）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongod --install --dbpath D:\MongoDB\data --logpath D:\MongoDB\logs\mongodb.log</span><br></pre></td></tr></table></figure>
 
-<h1 id="节流"><a href="#节流" class="headerlink" title="节流"></a>节流</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">throttle</span>(<span class="params">fn, duration = <span class="number">1000</span></span>) &#123; <span class="comment">//自定义节流函数，1秒内只触发一次</span></span><br><span class="line">    <span class="keyword">let</span> time = <span class="number">0</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">function</span> (<span class="params">...args</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">new</span> <span class="title class_">Date</span>() - time &gt; duration) &#123;</span><br><span class="line">            <span class="keyword">typeof</span> fn === <span class="string">&#x27;function&#x27;</span> &amp;&amp; fn.<span class="title function_">apply</span>(<span class="variable language_">this</span>, args)</span><br><span class="line">            time = <span class="keyword">new</span> <span class="title class_">Date</span>()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> btn = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;btn&#x27;</span>)</span><br><span class="line">btn.<span class="title function_">addEventListener</span>(<span class="string">&#x27;click&#x27;</span>, <span class="title function_">throttle</span>(<span class="function"><span class="params">event</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(event.<span class="property">target</span>.<span class="property">innerText</span>)</span><br><span class="line">&#125;));</span><br></pre></td></tr></table></figure>
+<p>没有报错即为成功</p>
+<p>验证：键盘点击win+R，输入<code>services.msc</code>，能找到MongoDB即可</p>
+<h2 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h2><p>cmd中：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">net start mongodb //启动</span><br><span class="line">mongo //进入数据库</span><br><span class="line">exit //退出</span><br></pre></td></tr></table></figure>
 
+<h1 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h1><p><code>MongoDB/bin</code>下打开cmd：输入<code>mongo</code>开始使用</p>
+<ul>
+<li>查看数据库：<code>show databases</code></li>
+<li>选择数据库：<code>use test1</code>（隐式创建：选择不存在的数据库不会报错，如果之后该数据库有数据时会自动创建）</li>
+<li>查看集合：<code>show collections</code></li>
+<li>创建集合：<code>db.createCollection(&#39;集合名&#39;)</code></li>
+<li>删除集合：<code>db.集合名.drop()</code></li>
+</ul>
+<h1 id="增删改查"><a href="#增删改查" class="headerlink" title="增删改查"></a>增删改查</h1><ol>
+<li><p>插入数据：<code>db.集合名.insert(JSON数据)</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">use test2</span><br><span class="line">db.c1.insert(&#123;uname:&#x27;luo&#x27;,age:18&#125;) </span><br><span class="line">注：集合不存在则隐式创建</span><br><span class="line">注：MongoDB会给每条数据添加一个_id(全球唯一)</span><br></pre></td></tr></table></figure>
+
+<p>一次性插入多条数据：插入数组即可</p>
+<p>多次插入数据：mongodb支持部分js语法，所以可以使用循环：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="number">3</span>;i++)&#123;</span><br><span class="line">    db.<span class="property">c1</span>.<span class="title function_">insert</span>(&#123;<span class="attr">uname</span>:<span class="string">&#x27;a&#x27;</span>+i,<span class="attr">age</span>:i&#125;) </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查询数据：<code>db.集合名.find()</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">db.c1.find() //查询所有数据</span><br><span class="line">输出：&#123; &quot;_id&quot; : ObjectId(&quot;6252c272dbdf6baae7f71b64&quot;), &quot;uname&quot; : &quot;luo&quot;, &quot;age&quot; : 18 &#125;</span><br><span class="line">&#123; &quot;_id&quot; : ObjectId(&quot;6252e60235f4e186f4e8dbfa&quot;), &quot;uname&quot; : &quot;a0&quot;, &quot;age&quot; : 0 &#125;</span><br><span class="line">&#123; &quot;_id&quot; : ObjectId(&quot;6252e60235f4e186f4e8dbfb&quot;), &quot;uname&quot; : &quot;a1&quot;, &quot;age&quot; : 1 &#125;</span><br><span class="line">&#123; &quot;_id&quot; : ObjectId(&quot;6252e60235f4e186f4e8dbfc&quot;), &quot;uname&quot; : &quot;a2&quot;, &quot;age&quot; : 2 &#125;</span><br><span class="line">注：MongoDB会给每条数据添加一个_id(全球唯一)</span><br></pre></td></tr></table></figure>
+
+<p>格式化输出数据：<code>db.集合名.find().pretty()</code></p>
+<p>条件查询：<code>db.集合名.find(条件)</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">db.c1.find(&#123;age:1&#125;) //age=1的数据</span><br><span class="line">db.c1.find(&#123;uname:&#x27;a0&#x27;,age:0&#125;) //多条件查询</span><br></pre></td></tr></table></figure>
+
+<p>其他运算符：<code>db.集合名.find(&#123;键:&#123;运算符:值&#125;)</code></p>
+<table>
+<thead>
+<tr>
+<th><code>运算符</code></th>
+<th><code>作用</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>$gt</code></td>
+<td>大于</td>
+</tr>
+<tr>
+<td><code>$gte</code></td>
+<td>大于等于</td>
+</tr>
+<tr>
+<td><code>$lt</code></td>
+<td>小于</td>
+</tr>
+<tr>
+<td><code>$lte</code></td>
+<td>小于等于</td>
+</tr>
+<tr>
+<td><code>$ne</code></td>
+<td>不等于</td>
+</tr>
+<tr>
+<td><code>$in</code></td>
+<td>in</td>
+</tr>
+<tr>
+<td><code>$nin</code></td>
+<td>not in</td>
+</tr>
+</tbody></table>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">db.c1.find(&#123;age:&#123;&amp;gt:1&#125;) //age&gt;1的数据</span><br><span class="line">db.c1.find(&#123;age:&#123;&amp;in:[0,2]) //age=0或2的值</span><br></pre></td></tr></table></figure>
+
+<p>查询列：（传入第二个参数）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">db.c1.find(&#123;&#125;,&#123;age:1&#125;) //只显示age列</span><br><span class="line">db.c1.find(&#123;&#125;,&#123;age:0&#125;) //显示除了age列的其他列</span><br><span class="line">注：无论何时_id都会显示</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改数据：<code>db.集合名.update(条件,新数据)</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">db.c1.update(&#123;uname:&#x27;luo&#x27;&#125;,&#123;uname:&#x27;zhang&#x27;&#125;) //不只是修改uname，而是直接用新数据替换（所以修改后age没有了）</span><br><span class="line">注：默认只修改符合条件的第一条数据</span><br></pre></td></tr></table></figure>
+
+<p>其他运算符：</p>
+<table>
+<thead>
+<tr>
+<th>修改器</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$inc</td>
+<td>递增</td>
+</tr>
+<tr>
+<td>$rename</td>
+<td>修改列名</td>
+</tr>
+<tr>
+<td>$set</td>
+<td>修改列值</td>
+</tr>
+<tr>
+<td>$unset</td>
+<td>删除列</td>
+</tr>
+</tbody></table>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">db.c1.update(&#123;uname:&#x27;luo&#x27;&#125;,&#123;$set:&#123;uname:&#x27;zhang&#x27;&#125;&#125;) //只修改uname，所以age还在</span><br><span class="line">db.c1.update(&#123;uname:&#x27;luo&#x27;&#125;,&#123;$inc:&#123;age:3&#125;&#125;) //age增加3（负数为减）</span><br><span class="line">db.c1.update(&#123;uname:&#x27;luo&#x27;&#125;,&#123; //同时进行多种修改</span><br><span class="line">	$set:&#123;uname:&#x27;zhang&#x27;&#125;,</span><br><span class="line">	$inc:&#123;age:3&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>是否新增：第三个参数（true：未匹配到数据则新插入一条数据，false：默认值，不新增）</p>
+<p>是否修改多条：第四个参数（true：修改所有匹配的数据，false：默认值，修改匹配到的第一条数据）</p>
+</li>
+<li><p>删除数据：db.集合名.remove(条件)</p>
+<p>是否只删除一条：第二个参数（true：只删除第一条数据，false：默认值，删除所有匹配的数据）</p>
+</li>
+</ol>
+<h1 id="排序和分页"><a href="#排序和分页" class="headerlink" title="排序和分页"></a>排序和分页</h1><ol>
+<li><p>排序：<code>db.集合名.find().sort(&#123;键：值&#125;)</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.c1.find().sort(&#123;age:0&#125;) //根据age进行排序，1表示升序，0表示降序</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>分页：</p>
+</li>
+</ol>
+<p><a class="link"   target="_blank" rel="noopener" href="https://www.mongodb.com/try/download/community" >参考视频<i class="fas fa-external-link-alt"></i></a></p>
 
         </div>
 
@@ -248,11 +362,11 @@
             <div class="post-copyright-info">
                 <div class="article-copyright-info-container">
     <ul>
-        <li>本文标题：防抖节流</li>
+        <li>本文标题：MongoDB</li>
         <li>本文作者：灵感胜于汗水</li>
-        <li>创建时间：2022-03-09 14:58:35</li>
+        <li>创建时间：2022-04-10 17:41:39</li>
         <li>
-            本文链接：https://cjhsyc.github.io/2022/03/09/防抖节流/
+            本文链接：https://cjhsyc.github.io/2022/04/10/MongoDB/
         </li>
         <li>
             版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -267,7 +381,7 @@
             <ul class="post-tags-box">
                 
                     <li class="tag-item">
-                        <a href="/tags/JavaScript/">#JavaScript</a>&nbsp;
+                        <a href="/tags/MongoDB/">#MongoDB</a>&nbsp;
                     </li>
                 
             </ul>
@@ -276,29 +390,14 @@
         
             <div class="article-nav">
                 
-                    <div class="article-prev">
-                        <a class="prev"
-                           rel="prev"
-                           href="/2022/03/20/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"
-                        >
-                            <span class="left arrow-icon flex-center">
-                              <i class="fas fa-chevron-left"></i>
-                            </span>
-                            <span class="title flex-center">
-                                <span class="post-nav-title-item">数据可视化</span>
-                                <span class="post-nav-item">上一篇</span>
-                            </span>
-                        </a>
-                    </div>
-                
                 
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="/2022/03/09/js%E4%B8%A5%E6%A0%BC%E6%A8%A1%E5%BC%8F/"
+                           href="/2022/04/09/ArrayBuffer/"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">js严格模式</span>
+                                <span class="post-nav-title-item">ArrayBuffer</span>
                                 <span class="post-nav-item">下一篇</span>
                             </span>
                             <span class="right arrow-icon flex-center">
@@ -424,7 +523,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%98%B2%E6%8A%96"><span class="nav-number">1.</span> <span class="nav-text">防抖</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%8A%82%E6%B5%81"><span class="nav-number">2.</span> <span class="nav-text">节流</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%EF%BC%88win%E7%B3%BB%E7%BB%9F%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">安装（win系统）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD"><span class="nav-number">1.1.</span> <span class="nav-text">下载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%9C%8D%E5%8A%A1"><span class="nav-number">1.2.</span> <span class="nav-text">创建服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1"><span class="nav-number">1.3.</span> <span class="nav-text">启动服务</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">基本使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5"><span class="nav-number">3.</span> <span class="nav-text">增删改查</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8E%92%E5%BA%8F%E5%92%8C%E5%88%86%E9%A1%B5"><span class="nav-number">4.</span> <span class="nav-text">排序和分页</span></a></li></ol>
     </div>
 </div>
         </aside>
