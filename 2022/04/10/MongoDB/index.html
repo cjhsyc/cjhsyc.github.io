@@ -216,7 +216,7 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>992 字</span>
+            <i class="fas fa-file-word"></i>&nbsp;<span>1.6k 字</span>
         </span>
     
     
@@ -349,11 +349,43 @@
 </ol>
 <h1 id="排序和分页"><a href="#排序和分页" class="headerlink" title="排序和分页"></a>排序和分页</h1><ol>
 <li><p>排序：<code>db.集合名.find().sort(&#123;键：值&#125;)</code></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.c1.find().sort(&#123;age:0&#125;) //根据age进行排序，1表示升序，0表示降序</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.c1.find().sort(&#123;age:0&#125;) //根据age进行排序，1表示升序，-1表示降序</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>分页：</p>
-</li>
+<li><p>分页：<code>db.集合名.find().skip(数字).limit(数字)</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">db.c1.find().limit(2) //查询两条数据，limit：限制查询的数量</span><br><span class="line">db.c1.find().skip(1) //skip：跳过指定的数量</span><br><span class="line">db.c1.find().skip(1).limit(2) //一起使用时，skip写在前面</span><br><span class="line">db.c1.find().count() //count:计数，显示结果的条数</span><br></pre></td></tr></table></figure></li>
 </ol>
+<h1 id="聚合查询"><a href="#聚合查询" class="headerlink" title="聚合查询"></a>聚合查询</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">db.集合名.aggregate([</span><br><span class="line">	&#123;管道:&#123;表达式&#125;&#125;</span><br><span class="line">	...</span><br><span class="line">])</span><br></pre></td></tr></table></figure>
+
+<p>常用管道</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$group	将集合中的文档分组，用于统计结果</span><br><span class="line">$match	过滤数据，只要输出符合条件的文档</span><br><span class="line">$sort	聚合数据进一步排序</span><br><span class="line">$skip	跳过指定文档数</span><br><span class="line">$limit	限制集合数据返回文档数</span><br></pre></td></tr></table></figure>
+
+<p>常用表达式</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$sum	总和</span><br><span class="line">$avg	平均</span><br><span class="line">$min	最小值</span><br><span class="line">$max	最大值</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>分组</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">db.c1.aggregate([</span><br><span class="line">	&#123;</span><br><span class="line">		$group:&#x27;$sex&#x27;,  //$group：分组，按sex进行分组，sex前需加上$符</span><br><span class="line">		sum:&#123;$sum:&#x27;$age&#x27;&#125; //$sum：总和，同一组的age的总和，age前需加上$符，并将结果显示在sum列中</span><br><span class="line">	&#125;</span><br><span class="line">])</span><br><span class="line"></span><br><span class="line">db.c1.aggregate([</span><br><span class="line">	&#123;</span><br><span class="line">		$group:null, //$group为null表示不分组</span><br><span class="line">		sum:&#123;$sum:1&#125;, //$sum为1表示统计每组的数据条数</span><br><span class="line">		avg:&#123;$avg:&#x27;$age&#x27;&#125; //$avg：平均值</span><br><span class="line">	&#125;</span><br><span class="line">])</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>多个管道</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">db.c1.aggregate([</span><br><span class="line">	&#123;</span><br><span class="line">		$group:&#x27;$sex&#x27;,</span><br><span class="line">		sum:&#123;$sum:&#x27;$age&#x27;&#125;</span><br><span class="line">	&#125;，</span><br><span class="line">	&#123;</span><br><span class="line">		$sort:&#123;sum:1&#125; //$sort:排序，sum:1表示按照sum升序</span><br><span class="line">	&#125;</span><br><span class="line">])</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h1><p>索引是一个排序好的数据结构，可以提高数据查询的效率，但大量索引也会影响数据，因为每次插入和修改数据都需要更新索引</p>
+<ul>
+<li><p>创建索引：<code>db.集合名.createIndex(待创建索引的列)</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">db.c1.createIndex(&#123;uname:1&#125;) //按照name字段升序创建索引</span><br><span class="line">db.c1.createIndex(&#123;uname:1,age:1&#125;) //复合索引</span><br></pre></td></tr></table></figure>
+
+<p>自定义索引名：(第二个参数对象中，name:指定索引名)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.c1.createIndex(&#123;uname:1&#125;,&#123;name:&#x27;unameIndex&#x27;&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>唯一索引：(第二个参数对象中，unique:是否唯一)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//建立唯一索引后，所有数据的uname不能重复</span><br><span class="line">db.c1.createIndex(&#123;uname:1&#125;,&#123;unique:true&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看索引：<code>db.集合名.getIndexes()</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">db.c1.getIndexes()</span><br><span class="line">结果：</span><br><span class="line">[</span><br><span class="line">        &#123;</span><br><span class="line">                &quot;v&quot; : 2,</span><br><span class="line">                &quot;key&quot; : &#123;</span><br><span class="line">                        &quot;_id&quot; : 1</span><br><span class="line">                &#125;,</span><br><span class="line">                &quot;name&quot; : &quot;_id_&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">                &quot;v&quot; : 2,</span><br><span class="line">                &quot;key&quot; : &#123; //根据哪个key建立的索引</span><br><span class="line">                        &quot;uname&quot; : 1</span><br><span class="line">                &#125;,</span><br><span class="line">                &quot;name&quot; : &quot;uname_1&quot; //索引名</span><br><span class="line">        &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除索引：<code>db.集合名.dropIndex(索引名)</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//先通过getIndexes()查看索引名</span><br><span class="line">db.c1.dropIndex(&#x27;uname_1&#x27;)</span><br><span class="line">db.c1.dropIndexes() //删除全部索引（除系统自带的）</span><br></pre></td></tr></table></figure></li>
+</ul>
 <p><a class="link"   target="_blank" rel="noopener" href="https://www.mongodb.com/try/download/community" >参考视频<i class="fas fa-external-link-alt"></i></a></p>
 
         </div>
@@ -523,7 +555,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%EF%BC%88win%E7%B3%BB%E7%BB%9F%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">安装（win系统）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD"><span class="nav-number">1.1.</span> <span class="nav-text">下载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%9C%8D%E5%8A%A1"><span class="nav-number">1.2.</span> <span class="nav-text">创建服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1"><span class="nav-number">1.3.</span> <span class="nav-text">启动服务</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">基本使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5"><span class="nav-number">3.</span> <span class="nav-text">增删改查</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8E%92%E5%BA%8F%E5%92%8C%E5%88%86%E9%A1%B5"><span class="nav-number">4.</span> <span class="nav-text">排序和分页</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%EF%BC%88win%E7%B3%BB%E7%BB%9F%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">安装（win系统）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD"><span class="nav-number">1.1.</span> <span class="nav-text">下载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%9C%8D%E5%8A%A1"><span class="nav-number">1.2.</span> <span class="nav-text">创建服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1"><span class="nav-number">1.3.</span> <span class="nav-text">启动服务</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">基本使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5"><span class="nav-number">3.</span> <span class="nav-text">增删改查</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8E%92%E5%BA%8F%E5%92%8C%E5%88%86%E9%A1%B5"><span class="nav-number">4.</span> <span class="nav-text">排序和分页</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%81%9A%E5%90%88%E6%9F%A5%E8%AF%A2"><span class="nav-number">5.</span> <span class="nav-text">聚合查询</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95"><span class="nav-number">6.</span> <span class="nav-text">索引</span></a></li></ol>
     </div>
 </div>
         </aside>
