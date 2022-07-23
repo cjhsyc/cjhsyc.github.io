@@ -403,19 +403,3 @@
 
 </body>
 </html>
-nd', () => {
-            KEEP.utils.pjaxProgressBarStart();
-        });
-
-        document.addEventListener('pjax:complete', () => {
-            KEEP.utils.pjaxProgressBarEnd();
-            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
-            KEEP.refresh();
-        });
-    });
-</script>
-
-
-
-</body>
-</html>

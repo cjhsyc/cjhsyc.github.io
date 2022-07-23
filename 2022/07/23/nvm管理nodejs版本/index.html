@@ -9,7 +9,7 @@
     
     <title>
         
-            KMP算法 |
+            nvm管理nodejs版本 |
         
         灵感胜于汗水
     </title>
@@ -168,7 +168,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">KMP算法</span>
+            <span class="title-hover-animation">nvm管理nodejs版本</span>
         </div>
 
         
@@ -187,8 +187,8 @@
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fas fa-edit"></i>&nbsp;
-        <span class="pc">2022-05-17 17:11:37</span>
-        <span class="mobile">2022-05-17 17:11</span>
+        <span class="pc">2022-07-23 14:43:29</span>
+        <span class="mobile">2022-07-23 14:43</span>
     </span>
     
         <span class="article-categories article-meta-item">
@@ -196,7 +196,7 @@
             <ul>
                 
                     <li>
-                        <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>&nbsp;
+                        <a href="/categories/node/">node</a>&nbsp;
                     </li>
                 
             </ul>
@@ -208,7 +208,23 @@
             <ul>
                 
                     <li>
-                        <a href="/tags/KMP/">KMP</a>&nbsp;
+                        <a href="/tags/node/">node</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/nodejs/">nodejs</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/nvm/">nvm</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/npm/">npm</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/nrm/">nrm</a>&nbsp;
                     </li>
                 
             </ul>
@@ -218,7 +234,7 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>199 字</span>
+            <i class="fas fa-file-word"></i>&nbsp;<span>230 字</span>
         </span>
     
     
@@ -235,22 +251,36 @@
         
 
         <div class="article-content markdown-body">
-            <h1 id="旋转字符串"><a href="#旋转字符串" class="headerlink" title="旋转字符串"></a>旋转字符串</h1><p><code>leetcode</code>上的题目：<a class="link"   target="_blank" rel="noopener" href="https://leetcode.cn/problems/rotate-string/" >旋转字符串<i class="fas fa-external-link-alt"></i></a></p>
-<p>在字符串后加上该字符串，得到的字符串中包含原字符串的所有旋转字符串</p>
-<p>使用<code>indexOf</code>：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> rotateString = <span class="keyword">function</span>(<span class="params">s, goal</span>) &#123;</span><br><span class="line">  <span class="keyword">if</span>(s.<span class="property">length</span> !== goal.<span class="property">length</span>) <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">  s += s</span><br><span class="line">  <span class="keyword">return</span> s.<span class="title function_">indexOf</span>(goal) !== -<span class="number">1</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+            <h1 id="nvm"><a href="#nvm" class="headerlink" title="nvm"></a>nvm</h1><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>地址：<a class="link"   target="_blank" rel="noopener" href="https://github.com/coreybutler/nvm-windows/releases" >nvm-windows<i class="fas fa-external-link-alt"></i></a></p>
+<p>选择<code>nvm-setup.exe</code>下载安装，安装时设置nvm安装目录（D:\nvm）和nodejs的链接目录（D:\nodejs）。</p>
+<p>需要将<code>D:\nodejs</code>添加到环境变量</p>
+<h2 id="nvm镜像源"><a href="#nvm镜像源" class="headerlink" title="nvm镜像源"></a>nvm镜像源</h2><p>配置淘宝镜像源（cmd运行）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nvm node_mirror https://npmmirror.com/mirrors/node/</span><br><span class="line">nvm npm_mirror https://npmmirror.com/mirrors/npm/</span><br></pre></td></tr></table></figure>
 
-<p>自己用KMP算法实现<code>indexOf</code>：</p>
-<h1 id="检查子树"><a href="#检查子树" class="headerlink" title="检查子树"></a>检查子树</h1><p><code>leetcode</code>上的题目：<a class="link"   target="_blank" rel="noopener" href="https://leetcode.cn/problems/check-subtree-lcci/" >检查子树<i class="fas fa-external-link-alt"></i></a></p>
-<ol>
-<li><p>暴力算法：</p>
-<p>时间复杂度：O(n*m)</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> checkSubTree = <span class="keyword">function</span>(<span class="params">t1, t2</span>) &#123;</span><br><span class="line">  <span class="keyword">if</span>(!t2) <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">  <span class="keyword">if</span>(!t1) <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">  <span class="keyword">if</span>(<span class="title function_">equal</span>(t1,t2))&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">  &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="title function_">checkSubTree</span>(t1.<span class="property">left</span>,t2) || <span class="title function_">checkSubTree</span>(t1.<span class="property">right</span>,t2)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">equal</span>(<span class="params">t1,t2</span>)&#123;</span><br><span class="line">  <span class="keyword">if</span>(!t1 &amp;&amp; t2) <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">  <span class="keyword">if</span>(t1 &amp;&amp; !t2) <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">  <span class="keyword">if</span>(!t1 &amp;&amp; !t2) <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">  <span class="keyword">if</span>(t1.<span class="property">val</span> === t2.<span class="property">val</span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="title function_">equal</span>(t1.<span class="property">left</span>,t2.<span class="property">left</span>) &amp;&amp; <span class="title function_">equal</span>(t1.<span class="property">right</span>,t2.<span class="property">right</span>)</span><br><span class="line">  &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="nvm管理nodejs"><a href="#nvm管理nodejs" class="headerlink" title="nvm管理nodejs"></a>nvm管理nodejs</h1><p>需管理员身份运行cmd</p>
+<ul>
+<li><p>查看当前所有nodejs版本</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvm ls</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>KMP算法</p>
-<p>时间复杂度</p>
+<li><p>安装指定版本nodejs（只指定大版本时默认安装该大版本的最新版）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nvm install 16</span><br><span class="line">nvm install 16.16.0</span><br></pre></td></tr></table></figure>
 </li>
-</ol>
+<li><p>使用指定版本的nodejs（需指定完整的版本号）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvm use 16.16.0</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看当前node和npm的版本</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">node -v</span><br><span class="line">npm -v</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>切换npm全局安装位置（需将<code>D:/nodejs/npm_global</code>添加至环境变量）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm config set prefix &quot;D:/nodejs/npm_global&quot;</span><br><span class="line">npm config set cache &quot;D:/nodeks/npm_cache&quot;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="nrm"><a href="#nrm" class="headerlink" title="nrm"></a>nrm</h1><ul>
+<li><p>全局安装nrm，管理npm镜像</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -g nrm</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用淘宝镜像</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nrm ls</span><br><span class="line">nrm use taobao</span><br></pre></td></tr></table></figure></li>
+</ul>
 
         </div>
 
@@ -258,11 +288,11 @@
             <div class="post-copyright-info">
                 <div class="article-copyright-info-container">
     <ul>
-        <li>本文标题：KMP算法</li>
+        <li>本文标题：nvm管理nodejs版本</li>
         <li>本文作者：灵感胜于汗水</li>
-        <li>创建时间：2022-05-17 17:11:37</li>
+        <li>创建时间：2022-07-23 14:43:29</li>
         <li>
-            本文链接：https://cjhsyc.github.io/2022/05/17/KMP算法/
+            本文链接：https://cjhsyc.github.io/2022/07/23/nvm管理nodejs版本/
         </li>
         <li>
             版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -277,7 +307,23 @@
             <ul class="post-tags-box">
                 
                     <li class="tag-item">
-                        <a href="/tags/KMP/">#KMP</a>&nbsp;
+                        <a href="/tags/node/">#node</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/nodejs/">#nodejs</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/nvm/">#nvm</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/npm/">#npm</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/nrm/">#nrm</a>&nbsp;
                     </li>
                 
             </ul>
@@ -286,29 +332,14 @@
         
             <div class="article-nav">
                 
-                    <div class="article-prev">
-                        <a class="prev"
-                           rel="prev"
-                           href="/2022/05/17/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80/"
-                        >
-                            <span class="left arrow-icon flex-center">
-                              <i class="fas fa-chevron-left"></i>
-                            </span>
-                            <span class="title flex-center">
-                                <span class="post-nav-title-item">算法与数据结构基础</span>
-                                <span class="post-nav-item">上一篇</span>
-                            </span>
-                        </a>
-                    </div>
-                
                 
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="/2022/05/16/%E9%93%BE%E8%A1%A8/"
+                           href="/2022/06/18/vscode/"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">链表</span>
+                                <span class="post-nav-title-item">vscode</span>
                                 <span class="post-nav-item">下一篇</span>
                             </span>
                             <span class="right arrow-icon flex-center">
@@ -434,7 +465,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%97%8B%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">1.</span> <span class="nav-text">旋转字符串</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A3%80%E6%9F%A5%E5%AD%90%E6%A0%91"><span class="nav-number">2.</span> <span class="nav-text">检查子树</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#nvm"><span class="nav-number">1.</span> <span class="nav-text">nvm</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">1.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nvm%E9%95%9C%E5%83%8F%E6%BA%90"><span class="nav-number">1.2.</span> <span class="nav-text">nvm镜像源</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#nvm%E7%AE%A1%E7%90%86nodejs"><span class="nav-number">2.</span> <span class="nav-text">nvm管理nodejs</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#nrm"><span class="nav-number">3.</span> <span class="nav-text">nrm</span></a></li></ol>
     </div>
 </div>
         </aside>
