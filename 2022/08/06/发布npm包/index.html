@@ -211,6 +211,10 @@
                         <a href="/tags/npm/">npm</a>&nbsp;
                     </li>
                 
+                    <li>
+                        | <a href="/tags/package-json/">package.json</a>&nbsp;
+                    </li>
+                
             </ul>
         </span>
     
@@ -218,7 +222,7 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>40 字</span>
+            <i class="fas fa-file-word"></i>&nbsp;<span>536 字</span>
         </span>
     
     
@@ -235,9 +239,38 @@
         
 
         <div class="article-content markdown-body">
-            <h1 id="发布"><a href="#发布" class="headerlink" title="发布"></a>发布</h1><p>当发布以<code>@</code>开头的包时，<code>npm</code>默认发布私有包（私有包需要收费），使用如下发布为公开包</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm publish --access public</span><br></pre></td></tr></table></figure>
+            <h1 id="注册账号"><a href="#注册账号" class="headerlink" title="注册账号"></a>注册账号</h1><ul>
+<li><p>在<a class="link"   target="_blank" rel="noopener" href="https://www.npmjs.com/" >npm官网<i class="fas fa-external-link-alt"></i></a>注册</p>
+</li>
+<li><p>登录账号（需要npm镜像源为npm官方源）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">npm config get registry //查看当前镜像源</span><br><span class="line">nrm use npm //使用npm官方镜像源（如果安装了nrm）</span><br><span class="line">npm config set registry https://registry.npmjs.org/ //使用npm官方镜像</span><br><span class="line">npm login //登录（输入账号密码、邮箱和验证码）</span><br><span class="line">npm adduser //效果同上</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看当前账号</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm whoami</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="package-json"><a href="#package-json" class="headerlink" title="package.json"></a>package.json</h1><p><code>name</code>和<code>version</code>是必须的</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;xxx&quot;</span><span class="punctuation">,</span>  <span class="comment">//包名（要避免与npm上已有的包重名）</span></span><br><span class="line">  <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;0.0.1&quot;</span><span class="punctuation">,</span> <span class="comment">//版本号</span></span><br><span class="line">  <span class="comment">//&quot;private&quot;: true, //为true时，npm将拒绝发布该程序包</span></span><br><span class="line">  <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;module&quot;</span><span class="punctuation">,</span> <span class="comment">//使用es模块加载（默认值为commonjs）</span></span><br><span class="line">  <span class="attr">&quot;keywords&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">,</span> <span class="comment">//关键词</span></span><br><span class="line">  <span class="attr">&quot;repository&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span> <span class="comment">//关联的远程仓库</span></span><br><span class="line">    <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;git&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;url&quot;</span><span class="punctuation">:</span> <span class="string">&quot;https://github.com/xxx/xxx.git&quot;</span> <span class="comment">//远程仓库url</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;files&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span> <span class="comment">//指定要发布的文件夹或文件（默认发布所有文件，package.json始终会被发布）</span></span><br><span class="line">    <span class="string">&quot;dist&quot;</span></span><br><span class="line">  <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;main&quot;</span><span class="punctuation">:</span> <span class="string">&quot;./dist/xxx.umd.js&quot;</span><span class="punctuation">,</span> <span class="comment">//指定通过name被导入时的入口文件</span></span><br><span class="line">  <span class="attr">&quot;module&quot;</span><span class="punctuation">:</span> <span class="string">&quot;./dist/xxx.es.js&quot;</span><span class="punctuation">,</span> <span class="comment">//指定通过name被es模块导入时的入口文件</span></span><br><span class="line">  <span class="attr">&quot;types&quot;</span><span class="punctuation">:</span> <span class="string">&quot;./dist/types/index.d.ts&quot;</span><span class="punctuation">,</span> <span class="comment">//类型声明文件</span></span><br><span class="line">  <span class="attr">&quot;exports&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span> <span class="comment">//定义导出的内容（main和module的替代品）</span></span><br><span class="line">    <span class="attr">&quot;.&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;types&quot;</span><span class="punctuation">:</span> <span class="string">&quot;./dist/types/index.d.ts&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;import&quot;</span><span class="punctuation">:</span> <span class="string">&quot;./dist/icons.es.js&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;require&quot;</span><span class="punctuation">:</span> <span class="string">&quot;./dist/icons.umd.js&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;license&quot;</span><span class="punctuation">:</span> <span class="string">&quot;MIT&quot;</span> <span class="comment">//开源协议</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
 
+<h1 id="发布"><a href="#发布" class="headerlink" title="发布"></a>发布</h1><ul>
+<li><p>发布前需切换至官方镜像源</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm publish</span><br><span class="line">// 再次发布前需要将version版本号加一</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>当发布<code>name</code>以<code>@</code>开头的包时，<code>npm</code>默认发布私有包（私有包需要收费），使用如下命令发布为公开包</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm publish --access public</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>发布beta版本（修改version，如<code>0.0.1-beta.1</code>）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm publish --tag=beta</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>发布成功后登录npm官网即可看到自己发布的包</p>
+</li>
+</ul>
+<h1 id="作废和撤销"><a href="#作废和撤销" class="headerlink" title="作废和撤销"></a>作废和撤销</h1><ul>
+<li><p>作废npm包，表示不在维护更新</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm deprecate &lt;package-name&gt; &quot;&lt;message&gt;&quot;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>撤销发布包（只能删除24小时内发布的最后一个版本）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm unpublish &lt;package-name&gt; --force</span><br></pre></td></tr></table></figure></li>
+</ul>
 
         </div>
 
@@ -265,6 +298,10 @@
                 
                     <li class="tag-item">
                         <a href="/tags/npm/">#npm</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/package-json/">#package.json</a>&nbsp;
                     </li>
                 
             </ul>
@@ -406,7 +443,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%91%E5%B8%83"><span class="nav-number">1.</span> <span class="nav-text">发布</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B3%A8%E5%86%8C%E8%B4%A6%E5%8F%B7"><span class="nav-number">1.</span> <span class="nav-text">注册账号</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#package-json"><span class="nav-number">2.</span> <span class="nav-text">package.json</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%91%E5%B8%83"><span class="nav-number">3.</span> <span class="nav-text">发布</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%9C%E5%BA%9F%E5%92%8C%E6%92%A4%E9%94%80"><span class="nav-number">4.</span> <span class="nav-text">作废和撤销</span></a></li></ol>
     </div>
 </div>
         </aside>
