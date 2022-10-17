@@ -9,7 +9,7 @@
     
     <title>
         
-            分类: css |
+            层叠上下文 |
         
         灵感胜于汗水
     </title>
@@ -80,7 +80,7 @@
                         </li>
                     
                         <li class="menu-item">
-                            <a class="active"
+                            <a class=""
                                href="/categories"
                             >
                                 分类
@@ -135,7 +135,7 @@
                 </li>
             
                 <li class="drawer-menu-item flex-center">
-                    <a class="active"
+                    <a class=""
                        href="/categories">分类</a>
                 </li>
             
@@ -165,56 +165,188 @@
 
                 
                     <div class="fade-in-down-animation">
-    <div class="category-container">
-        <div class="category-name">
-            <i class="fas fa-folder"></i>&nbsp;css
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">层叠上下文</span>
         </div>
-        <div class="category-post-list">
-            
-<div class="archive-list-container">
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="https://cdn.jsdelivr.net/gh/cjhsyc/image-hosting@master/%E5%A4%B4%E5%83%8F.677yiujw5980.webp">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">灵感胜于汗水</span>
+                        
+                            <span class="author-label">Lv4</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2022-10-17 21:31:54</span>
+        <span class="mobile">2022-10-17 21:31</span>
+    </span>
     
-        <section class="archive-item">
-            <div class="archive-item-header">
-                <span class="archive-year">2022</span>
-                <span class="archive-year-post-count">[3]</span>
-            </div>
-            <ul class="article-list">
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
                 
-                    <li class="article-item">
-                        <a class="article-title"
-                           href="/2022/10/17/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/"
-                        >层叠上下文</a>
-                        <span class="article-date">10-17</span>
-                    </li>
-                
-                    <li class="article-item">
-                        <a class="article-title"
-                           href="/2022/07/27/css%E9%AB%98%E7%BA%A7/"
-                        >css高级</a>
-                        <span class="article-date">07-27</span>
-                    </li>
-                
-                    <li class="article-item">
-                        <a class="article-title"
-                           href="/2022/07/27/scss-sass/"
-                        >scss/sass</a>
-                        <span class="article-date">07-27</span>
+                    <li>
+                        <a href="/categories/css/">css</a>&nbsp;
                     </li>
                 
             </ul>
-        </section>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/css/">css</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/z-index/">z-index</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>922 字</span>
+        </span>
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
     
 </div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h1 id="层叠上下文"><a href="#层叠上下文" class="headerlink" title="层叠上下文"></a>层叠上下文</h1><p>我们假定用户正面向（浏览器）视窗或网页，而 HTML 元素沿着其相对于用户的一条虚构的 z 轴排开，<strong>层叠上下文</strong>就是对这些 HTML 元素的一个三维构想。众 HTML 元素基于其元素属性按照优先级顺序占据这个空间。</p>
+<h1 id="层叠水平"><a href="#层叠水平" class="headerlink" title="层叠水平"></a>层叠水平</h1><ol>
+<li><p>层叠水平决定了同一个层叠上下文中元素在z轴上的显示顺序。</p>
+</li>
+<li><p>普通元素的层叠水平优先由层叠上下文决定，因此，层叠水平的比较只有在当前层叠上下文元素中才有意义。</p>
+</li>
+</ol>
+<p>注意：千万不要把层叠水平和<code>CSS</code>的<code>z-index</code>属性混为一谈。某些情况下<code>z-index</code>确实可以影响层叠水平，但是，只限于定位元素以及flex盒子的孩子元素；而层叠水平所有的元素都存在。</p>
+<h1 id="层叠顺序"><a href="#层叠顺序" class="headerlink" title="层叠顺序"></a>层叠顺序</h1><p>元素发生层叠时候有着特定的垂直显示顺序，层叠顺序从小到大如下：</p>
+<ol>
+<li>background &#x2F; border</li>
+<li>负z-index</li>
+<li>block块级水平盒子</li>
+<li>float浮动盒子</li>
+<li>inline &#x2F; inline-block水平盒子</li>
+<li>z-index: auto &#x2F; z-index: 0 &#x2F; 不依赖z-index的层叠上下文</li>
+<li>正z-index</li>
+</ol>
+<h1 id="生成层叠上下文"><a href="#生成层叠上下文" class="headerlink" title="生成层叠上下文"></a>生成层叠上下文</h1><ol>
+<li><code>HTML</code>中的根元素<code>&lt;html&gt;&lt;/html&gt;</code>本身就具有层叠上下文，称为“根层叠上下文”；</li>
+<li>普通元素设置<code>position</code>属性为非<code>static</code>值并设置<code>z-index</code>属性为具体数值，产生层叠上下文；</li>
+<li>父元素的display属性值为<code>flex|inline-flex|grid</code>，子元素<code>z-index</code>属性值不为<code>auto</code>的时候，子元素为层叠上下文元素；</li>
+<li>元素的<code>opacity</code>属性值不是<code>1</code>；</li>
+<li>以下任意属性值不为<code>none</code>的元素：<ul>
+<li><code>transform</code></li>
+<li><code>filter</code></li>
+<li><code>backdrop-filter</code></li>
+<li><code>perspective</code></li>
+<li><code>clip-path</code></li>
+<li><code>mask</code> &#x2F; <code>mask-image</code> &#x2F; <code>mask-border</code></li>
+</ul>
+</li>
+<li>元素<code>mix-blend-mode</code>属性值不是<code>normal</code>；</li>
+<li>元素的<code>isolation</code>属性值是<code>isolate</code>；</li>
+<li><code>will-change</code>指定的属性值为上面任意一个；</li>
+<li>元素的<code>-webkit-overflow-scrolling</code>属性值设置为<code>touch</code>。</li>
+</ol>
+<h1 id="层叠上下文的特点"><a href="#层叠上下文的特点" class="headerlink" title="层叠上下文的特点"></a>层叠上下文的特点</h1><ol>
+<li><strong>谁大谁上：</strong>当具有明显的层叠水平标示的时候，如识别的<code>z-indx</code>值，在同一个层叠上下文领域，层叠水平值大的那一个覆盖小的那一个。通俗讲就是官大的压死官小的。</li>
+<li><strong>后来居上：</strong>当元素的层叠水平一致、层叠顺序相同的时候，在DOM流中处于后面的元素会覆盖前面的元素。</li>
+<li>在层叠上下文中，子元素同样也按照上面解释的规则进行层叠。重要的是，其子级层叠上下文的 <code>z-index</code> 值只在父级中才有意义。子级层叠上下文被自动视为父级层叠上下文的一个独立单元。</li>
+<li>层叠上下文可以包含在其他层叠上下文中，并且一起创建一个层叠上下文的层级。</li>
+<li>每个层叠上下文都完全独立于它的兄弟元素：当处理层叠时只考虑子元素。</li>
+<li>每个层叠上下文都是自包含的：当一个元素的内容发生层叠后，该元素将被作为整体在父级层叠上下文中按顺序进行层叠。</li>
+</ol>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ol>
+<li>先看要比较的两个元素是否处于同一个层叠上下文中。如果是，谁的层叠水平大，谁在上面。 </li>
+<li>如果两个元素不在同一层叠上下文中，请先比较他们所处的层叠上下文的层叠水平。 当两个元素层叠水平相同、层叠顺序相同时，在DOM结构中后面的元素层叠等级在前面元素之上。</li>
+</ol>
 
         </div>
-    </div>
-    <div class="category-paginator">
-        <div class="paginator">
-    
 
-    
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：层叠上下文</li>
+        <li>本文作者：灵感胜于汗水</li>
+        <li>创建时间：2022-10-17 21:31:54</li>
+        <li>
+            本文链接：https://cjhsyc.github.io/2022/10/17/层叠上下文/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
 </div>
 
+            </div>
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/css/">#css</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/z-index/">#z-index</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2022/10/17/js%E7%BB%A7%E6%89%BF/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">js继承</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
     </div>
 </div>
 
@@ -262,6 +394,23 @@
     </div>
 
     
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
 
     <div class="right-bottom-side-tools">
         <div class="side-tools-container">
@@ -307,6 +456,14 @@
 
     </div>
 
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87"><span class="nav-number">1.</span> <span class="nav-text">层叠上下文</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B1%82%E5%8F%A0%E6%B0%B4%E5%B9%B3"><span class="nav-number">2.</span> <span class="nav-text">层叠水平</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B1%82%E5%8F%A0%E9%A1%BA%E5%BA%8F"><span class="nav-number">3.</span> <span class="nav-text">层叠顺序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87"><span class="nav-number">4.</span> <span class="nav-text">生成层叠上下文</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-number">5.</span> <span class="nav-text">层叠上下文的特点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol>
+    </div>
+</div>
+        </aside>
     
 
     <div class="image-viewer-container">
@@ -376,6 +533,14 @@
 
 
 <div class="post-scripts pjax">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
     
 </div>
 
