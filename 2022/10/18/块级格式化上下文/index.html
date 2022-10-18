@@ -9,7 +9,7 @@
     
     <title>
         
-            层叠上下文 |
+            块级格式化上下文 |
         
         灵感胜于汗水
     </title>
@@ -168,7 +168,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">层叠上下文</span>
+            <span class="title-hover-animation">块级格式化上下文</span>
         </div>
 
         
@@ -187,8 +187,8 @@
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fas fa-edit"></i>&nbsp;
-        <span class="pc">2022-10-17 21:31:54</span>
-        <span class="mobile">2022-10-17 21:31</span>
+        <span class="pc">2022-10-18 11:31:06</span>
+        <span class="mobile">2022-10-18 11:31</span>
     </span>
     
         <span class="article-categories article-meta-item">
@@ -212,7 +212,7 @@
                     </li>
                 
                     <li>
-                        | <a href="/tags/z-index/">z-index</a>&nbsp;
+                        | <a href="/tags/BFC/">BFC</a>&nbsp;
                     </li>
                 
             </ul>
@@ -222,7 +222,7 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>924 字</span>
+            <i class="fas fa-file-word"></i>&nbsp;<span>739 字</span>
         </span>
     
     
@@ -239,56 +239,43 @@
         
 
         <div class="article-content markdown-body">
-            <h1 id="层叠上下文"><a href="#层叠上下文" class="headerlink" title="层叠上下文"></a>层叠上下文</h1><p>我们假定用户正面向（浏览器）视窗或网页，而 HTML 元素沿着其相对于用户的一条虚构的 z 轴排开，<strong>层叠上下文</strong>就是对这些 HTML 元素的一个三维构想。众 HTML 元素基于其元素属性按照优先级顺序占据这个空间。</p>
-<h1 id="层叠水平"><a href="#层叠水平" class="headerlink" title="层叠水平"></a>层叠水平</h1><ol>
-<li><p>层叠水平决定了同一个层叠上下文中元素在z轴上的显示顺序。</p>
-</li>
-<li><p>普通元素的层叠水平优先由层叠上下文决定，因此，层叠水平的比较只有在当前层叠上下文元素中才有意义。</p>
-</li>
-</ol>
-<p>注意：千万不要把层叠水平和<code>CSS</code>的<code>z-index</code>属性混为一谈。某些情况下<code>z-index</code>确实可以影响层叠水平，但是，只限于定位元素以及flex盒子的孩子元素；而层叠水平所有的元素都存在。</p>
-<h1 id="层叠顺序"><a href="#层叠顺序" class="headerlink" title="层叠顺序"></a>层叠顺序</h1><p>元素发生层叠时候有着特定的垂直显示顺序，层叠顺序从小到大如下：</p>
-<ol>
-<li>background &#x2F; border</li>
-<li>负z-index</li>
-<li>block块级水平盒子</li>
-<li>float浮动盒子</li>
-<li>inline &#x2F; inline-block水平盒子</li>
-<li>z-index: auto &#x2F; z-index: 0 &#x2F; 不依赖z-index的层叠上下文</li>
-<li>正z-index</li>
-</ol>
-<h1 id="生成层叠上下文"><a href="#生成层叠上下文" class="headerlink" title="生成层叠上下文"></a>生成层叠上下文</h1><ol>
-<li><code>HTML</code>中的根元素<code>&lt;html&gt;&lt;/html&gt;</code>本身就具有层叠上下文，称为“根层叠上下文”；</li>
-<li>普通元素设置<code>position</code>属性为非<code>static</code>值并设置<code>z-index</code>属性为具体数值，产生层叠上下文；</li>
-<li>父元素的display属性值为<code>flex|inline-flex|grid</code>，子元素<code>z-index</code>属性值不为<code>auto</code>的时候，子元素为层叠上下文元素；</li>
-<li>元素的<code>opacity</code>属性值不是<code>1</code>；</li>
-<li>以下任意属性值不为<code>none</code>的元素：<ul>
-<li><code>transform</code></li>
-<li><code>filter</code></li>
-<li><code>backdrop-filter</code></li>
-<li><code>perspective</code></li>
-<li><code>clip-path</code></li>
-<li><code>mask</code> &#x2F; <code>mask-image</code> &#x2F; <code>mask-border</code></li>
+            <h1 id="BFC的概念"><a href="#BFC的概念" class="headerlink" title="BFC的概念"></a>BFC的概念</h1><p>块格式化上下文（Block Formatting Context，BFC）是Web页面的可视化CSS渲染的一部分，是布局过程中生成块级盒子的区域，也是浮动元素与其他元素的交互限定区域。</p>
+<h2 id="通俗理解"><a href="#通俗理解" class="headerlink" title="通俗理解"></a>通俗理解</h2><ul>
+<li>BFC 是一个独立的布局环境,可以理解为一个容器,在这个容器中按照一定规则进行物品摆放,并且<strong>不会影响其它环境中的物品</strong>。</li>
+<li><strong>如果一个元素符合触发 BFC 的条件，则 BFC 中的元素布局不受外部影响。</strong></li>
+<li>浮动元素会创建 BFC，则浮动元素内部子元素主要受该浮动元素影响，所以<strong>两个浮动元素之间是互不影响的</strong>。</li>
 </ul>
-</li>
-<li>元素<code>mix-blend-mode</code>属性值不是<code>normal</code>；</li>
-<li>元素的<code>isolation</code>属性值是<code>isolate</code>；</li>
-<li><code>will-change</code>指定的属性值为上面任意一个；</li>
-<li>元素的<code>-webkit-overflow-scrolling</code>属性值设置为<code>touch</code>。</li>
+<h1 id="生成BFC"><a href="#生成BFC" class="headerlink" title="生成BFC"></a>生成BFC</h1><ol>
+<li>根元素或包含根元素的元素</li>
+<li>浮动元素 float ＝ left | right | inherit<strong>（≠ none）</strong></li>
+<li>绝对定位元素 position ＝ absolute 或 fixed</li>
+<li>display ＝ inline-block | flex | inline-flex | table-cell | table-caption</li>
+<li>overflow ＝ hidden | auto | scroll <strong>(≠ visible)</strong></li>
 </ol>
-<h1 id="层叠上下文的特点"><a href="#层叠上下文的特点" class="headerlink" title="层叠上下文的特点"></a>层叠上下文的特点</h1><ol>
-<li><strong>谁大谁上：</strong>当具有明显的层叠水平标示的时候，如识别的<code>z-indx</code>值，在同一个层叠上下文领域，层叠水平值大的那一个覆盖小的那一个。通俗讲就是官大的压死官小的。</li>
-<li><strong>后来居上：</strong>当元素的层叠水平一致、层叠顺序相同的时候，在DOM流中处于后面的元素会覆盖前面的元素。</li>
-<li>在层叠上下文中，子元素同样也按照上面解释的规则进行层叠。重要的是，其子级层叠上下文的 <code>z-index</code> 值只在父级中才有意义。子级层叠上下文被自动视为父级层叠上下文的一个独立单元。</li>
-<li>层叠上下文可以包含在其他层叠上下文中，并且一起创建一个层叠上下文的层级。</li>
-<li>每个层叠上下文都完全独立于它的兄弟元素：当处理层叠时只考虑子元素。</li>
-<li>每个层叠上下文都是自包含的：当一个元素的内容发生层叠后，该元素将被作为整体在父级层叠上下文中按顺序进行层叠。</li>
+<h1 id="BFC的特性"><a href="#BFC的特性" class="headerlink" title="BFC的特性"></a>BFC的特性</h1><ol>
+<li>BFC 是一个独立的容器，容器内子元素不会影响容器外的元素。反之亦如此。</li>
+<li>盒子从顶端开始垂直地一个接一个地排列，盒子之间垂直的间距是由 margin 决定的。</li>
+<li>在同一个 BFC 中，两个相邻的块级盒子的<strong>垂直外边距</strong>会发生重叠。</li>
+<li><strong>BFC 区域不会和 float box 发生重叠。</strong></li>
+<li><strong>BFC 能够识别并包含浮动元素，当计算其区域的高度时，浮动元素也可以参与计算了。</strong></li>
 </ol>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ol>
-<li>先看要比较的两个元素是否处于同一个层叠上下文中。如果是，谁的层叠水平大，谁在上面。 </li>
-<li>如果两个元素不在同一层叠上下文中，请先比较他们所处的层叠上下文的层叠水平。 当两个元素层叠水平相同、层叠顺序相同时，在DOM结构中后面的元素层叠等级在前面元素之上。</li>
-</ol>
-<p><a class="link"   target="_blank" rel="noopener" href="https://www.zhangxinxu.com/wordpress/2016/01/understand-css-stacking-context-order-z-index/" >参考<i class="fas fa-external-link-alt"></i></a></p>
+<h1 id="BFC的作用"><a href="#BFC的作用" class="headerlink" title="BFC的作用"></a>BFC的作用</h1><h2 id="清除浮动"><a href="#清除浮动" class="headerlink" title="清除浮动"></a>清除浮动</h2><ul>
+<li>浮动元素会脱离文档流(绝对定位元素也会脱离文档流)，导致无法计算准确的高度，这种问题称为<strong>高度塌陷</strong>。</li>
+<li>解决高度塌陷问题的前提是能够识别并包含浮动元素，也就是<strong>清除浮动</strong>。</li>
+</ul>
+<p>清除方法：<strong>创建BFC</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;container&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;Sibling&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;Sibling&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span> &#123; </span><br><span class="line">  <span class="attribute">overflow</span>: hidden; <span class="comment">/* 生成BFC */</span></span><br><span class="line">  <span class="attribute">background-color</span>: green; </span><br><span class="line">&#125; </span><br><span class="line"><span class="selector-class">.container</span> <span class="selector-class">.Sibling</span> &#123; </span><br><span class="line">  <span class="attribute">float</span>: left; </span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">10px</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: lightgreen;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意：通过 <code>overflow: hidden</code> 创建 BFC，固然可以解决高度塌陷的问题，但是大范围应用在布局上肯定<strong>不是最合适的</strong>，毕竟 <code>overflow: hidden</code> 会造成溢出隐藏的问题，尤其是与 JS 的交互效果会有影响。</p>
+<p>改进：使用<code>clear: both</code></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;container clearfix&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;Sibling&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;Sibling&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span> &#123; </span><br><span class="line">  <span class="attribute">background-color</span>: green; </span><br><span class="line">&#125; </span><br><span class="line"><span class="selector-class">.container</span> <span class="selector-class">.Sibling</span> &#123; </span><br><span class="line">  <span class="attribute">float</span>: left; </span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">10px</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: lightgreen;  </span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.clearfix</span><span class="selector-pseudo">::after</span> &#123;</span><br><span class="line">  <span class="attribute">content</span>: <span class="string">&quot;&quot;</span>;</span><br><span class="line">  <span class="attribute">display</span>: block;</span><br><span class="line">  <span class="attribute">clear</span>: both; // 清除浮动</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="避免外边距折叠"><a href="#避免外边距折叠" class="headerlink" title="避免外边距折叠"></a>避免外边距折叠</h2><p><strong>外边距折叠（Margin collapsing）只会发生在属于同一BFC的块级元素之间</strong>。如果它们属于不同的 BFC，它们之间的外边距则不会折叠。所以通过<strong>创建一个不同的 BFC</strong> ，就可以避免外边距折叠。</p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000013647777" >参考<i class="fas fa-external-link-alt"></i></a></p>
 
         </div>
 
@@ -296,11 +283,11 @@
             <div class="post-copyright-info">
                 <div class="article-copyright-info-container">
     <ul>
-        <li>本文标题：层叠上下文</li>
+        <li>本文标题：块级格式化上下文</li>
         <li>本文作者：灵感胜于汗水</li>
-        <li>创建时间：2022-10-17 21:31:54</li>
+        <li>创建时间：2022-10-18 11:31:06</li>
         <li>
-            本文链接：https://cjhsyc.github.io/2022/10/17/层叠上下文/
+            本文链接：https://cjhsyc.github.io/2022/10/18/块级格式化上下文/
         </li>
         <li>
             版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -319,7 +306,7 @@
                     </li>
                 
                     <li class="tag-item">
-                        <a href="/tags/z-index/">#z-index</a>&nbsp;
+                        <a href="/tags/BFC/">#BFC</a>&nbsp;
                     </li>
                 
             </ul>
@@ -328,29 +315,14 @@
         
             <div class="article-nav">
                 
-                    <div class="article-prev">
-                        <a class="prev"
-                           rel="prev"
-                           href="/2022/10/18/%E5%9D%97%E7%BA%A7%E6%A0%BC%E5%BC%8F%E5%8C%96%E4%B8%8A%E4%B8%8B%E6%96%87/"
-                        >
-                            <span class="left arrow-icon flex-center">
-                              <i class="fas fa-chevron-left"></i>
-                            </span>
-                            <span class="title flex-center">
-                                <span class="post-nav-title-item">块级格式化上下文</span>
-                                <span class="post-nav-item">上一篇</span>
-                            </span>
-                        </a>
-                    </div>
-                
                 
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="/2022/10/17/js%E7%BB%A7%E6%89%BF/"
+                           href="/2022/10/17/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">js继承</span>
+                                <span class="post-nav-title-item">层叠上下文</span>
                                 <span class="post-nav-item">下一篇</span>
                             </span>
                             <span class="right arrow-icon flex-center">
@@ -476,7 +448,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87"><span class="nav-number">1.</span> <span class="nav-text">层叠上下文</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B1%82%E5%8F%A0%E6%B0%B4%E5%B9%B3"><span class="nav-number">2.</span> <span class="nav-text">层叠水平</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B1%82%E5%8F%A0%E9%A1%BA%E5%BA%8F"><span class="nav-number">3.</span> <span class="nav-text">层叠顺序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87"><span class="nav-number">4.</span> <span class="nav-text">生成层叠上下文</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-number">5.</span> <span class="nav-text">层叠上下文的特点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#BFC%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">BFC的概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E4%BF%97%E7%90%86%E8%A7%A3"><span class="nav-number">1.1.</span> <span class="nav-text">通俗理解</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%94%9F%E6%88%90BFC"><span class="nav-number">2.</span> <span class="nav-text">生成BFC</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BFC%E7%9A%84%E7%89%B9%E6%80%A7"><span class="nav-number">3.</span> <span class="nav-text">BFC的特性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BFC%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-number">4.</span> <span class="nav-text">BFC的作用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B8%85%E9%99%A4%E6%B5%AE%E5%8A%A8"><span class="nav-number">4.1.</span> <span class="nav-text">清除浮动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%81%BF%E5%85%8D%E5%A4%96%E8%BE%B9%E8%B7%9D%E6%8A%98%E5%8F%A0"><span class="nav-number">4.2.</span> <span class="nav-text">避免外边距折叠</span></a></li></ol></li></ol>
     </div>
 </div>
         </aside>
