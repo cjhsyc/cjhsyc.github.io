@@ -222,7 +222,7 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>1.3k 字</span>
+            <i class="fas fa-file-word"></i>&nbsp;<span>1.6k 字</span>
         </span>
     
     
@@ -244,7 +244,8 @@
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Expires</span>:<span class="title class_">New</span> <span class="title class_">Date</span>(<span class="string">&#x27;2022-03-27 15:08:38&#x27;</span>).<span class="title function_">toUTCString</span>()</span><br></pre></td></tr></table></figure>
 
 <h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><p>这个方式存在一个很大的漏洞，即对本地时间戳过分依赖，如果客户端本地的时间与服务器端的时间不同步，或者对客户端时间进行主动修改，那么对于缓存过期的判断可能就无法和预期相符。</p>
-<h2 id="cache-control"><a href="#cache-control" class="headerlink" title="cache-control"></a>cache-control</h2><h3 id="max-age"><a href="#max-age" class="headerlink" title="max-age"></a>max-age</h3><p>cache-control设置max-age&#x3D;60属性值来控制响应资源的有效期，它是一个以秒为单位的时间长度，表示该资源在被请求到后的60秒内有效，如此便可避免服务器端和客户端时间戳不同步而造成的问题。</p>
+<h2 id="cache-control"><a href="#cache-control" class="headerlink" title="cache-control"></a>cache-control</h2><p><code>Cache-Control</code> 作为<strong>响应头</strong>，用以控制缓存策略，这也是前端 HTTP 缓存策略的基础。</p>
+<h3 id="max-age"><a href="#max-age" class="headerlink" title="max-age"></a>max-age</h3><p>cache-control设置max-age&#x3D;60属性值来控制响应资源的有效期，它是一个以秒为单位的时间长度，表示该资源在被请求到后的60秒内有效，如此便可避免服务器端和客户端时间戳不同步而造成的问题。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cache-<span class="attr">control</span>:max-age=<span class="number">60</span><span class="comment">//滑动时间，单位为秒</span></span><br></pre></td></tr></table></figure>
 
 <p>cache-control还可以配置一些其他属性值，下面介绍。</p>
@@ -276,6 +277,20 @@
 <p>服务器判断if-none-match和此次的etag是否一致。如果一致则只需返回状态码304，表示从缓存中获取数据计可。如果不一致，就需要返回新的数据和etag。</p>
 <h3 id="缺陷-1"><a href="#缺陷-1" class="headerlink" title="缺陷"></a>缺陷</h3><p>一方面，服务器对于生成文件资源的etag需要付出额外的计算开销，如果资源的尺寸较大，数量较多且修改比较频繁，那么生成etag的过程就会影响服务器的性能。</p>
 <p>另一方面，etag字段值的生成分为强验证和弱验证，强验证根据资源内容进行生成，能够保证每个字节都相同;弱验证则根据资源的部分属性值来生成，生成速度快但无法确保每个字节都相同，并且在服务器集群场景下，也会因为不够准确而降低协商缓存有效性验证的成功率，所以恰当的方式是根据具体的资源使用场景选择恰当的缓存校验方式。</p>
+<h1 id="cache-control请求头"><a href="#cache-control请求头" class="headerlink" title="cache-control请求头"></a>cache-control请求头</h1><p><code>Cache-Control</code> 也可以作为<strong>请求头</strong>，以最常见的 <code>no-cache</code> 及 <code>max-age=0</code> 为例，<strong>二者均会重新向服务器发起请求，哪怕该请求已被强缓存</strong>。</p>
+<ul>
+<li><code>Cache-Control: no-cache</code> 作为请求头，表示即便在客户端拥有未过期的缓存，也要向服务器请求获得最新的资源。</li>
+<li><code>Cache-Control: max-age=0</code> 作为请求头，将会验证服务器资源的新鲜度，如果缓存未过期，则利用缓存，返回 304 状态码，否则重新获取资源返回 200 状态码。</li>
+</ul>
+<p><strong>结论：</strong></p>
+<ol>
+<li><p>只有服务端才能开启缓存，默认是不会走缓存的</p>
+</li>
+<li><p>走了强缓存就不会再向服务端发送请求了</p>
+</li>
+<li><p>客户端的请求头中只有设置了cache-control为：’no-store’ | ‘no-cache’ | ‘max-age&#x3D;0’才会生效（也就是客户端不想走强缓存的时候生效），除非后端对这个字段做特殊处理</p>
+</li>
+</ol>
 <p><a class="link"   target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Jr4y1v7Nc?p=5&t=580.1" >参考视频<i class="fas fa-external-link-alt"></i></a></p>
 
         </div>
@@ -460,7 +475,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BC%BA%E5%88%B6%E7%BC%93%E5%AD%98"><span class="nav-number">1.</span> <span class="nav-text">强制缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Expires"><span class="nav-number">1.1.</span> <span class="nav-text">Expires</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%BA%E7%82%B9"><span class="nav-number">1.1.1.</span> <span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cache-control"><span class="nav-number">1.2.</span> <span class="nav-text">cache-control</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#max-age"><span class="nav-number">1.2.1.</span> <span class="nav-text">max-age</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#no-store%E5%92%8Cno-cache"><span class="nav-number">1.2.2.</span> <span class="nav-text">no-store和no-cache</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#public%E5%92%8Cprivate"><span class="nav-number">1.2.3.</span> <span class="nav-text">public和private</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#s-maxage"><span class="nav-number">1.2.4.</span> <span class="nav-text">s-maxage</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%8F%E5%95%86%E7%BC%93%E5%AD%98"><span class="nav-number">2.</span> <span class="nav-text">协商缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#last-modified-x2F-if-modified-since"><span class="nav-number">2.1.</span> <span class="nav-text">last-modified&#x2F;if-modified-since</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%BA%E9%99%B7"><span class="nav-number">2.1.1.</span> <span class="nav-text">缺陷</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#etag%E5%92%8Cif-none-match"><span class="nav-number">2.2.</span> <span class="nav-text">etag和if-none-match</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%BA%E9%99%B7-1"><span class="nav-number">2.2.1.</span> <span class="nav-text">缺陷</span></a></li></ol></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BC%BA%E5%88%B6%E7%BC%93%E5%AD%98"><span class="nav-number">1.</span> <span class="nav-text">强制缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Expires"><span class="nav-number">1.1.</span> <span class="nav-text">Expires</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%BA%E7%82%B9"><span class="nav-number">1.1.1.</span> <span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cache-control"><span class="nav-number">1.2.</span> <span class="nav-text">cache-control</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#max-age"><span class="nav-number">1.2.1.</span> <span class="nav-text">max-age</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#no-store%E5%92%8Cno-cache"><span class="nav-number">1.2.2.</span> <span class="nav-text">no-store和no-cache</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#public%E5%92%8Cprivate"><span class="nav-number">1.2.3.</span> <span class="nav-text">public和private</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#s-maxage"><span class="nav-number">1.2.4.</span> <span class="nav-text">s-maxage</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%8F%E5%95%86%E7%BC%93%E5%AD%98"><span class="nav-number">2.</span> <span class="nav-text">协商缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#last-modified-x2F-if-modified-since"><span class="nav-number">2.1.</span> <span class="nav-text">last-modified&#x2F;if-modified-since</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%BA%E9%99%B7"><span class="nav-number">2.1.1.</span> <span class="nav-text">缺陷</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#etag%E5%92%8Cif-none-match"><span class="nav-number">2.2.</span> <span class="nav-text">etag和if-none-match</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%BA%E9%99%B7-1"><span class="nav-number">2.2.1.</span> <span class="nav-text">缺陷</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cache-control%E8%AF%B7%E6%B1%82%E5%A4%B4"><span class="nav-number">3.</span> <span class="nav-text">cache-control请求头</span></a></li></ol>
     </div>
 </div>
         </aside>
