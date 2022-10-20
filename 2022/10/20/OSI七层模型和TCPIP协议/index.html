@@ -9,7 +9,7 @@
     
     <title>
         
-            OSI七层模型 |
+            OSI七层模型和TCP/IP协议 |
         
         灵感胜于汗水
     </title>
@@ -168,7 +168,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">OSI七层模型</span>
+            <span class="title-hover-animation">OSI七层模型和TCP/IP协议</span>
         </div>
 
         
@@ -208,7 +208,19 @@
             <ul>
                 
                     <li>
-                        <a href="/tags/OSI/">OSI</a>&nbsp;
+                        <a href="/tags/HTTP/">HTTP</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/OSI/">OSI</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/TCP/">TCP</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/IP/">IP</a>&nbsp;
                     </li>
                 
             </ul>
@@ -218,7 +230,7 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>1.3k 字</span>
+            <i class="fas fa-file-word"></i>&nbsp;<span>2.2k 字</span>
         </span>
     
     
@@ -235,24 +247,24 @@
         
 
         <div class="article-content markdown-body">
-            <h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><p>OSI （Open System Interconnect）模型全称为开放式通信系统互连参考模型，是国际标准化组织 ( ISO ) 提出的一个试图使各种计算机在世界范围内互连为网络的标准框架。</p>
+            <h1 id="OSI"><a href="#OSI" class="headerlink" title="OSI"></a>OSI</h1><p>OSI （Open System Interconnect）模型全称为开放式通信系统互连参考模型，是国际标准化组织 ( ISO ) 提出的一个试图使各种计算机在世界范围内互连为网络的标准框架。</p>
 <p><code>OSI</code>将计算机网络体系结构划分为七层，每一层实现各自的功能和协议，并完成与相邻层的接口通信。即每一层扮演固定的角色，互不打扰。</p>
 <p><code>OSI</code>主要划分了七层，如下</p>
-<h1 id="应用层"><a href="#应用层" class="headerlink" title="应用层"></a>应用层</h1><p>应用层位于 OSI 参考模型的第七层，其作用是通过应用程序间的交互来完成特定的网络应用</p>
+<h2 id="应用层"><a href="#应用层" class="headerlink" title="应用层"></a>应用层</h2><p>应用层位于 OSI 参考模型的第七层，其作用是通过应用程序间的交互来完成特定的网络应用</p>
 <p>该层协议定义了应用进程之间的交互规则，通过不同的应用层协议为不同的网络应用提供服务。例如域名系统 <code>DNS</code>，支持万维网应用的 <code>HTTP</code> 协议，电子邮件系统采用的 <code>SMTP</code>协议等</p>
 <p>在应用层交互的数据单元我们称之为报文</p>
-<h1 id="表示层"><a href="#表示层" class="headerlink" title="表示层"></a>表示层</h1><p>表示层的作用是使通信的应用程序能够解释交换数据的含义，其位于 <code>OSI</code>参考模型的第六层，向上为应用层提供服务，向下接收来自会话层的服务</p>
+<h2 id="表示层"><a href="#表示层" class="headerlink" title="表示层"></a>表示层</h2><p>表示层的作用是使通信的应用程序能够解释交换数据的含义，其位于 <code>OSI</code>参考模型的第六层，向上为应用层提供服务，向下接收来自会话层的服务</p>
 <p>该层提供的服务主要包括数据压缩，数据加密以及数据描述，使应用程序不必担心在各台计算机中表示和存储的内部格式差异</p>
-<h1 id="会话层"><a href="#会话层" class="headerlink" title="会话层"></a>会话层</h1><p>会话层就是负责建立、管理和终止表示层实体之间的通信会话</p>
+<h2 id="会话层"><a href="#会话层" class="headerlink" title="会话层"></a>会话层</h2><p>会话层就是负责建立、管理和终止表示层实体之间的通信会话</p>
 <p>该层提供了数据交换的定界和同步功能，包括了建立检查点和恢复方案的方法</p>
-<h1 id="传输层"><a href="#传输层" class="headerlink" title="传输层"></a>传输层</h1><p>传输层的主要任务是为两台主机进程之间的通信提供服务，处理数据包错误、数据包次序，以及其他一些关键传输问题</p>
+<h2 id="传输层"><a href="#传输层" class="headerlink" title="传输层"></a>传输层</h2><p>传输层的主要任务是为两台主机进程之间的通信提供服务，处理数据包错误、数据包次序，以及其他一些关键传输问题</p>
 <p>传输层向高层屏蔽了下层数据通信的细节。因此，它是计算机通信体系结构中关键的一层</p>
 <p>其中，主要的传输层协议是<code>TCP</code>和<code>UDP</code></p>
-<h1 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h1><p>两台计算机之间传送数据时其通信链路往往不止一条，所传输的信息甚至可能经过很多通信子网</p>
+<h2 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h2><p>两台计算机之间传送数据时其通信链路往往不止一条，所传输的信息甚至可能经过很多通信子网</p>
 <p>网络层的主要任务就是选择合适的网间路由和交换节点，确保数据按时成功传送</p>
 <p>在发送数据时，网络层把传输层产生的报文或用户数据报封装成分组和包，向下传输到数据链路层</p>
 <p>在网络层使用的协议是无连接的网际协议（Internet Protocol）和许多路由协议，因此我们通常把该层简单地称为 IP 层</p>
-<h1 id="数据链路层"><a href="#数据链路层" class="headerlink" title="数据链路层"></a>数据链路层</h1><p>数据链路层通常也叫做链路层，在物理层和网络层之间。两台主机之间的数据传输，总是在一段一段的链路上传送的，这就需要使用专门的链路层协议</p>
+<h2 id="数据链路层"><a href="#数据链路层" class="headerlink" title="数据链路层"></a>数据链路层</h2><p>数据链路层通常也叫做链路层，在物理层和网络层之间。两台主机之间的数据传输，总是在一段一段的链路上传送的，这就需要使用专门的链路层协议</p>
 <p>在两个相邻节点之间传送数据时，数据链路层将网络层交下来的 <code>IP</code>数据报组装成帧，在两个相邻节点间的链路上传送帧</p>
 <p>每一帧的数据可以分成：报头<code>head</code>和数据<code>data</code>两部分:</p>
 <ul>
@@ -260,10 +272,10 @@
 <li>data 存储了计算机之间交互的数据</li>
 </ul>
 <p>通过控制信息我们可以知道一个帧的起止比特位置，此外，也能使接收端检测出所收到的帧有无差错，如果发现差错，数据链路层能够简单的丢弃掉这个帧，以避免继续占用网络资源</p>
-<h1 id="物理层"><a href="#物理层" class="headerlink" title="物理层"></a>物理层</h1><p>作为<code>OSI</code> 参考模型中最低的一层，物理层的作用是实现计算机节点之间比特流的透明传送</p>
+<h2 id="物理层"><a href="#物理层" class="headerlink" title="物理层"></a>物理层</h2><p>作为<code>OSI</code> 参考模型中最低的一层，物理层的作用是实现计算机节点之间比特流的透明传送</p>
 <p>该层的主要任务是确定与传输媒体的接口的一些特性（机械特性、电气特性、功能特性，过程特性）</p>
 <p>该层主要是和硬件有关，与软件关系不大</p>
-<h1 id="传输过程"><a href="#传输过程" class="headerlink" title="传输过程"></a>传输过程</h1><ul>
+<h2 id="传输过程"><a href="#传输过程" class="headerlink" title="传输过程"></a>传输过程</h2><ul>
 <li>应用层报文被传送到运输层</li>
 <li>在最简单的情况下，运输层收取到报文并附上附加信息，该首部将被接收端的运输层使用</li>
 <li>应用层报文和运输层首部信息一道构成了运输层报文段。附加的信息可能包括：允许接收端运输层向上向适当的应用程序交付报文的信息以及差错检测位信息。该信息让接收端能够判断报文中的比特是否在途中已被改变</li>
@@ -272,6 +284,63 @@
 <li>在物理层数据帧被封装成比特流，之后通过传输介质传送到对端</li>
 <li>对端再一步步解开封装，获取到传送的数据</li>
 </ul>
+<h1 id="TCP-x2F-IP协议"><a href="#TCP-x2F-IP协议" class="headerlink" title="TCP&#x2F;IP协议"></a>TCP&#x2F;IP协议</h1><p>TCP&#x2F;IP，<strong>传输控制协议</strong>&#x2F;<strong>网际协议</strong>，是指能够在多个不同网络间实现信息传输的协议簇。</p>
+<ul>
+<li><p>TCP（传输控制协议）</p>
+<p>一种面向连接的、可靠的、基于字节流的传输层通信协议</p>
+</li>
+<li><p>IP（网际协议）</p>
+<p>用于封包交换数据网络的协议</p>
+</li>
+</ul>
+<p>TCP&#x2F;IP协议不仅仅指的是<code>TCP</code>和<code>IP</code>两个协议，而是指一个由<code>FTP</code>、<code>SMTP</code>、<code>TCP</code>、<code>UDP</code>、<code>IP</code>等协议构成的协议簇，只是因为在<code>TCP/IP</code>协议中<code>TCP</code>协议和<code>IP</code>协议最具代表性，所以通称为TCP&#x2F;IP协议族（英语：TCP&#x2F;IP Protocol Suite，或TCP&#x2F;IP Protocols）</p>
+<h2 id="划分"><a href="#划分" class="headerlink" title="划分"></a>划分</h2><p>TCP&#x2F;IP协议族按层次分别了五层体系或者四层体系：</p>
+<p>五层体系的协议结构是综合了 OSI 和 TCP&#x2F;IP 优点的一种协议，包括应用层、传输层、网络层、数据链路层和物理层。</p>
+<p>五层协议的体系结构只是为介绍网络原理而设计的，实际应用还是 TCP&#x2F;IP 四层体系结构，包括应用层、传输层、网络层（网际互联层）、网络接口层。</p>
+<h2 id="五层体系"><a href="#五层体系" class="headerlink" title="五层体系"></a>五层体系</h2><h3 id="应用层-1"><a href="#应用层-1" class="headerlink" title="应用层"></a>应用层</h3><p><code>TCP/IP</code> 模型将 <code>OSI</code>参考模型中的会话层、表示层和应用层的功能合并到一个应用层实现，通过不同的应用层协议为不同的应用提供服务</p>
+<p>如：<code>FTP</code>、<code>Telnet</code>、<code>DNS</code>、<code>SMTP</code> 等</p>
+<h3 id="传输层-1"><a href="#传输层-1" class="headerlink" title="传输层"></a>传输层</h3><p>该层对应于 OSI 参考模型的传输层，为上层实体提供源端到对端主机的通信功能</p>
+<p>传输层定义了两个主要协议：传输控制协议（TCP）和用户数据报协议（UDP）</p>
+<p>其中面向连接的 TCP 协议保证了数据的传输可靠性，面向无连接的 UDP 协议能够实现数据包简单、快速地传输</p>
+<h3 id="网络层-1"><a href="#网络层-1" class="headerlink" title="网络层"></a>网络层</h3><p>负责为分组网络中的不同主机提供通信服务，并通过选择合适的路由将数据传递到目标主机</p>
+<p>在发送数据时，网络层把运输层产生的报文段或用户数据封装成分组或包进行传送</p>
+<h3 id="数据链路层-1"><a href="#数据链路层-1" class="headerlink" title="数据链路层"></a>数据链路层</h3><p>数据链路层在两个相邻节点传输数据时，将网络层交下来的IP数据报组装成帧，在两个相邻节点之间的链路上传送帧</p>
+<h3 id="物理层-1"><a href="#物理层-1" class="headerlink" title="物理层"></a>物理层</h3><p>保数据可以在各种物理媒介上进行传输，为数据的传输提供可靠的环境</p>
+<h2 id="四层体系"><a href="#四层体系" class="headerlink" title="四层体系"></a>四层体系</h2><p>TCP&#x2F;IP 的四层结构则如下表所示：</p>
+<table>
+<thead>
+<tr>
+<th>层次名称</th>
+<th>单位</th>
+<th>功 能</th>
+<th>协 议</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>网络接口层</td>
+<td>帧</td>
+<td>负责实际数据的传输，对应OSI参考模型的下两层</td>
+<td>HDLC（高级链路控制协议）PPP（点对点协议） SLIP（串行线路接口协议）</td>
+</tr>
+<tr>
+<td>网络层</td>
+<td>数据报</td>
+<td>负责网络间的寻址数据传输，对应OSI参考模型的第三层</td>
+<td>IP（网际协议） ICMP（网际控制消息协议）ARP（地址解析协议） RARP（反向地址解析协议）</td>
+</tr>
+<tr>
+<td>传输层</td>
+<td>报文段</td>
+<td>负责提供可靠的传输服务，对应OSI参考模型的第四层</td>
+<td>TCP（控制传输协议） UDP（用户数据报协议）</td>
+</tr>
+<tr>
+<td>应用层</td>
+<td></td>
+<td>负责实现一切与应用程序相关的功能，对应OSI参考模型的上三层</td>
+<td>FTP（文件传输协议） HTTP（超文本传输协议） DNS（域名服务器协议）SMTP（简单邮件传输协议）NFS（网络文件系统协议）</td>
+</tr>
+</tbody></table>
 
         </div>
 
@@ -279,11 +348,11 @@
             <div class="post-copyright-info">
                 <div class="article-copyright-info-container">
     <ul>
-        <li>本文标题：OSI七层模型</li>
+        <li>本文标题：OSI七层模型和TCP/IP协议</li>
         <li>本文作者：灵感胜于汗水</li>
         <li>创建时间：2022-10-20 15:32:08</li>
         <li>
-            本文链接：https://cjhsyc.github.io/2022/10/20/OSI七层模型/
+            本文链接：https://cjhsyc.github.io/2022/10/20/OSI七层模型和TCPIP协议/
         </li>
         <li>
             版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -298,7 +367,19 @@
             <ul class="post-tags-box">
                 
                     <li class="tag-item">
+                        <a href="/tags/HTTP/">#HTTP</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
                         <a href="/tags/OSI/">#OSI</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/TCP/">#TCP</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/IP/">#IP</a>&nbsp;
                     </li>
                 
             </ul>
@@ -440,7 +521,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%B1%82"><span class="nav-number">2.</span> <span class="nav-text">应用层</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A1%A8%E7%A4%BA%E5%B1%82"><span class="nav-number">3.</span> <span class="nav-text">表示层</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BC%9A%E8%AF%9D%E5%B1%82"><span class="nav-number">4.</span> <span class="nav-text">会话层</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BC%A0%E8%BE%93%E5%B1%82"><span class="nav-number">5.</span> <span class="nav-text">传输层</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E5%B1%82"><span class="nav-number">6.</span> <span class="nav-text">网络层</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82"><span class="nav-number">7.</span> <span class="nav-text">数据链路层</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%89%A9%E7%90%86%E5%B1%82"><span class="nav-number">8.</span> <span class="nav-text">物理层</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BC%A0%E8%BE%93%E8%BF%87%E7%A8%8B"><span class="nav-number">9.</span> <span class="nav-text">传输过程</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#OSI"><span class="nav-number">1.</span> <span class="nav-text">OSI</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%B1%82"><span class="nav-number">1.1.</span> <span class="nav-text">应用层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%A8%E7%A4%BA%E5%B1%82"><span class="nav-number">1.2.</span> <span class="nav-text">表示层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%9A%E8%AF%9D%E5%B1%82"><span class="nav-number">1.3.</span> <span class="nav-text">会话层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%A0%E8%BE%93%E5%B1%82"><span class="nav-number">1.4.</span> <span class="nav-text">传输层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E5%B1%82"><span class="nav-number">1.5.</span> <span class="nav-text">网络层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82"><span class="nav-number">1.6.</span> <span class="nav-text">数据链路层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%A9%E7%90%86%E5%B1%82"><span class="nav-number">1.7.</span> <span class="nav-text">物理层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%A0%E8%BE%93%E8%BF%87%E7%A8%8B"><span class="nav-number">1.8.</span> <span class="nav-text">传输过程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TCP-x2F-IP%E5%8D%8F%E8%AE%AE"><span class="nav-number">2.</span> <span class="nav-text">TCP&#x2F;IP协议</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%92%E5%88%86"><span class="nav-number">2.1.</span> <span class="nav-text">划分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E5%B1%82%E4%BD%93%E7%B3%BB"><span class="nav-number">2.2.</span> <span class="nav-text">五层体系</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%B1%82-1"><span class="nav-number">2.2.1.</span> <span class="nav-text">应用层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%A0%E8%BE%93%E5%B1%82-1"><span class="nav-number">2.2.2.</span> <span class="nav-text">传输层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E5%B1%82-1"><span class="nav-number">2.2.3.</span> <span class="nav-text">网络层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82-1"><span class="nav-number">2.2.4.</span> <span class="nav-text">数据链路层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%A9%E7%90%86%E5%B1%82-1"><span class="nav-number">2.2.5.</span> <span class="nav-text">物理层</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E5%B1%82%E4%BD%93%E7%B3%BB"><span class="nav-number">2.3.</span> <span class="nav-text">四层体系</span></a></li></ol></li></ol>
     </div>
 </div>
         </aside>
