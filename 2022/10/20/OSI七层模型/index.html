@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="灵感胜于汗水">
+    
+    <title>
+        
+            OSI七层模型 |
+        
+        灵感胜于汗水
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/cjhsyc/image-hosting@master/头像.677yiujw5980.webp">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"cjhsyc.github.io","root":"/","language":"zh-CN","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"https://cdn.jsdelivr.net/gh/cjhsyc/image-hosting@master/头像.677yiujw5980.webp","favicon":"https://cdn.jsdelivr.net/gh/cjhsyc/image-hosting@master/头像.677yiujw5980.webp","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"https://cdn.jsdelivr.net/gh/cjhsyc/image-hosting@master/罗小黑战记.2g12vx9z84u8.webp","description":null},"scroll":{"progress_bar":{"enable":false},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":true},"lazyload":{"enable":false},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fas fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                灵感胜于汗水
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">OSI七层模型</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="https://cdn.jsdelivr.net/gh/cjhsyc/image-hosting@master/%E5%A4%B4%E5%83%8F.677yiujw5980.webp">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">灵感胜于汗水</span>
+                        
+                            <span class="author-label">Lv4</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2022-10-20 15:32:08</span>
+        <span class="mobile">2022-10-20 15:32</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/OSI/">OSI</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>1.3k 字</span>
+        </span>
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><p>OSI （Open System Interconnect）模型全称为开放式通信系统互连参考模型，是国际标准化组织 ( ISO ) 提出的一个试图使各种计算机在世界范围内互连为网络的标准框架。</p>
+<p><code>OSI</code>将计算机网络体系结构划分为七层，每一层实现各自的功能和协议，并完成与相邻层的接口通信。即每一层扮演固定的角色，互不打扰。</p>
+<p><code>OSI</code>主要划分了七层，如下</p>
+<h1 id="应用层"><a href="#应用层" class="headerlink" title="应用层"></a>应用层</h1><p>应用层位于 OSI 参考模型的第七层，其作用是通过应用程序间的交互来完成特定的网络应用</p>
+<p>该层协议定义了应用进程之间的交互规则，通过不同的应用层协议为不同的网络应用提供服务。例如域名系统 <code>DNS</code>，支持万维网应用的 <code>HTTP</code> 协议，电子邮件系统采用的 <code>SMTP</code>协议等</p>
+<p>在应用层交互的数据单元我们称之为报文</p>
+<h1 id="表示层"><a href="#表示层" class="headerlink" title="表示层"></a>表示层</h1><p>表示层的作用是使通信的应用程序能够解释交换数据的含义，其位于 <code>OSI</code>参考模型的第六层，向上为应用层提供服务，向下接收来自会话层的服务</p>
+<p>该层提供的服务主要包括数据压缩，数据加密以及数据描述，使应用程序不必担心在各台计算机中表示和存储的内部格式差异</p>
+<h1 id="会话层"><a href="#会话层" class="headerlink" title="会话层"></a>会话层</h1><p>会话层就是负责建立、管理和终止表示层实体之间的通信会话</p>
+<p>该层提供了数据交换的定界和同步功能，包括了建立检查点和恢复方案的方法</p>
+<h1 id="传输层"><a href="#传输层" class="headerlink" title="传输层"></a>传输层</h1><p>传输层的主要任务是为两台主机进程之间的通信提供服务，处理数据包错误、数据包次序，以及其他一些关键传输问题</p>
+<p>传输层向高层屏蔽了下层数据通信的细节。因此，它是计算机通信体系结构中关键的一层</p>
+<p>其中，主要的传输层协议是<code>TCP</code>和<code>UDP</code></p>
+<h1 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h1><p>两台计算机之间传送数据时其通信链路往往不止一条，所传输的信息甚至可能经过很多通信子网</p>
+<p>网络层的主要任务就是选择合适的网间路由和交换节点，确保数据按时成功传送</p>
+<p>在发送数据时，网络层把传输层产生的报文或用户数据报封装成分组和包，向下传输到数据链路层</p>
+<p>在网络层使用的协议是无连接的网际协议（Internet Protocol）和许多路由协议，因此我们通常把该层简单地称为 IP 层</p>
+<h1 id="数据链路层"><a href="#数据链路层" class="headerlink" title="数据链路层"></a>数据链路层</h1><p>数据链路层通常也叫做链路层，在物理层和网络层之间。两台主机之间的数据传输，总是在一段一段的链路上传送的，这就需要使用专门的链路层协议</p>
+<p>在两个相邻节点之间传送数据时，数据链路层将网络层交下来的 <code>IP</code>数据报组装成帧，在两个相邻节点间的链路上传送帧</p>
+<p>每一帧的数据可以分成：报头<code>head</code>和数据<code>data</code>两部分:</p>
+<ul>
+<li>head 标明数据发送者、接受者、数据类型，如 MAC地址</li>
+<li>data 存储了计算机之间交互的数据</li>
+</ul>
+<p>通过控制信息我们可以知道一个帧的起止比特位置，此外，也能使接收端检测出所收到的帧有无差错，如果发现差错，数据链路层能够简单的丢弃掉这个帧，以避免继续占用网络资源</p>
+<h1 id="物理层"><a href="#物理层" class="headerlink" title="物理层"></a>物理层</h1><p>作为<code>OSI</code> 参考模型中最低的一层，物理层的作用是实现计算机节点之间比特流的透明传送</p>
+<p>该层的主要任务是确定与传输媒体的接口的一些特性（机械特性、电气特性、功能特性，过程特性）</p>
+<p>该层主要是和硬件有关，与软件关系不大</p>
+<h1 id="传输过程"><a href="#传输过程" class="headerlink" title="传输过程"></a>传输过程</h1><ul>
+<li>应用层报文被传送到运输层</li>
+<li>在最简单的情况下，运输层收取到报文并附上附加信息，该首部将被接收端的运输层使用</li>
+<li>应用层报文和运输层首部信息一道构成了运输层报文段。附加的信息可能包括：允许接收端运输层向上向适当的应用程序交付报文的信息以及差错检测位信息。该信息让接收端能够判断报文中的比特是否在途中已被改变</li>
+<li>运输层则向网络层传递该报文段，网络层增加了如源和目的端系统地址等网络层首部信息，生成了网络层数据报</li>
+<li>网络层数据报接下来被传递给链路层，在数据链路层数据包添加发送端 MAC 地址和接收端 MAC 地址后被封装成数据帧</li>
+<li>在物理层数据帧被封装成比特流，之后通过传输介质传送到对端</li>
+<li>对端再一步步解开封装，获取到传送的数据</li>
+</ul>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：OSI七层模型</li>
+        <li>本文作者：灵感胜于汗水</li>
+        <li>创建时间：2022-10-20 15:32:08</li>
+        <li>
+            本文链接：https://cjhsyc.github.io/2022/10/20/OSI七层模型/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/OSI/">#OSI</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2022/10/20/%E9%97%AD%E5%8C%85%E4%B8%8E%E4%BD%9C%E7%94%A8%E5%9F%9F/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">闭包与作用域</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2022&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">灵感胜于汗水</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%B1%82"><span class="nav-number">2.</span> <span class="nav-text">应用层</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A1%A8%E7%A4%BA%E5%B1%82"><span class="nav-number">3.</span> <span class="nav-text">表示层</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BC%9A%E8%AF%9D%E5%B1%82"><span class="nav-number">4.</span> <span class="nav-text">会话层</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BC%A0%E8%BE%93%E5%B1%82"><span class="nav-number">5.</span> <span class="nav-text">传输层</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E5%B1%82"><span class="nav-number">6.</span> <span class="nav-text">网络层</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82"><span class="nav-number">7.</span> <span class="nav-text">数据链路层</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%89%A9%E7%90%86%E5%B1%82"><span class="nav-number">8.</span> <span class="nav-text">物理层</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BC%A0%E8%BE%93%E8%BF%87%E7%A8%8B"><span class="nav-number">9.</span> <span class="nav-text">传输过程</span></a></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>
