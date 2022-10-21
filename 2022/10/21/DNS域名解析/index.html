@@ -191,9 +191,35 @@
         <span class="mobile">2022-10-21 16:26</span>
     </span>
     
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/DNS/">DNS</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
     
 
     
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>888 字</span>
+        </span>
     
     
     
@@ -209,7 +235,49 @@
         
 
         <div class="article-content markdown-body">
-            
+            <h1 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h1><p>DNS（Domain Names System），域名系统，是互联网一项服务，是进行域名和与之相对应的 IP 地址进行转换的服务器。</p>
+<p>简单来讲，<code>DNS</code>相当于一个翻译官，负责将域名翻译成<code>ip</code>地址。</p>
+<ul>
+<li>IP 地址：一长串能够唯一地标记网络上的计算机的数字</li>
+<li>域名：是由一串用点分隔的名字组成的 Internet 上某一台计算机或计算机组的名称，用于在数据传输时对计算机的定位标识</li>
+</ul>
+<h1 id="域名"><a href="#域名" class="headerlink" title="域名"></a>域名</h1><p>域名是一个具有层次的结构，从上到下一次为根域名、顶级域名、二级域名、三级域名…</p>
+<p>例如<code>www.xxx.com</code>，<code>www</code>为三级域名、<code>xxx</code>为二级域名、<code>com</code>为顶级域名，系统为用户做了兼容，域名末尾的根域名<code>.</code>一般不需要输入。</p>
+<p>在域名的每一层都会有一个域名服务器：</p>
+<ul>
+<li>根域名服务器</li>
+<li>顶级域名服务器：com域名服务器、cn域名服务器、edu域名服务器…</li>
+<li>权限域名服务器：abc.com域名服务器、y.abc.com域名服务器…</li>
+<li>本地域名服务器：任何一台主机在网络地址配置时，都会配置一个域名服务器作为默认域名服务器</li>
+</ul>
+<h1 id="查询方式"><a href="#查询方式" class="headerlink" title="查询方式"></a>查询方式</h1><h2 id="递归查询"><a href="#递归查询" class="headerlink" title="递归查询"></a>递归查询</h2><ul>
+<li>本地域名服务器向根域名服务器发起请求</li>
+<li>根域名服务器向顶级域名服务器发起请求</li>
+<li>顶级域名服务器向权限域名服务器发起请求</li>
+<li>权限域名服务器将 IP 地址逐级返回给本地域名服务器</li>
+</ul>
+<h2 id="迭代查询"><a href="#迭代查询" class="headerlink" title="迭代查询"></a>迭代查询</h2><ul>
+<li>首先本地域名服务器向根域名服务器发起请求，根域名服务器返回顶级域名服务器的地址给本地服务器</li>
+<li>本地域名服务器拿到这个顶级域名服务器的地址后，就向其发起请求，获取权限域名服务器的地址</li>
+<li>本地域名服务器根据权限域名服务器的地址向其发起请求，最终得到该域名对应的 IP 地址</li>
+</ul>
+<h1 id="域名缓存"><a href="#域名缓存" class="headerlink" title="域名缓存"></a>域名缓存</h1><p>在域名服务器解析的时候，使用缓存保存域名和<code>IP</code>地址的映射。</p>
+<p>计算机中<code>DNS</code>的记录也分成了两种缓存方式：</p>
+<ul>
+<li>浏览器缓存：浏览器在获取网站域名的实际 IP 地址后会对其进行缓存，减少网络请求的损耗</li>
+<li>操作系统缓存：操作系统的缓存其实是用户自己配置的 <code>hosts</code> 文件</li>
+</ul>
+<h1 id="查询过程"><a href="#查询过程" class="headerlink" title="查询过程"></a>查询过程</h1><p>解析域名的过程如下：</p>
+<ul>
+<li>首先搜索浏览器的 DNS 缓存，缓存中维护一张域名与 IP 地址的对应表</li>
+<li>若没有命中，则继续搜索操作系统的 DNS 缓存</li>
+<li>若仍然没有命中，则操作系统将域名发送至本地域名服务器，本地域名服务器采用递归查询自己的 DNS 缓存，查找成功则返回结果</li>
+<li>若本地域名服务器的 DNS 缓存没有命中，则本地域名服务器向上级域名服务器进行<strong>迭代查询</strong></li>
+<li>本地域名服务器将得到的 IP 地址返回给操作系统，同时自己将 IP 地址缓存起来</li>
+<li>操作系统将 IP 地址返回给浏览器，同时自己也将 IP 地址缓存起</li>
+<li>至此，浏览器就得到了域名对应的 IP 地址，并将 IP 地址缓存起</li>
+</ul>
+
         </div>
 
         
@@ -231,6 +299,14 @@
             </div>
         
 
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/DNS/">#DNS</a>&nbsp;
+                    </li>
+                
+            </ul>
         
 
         
@@ -369,7 +445,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#DNS"><span class="nav-number">1.</span> <span class="nav-text">DNS</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%9F%E5%90%8D"><span class="nav-number">2.</span> <span class="nav-text">域名</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E6%96%B9%E5%BC%8F"><span class="nav-number">3.</span> <span class="nav-text">查询方式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%92%E5%BD%92%E6%9F%A5%E8%AF%A2"><span class="nav-number">3.1.</span> <span class="nav-text">递归查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%AD%E4%BB%A3%E6%9F%A5%E8%AF%A2"><span class="nav-number">3.2.</span> <span class="nav-text">迭代查询</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%9F%E5%90%8D%E7%BC%93%E5%AD%98"><span class="nav-number">4.</span> <span class="nav-text">域名缓存</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E8%BF%87%E7%A8%8B"><span class="nav-number">5.</span> <span class="nav-text">查询过程</span></a></li></ol>
     </div>
 </div>
         </aside>
