@@ -281,7 +281,7 @@
 </li>
 </ul>
 <p>四种防范方法中，<strong>CSRF Token</strong>是最成熟、使用最广泛的方法。</p>
-<h3 id="SameSite-cookies"><a href="#SameSite-cookies" class="headerlink" title="SameSite cookies"></a>SameSite cookies</h3><p><strong><code>SameSite</code></strong> 是 HTTP 响应头 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Set-Cookie"><code>Set-Cookie</code></a> 的属性之一。它允许您声明该 Cookie 是否仅限于第一方或者同一站点上下文。</p>
+<h3 id="SameSite-cookies"><a href="#SameSite-cookies" class="headerlink" title="SameSite cookies"></a>SameSite cookies</h3><p><strong><code>SameSite</code></strong> 是 HTTP 响应头 <code>Set-Cookie</code> 的属性之一。它允许您声明该 Cookie 是否仅限于第一方或者同一站点上下文。</p>
 <p><code>SameSite</code> 接受下面三个值：</p>
 <p><strong><code>Lax</code></strong></p>
 <p>对于从第三方站点以<code>link标签</code>，<code>a标签</code>，<code>GET形式的Form提交</code>这三种方式访问目标系统时，会带上目标系统的Cookie，对于其他方式，如 <code>POST形式的Form提交</code>、<code>AJAX形式的GET</code>、<code>img的src</code>访问目标系统时，不带Cookie。这是浏览器中的默认值。</p>
