@@ -218,7 +218,7 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>2.4k 字</span>
+            <i class="fas fa-file-word"></i>&nbsp;<span>2.7k 字</span>
         </span>
     
     
@@ -293,6 +293,10 @@
 <td align="left">匹配 ‘x’ 但是不记住匹配项。这种括号叫作<em>非捕获括号</em>。</td>
 </tr>
 <tr>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
 <td align="left"><code>x(?=y)</code></td>
 <td align="left">匹配’x’仅仅当’x’后面跟着’y’.这种叫做先行断言。</td>
 </tr>
@@ -305,8 +309,8 @@
 <td align="left">仅仅当’x’后面不跟着’y’时匹配’x’，这被称为正向否定查找。</td>
 </tr>
 <tr>
-<td align="left">&#96;x</td>
-<td align="left">y&#96;</td>
+<td align="left"><code>x|y</code></td>
+<td align="left">匹配‘x’或者‘y’。</td>
 </tr>
 <tr>
 <td align="left"><code>&#123;n&#125;</code></td>
@@ -494,12 +498,23 @@
 <li>大于0的索引：对应所有被记住的子字符串。</li>
 <li><code>index</code>：匹配到的字符位于原始字符串的索引值。</li>
 <li><code>input</code>：初始字符串。</li>
-<li><code>groups</code>：一个命名捕获组对象，其键是名称，值是捕获组。若没有定义命名捕获组，则 <code>groups</code> 的值为 <code>undefined</code>。</li>
+<li><code>groups</code>：一个<strong>命名捕获组</strong>对象，其键是名称，值是捕获组。若没有定义命名捕获组，则 <code>groups</code> 的值为 <code>undefined</code>。</li>
 </ul>
 <p><strong>myRe</strong></p>
 <ul>
 <li><code>lastIndex</code>：开始下一个匹配的起始索引值。（这个属性只有在使用 g 参数时可用）</li>
 </ul>
+<h2 id="命名捕获组"><a href="#命名捕获组" class="headerlink" title="命名捕获组"></a>命名捕获组</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> date = <span class="string">&#x27;10-23-2022&#x27;</span></span><br><span class="line"><span class="keyword">const</span> newDate = date.<span class="title function_">replace</span>(<span class="regexp">/(?&lt;month&gt;\d&#123;2&#125;)-(?&lt;day&gt;\d&#123;2&#125;)-(?&lt;year&gt;\d&#123;4&#125;)/</span>, <span class="string">&quot;$&lt;day&gt;-$&lt;month&gt;-$&lt;year&gt;&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>命名捕获分组很大的一个作用就是它能起到注释的作用。</p>
+<p>名捕获分组自身的语法是 <code>(?&lt;name&gt;...)</code>，比普通的分组多了一个 <code>?&lt;name&gt;</code> 字样，其中 name 的起法就和你平时起变量名一样即可（不过在这里关键字也可用）。</p>
+<p>反向引用一个命名分组的语法是 <code>\k&lt;name&gt;</code>，注意命名分组同样可以通过数字索引来反向引用，比如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/(?&lt;foo&gt;a)\k&lt;foo&gt;\<span class="number">1</span>/.<span class="title function_">test</span>(<span class="string">&quot;aaa&quot;</span>) <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<p>在 replace() 方法的替换字符串中反向引用是用 <code>$&lt;name&gt;</code>：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;abc&quot;</span>.<span class="title function_">replace</span>(<span class="regexp">/(?&lt;foo&gt;a)/</span>, <span class="string">&quot;$&lt;foo&gt;-&quot;</span>) <span class="comment">// &quot;a-bc&quot;，同样 $1 仍然可用</span></span><br></pre></td></tr></table></figure>
+
+<p>总结一下就是，和命名分组相关的有三种语法，分别是 <code>?&lt;name&gt;</code>、<code>\k&lt;name&gt;</code>、<code>$&lt;name&gt;</code>，相同点是都用尖括号包裹着分组名。</p>
 <h2 id="match"><a href="#match" class="headerlink" title="match"></a>match</h2><ul>
 <li>如果使用 g 标志，则将返回与完整正则表达式匹配的所有结果，但不会返回捕获组。</li>
 <li>如果未使用 g 标志，则仅返回第一个完整匹配及其相关的捕获组（<code>Array</code>）。在这种情况下，返回的项目将具有如下所述的其他属性。</li>
@@ -706,7 +721,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">正则表达式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">创建正则表达式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%89%B9%E6%AE%8A%E5%AD%97%E7%AC%A6"><span class="nav-number">3.</span> <span class="nav-text">特殊字符</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A0%87%E5%BF%97"><span class="nav-number">4.</span> <span class="nav-text">标志</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">5.</span> <span class="nav-text">使用正则表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#exec"><span class="nav-number">5.1.</span> <span class="nav-text">exec</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#match"><span class="nav-number">5.2.</span> <span class="nav-text">match</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#matchAll"><span class="nav-number">5.3.</span> <span class="nav-text">matchAll</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%8B%AC%E5%8F%B7%E7%9A%84%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%B9%E9%85%8D"><span class="nav-number">6.</span> <span class="nav-text">使用括号的子字符串匹配</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">正则表达式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">创建正则表达式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%89%B9%E6%AE%8A%E5%AD%97%E7%AC%A6"><span class="nav-number">3.</span> <span class="nav-text">特殊字符</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A0%87%E5%BF%97"><span class="nav-number">4.</span> <span class="nav-text">标志</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">5.</span> <span class="nav-text">使用正则表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#exec"><span class="nav-number">5.1.</span> <span class="nav-text">exec</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%91%BD%E5%90%8D%E6%8D%95%E8%8E%B7%E7%BB%84"><span class="nav-number">5.2.</span> <span class="nav-text">命名捕获组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#match"><span class="nav-number">5.3.</span> <span class="nav-text">match</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#matchAll"><span class="nav-number">5.4.</span> <span class="nav-text">matchAll</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%8B%AC%E5%8F%B7%E7%9A%84%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%B9%E9%85%8D"><span class="nav-number">6.</span> <span class="nav-text">使用括号的子字符串匹配</span></a></li></ol>
     </div>
 </div>
         </aside>
