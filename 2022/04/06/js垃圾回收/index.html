@@ -267,8 +267,8 @@
 <h1 id="V8引擎垃圾回收"><a href="#V8引擎垃圾回收" class="headerlink" title="V8引擎垃圾回收"></a>V8引擎垃圾回收</h1><p>V8是一个由Google开源的采用C++编写的高性能JavaScript和WebAssembly引擎，应用在 Chrome和Node.js等。</p>
 <p>在 V8 中会把堆分为新生代和老生代两个区域，新生代中存放的是生存时间短的对象(大部分对象)，老生代中存放的生存时间久的对象（比如Vue）。</p>
 <p>新生代的内存空间小（16&#x2F;32M），老生代的内存空间大（0.7&#x2F;1.4G）</p>
-<p>新时代的对象被使用很多次之后会被转移到老生代中，老生代使用的垃圾回收机制就是标记清除。</p>
-<p>新时代的垃圾回收机制是<code>Scavenge</code>，<code>Scavenge</code>又是基于cheney算法的：</p>
+<p>新生代的对象被使用很多次之后会被转移到老生代中，老生代使用的垃圾回收机制就是标记清除。</p>
+<p>新生代的垃圾回收机制是<code>Scavenge</code>，<code>Scavenge</code>又是基于cheney算法的：</p>
 <p>cheney算法将内存分为from和to两个区域（各一半），正在使用的对象都存在from中，假如有一个对象被赋值为null（等待垃圾回收）</p>
 <ul>
 <li>将需要被回收的对象留在from中，其他数据转移到to中</li>
