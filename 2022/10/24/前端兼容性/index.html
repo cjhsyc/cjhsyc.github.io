@@ -9,7 +9,7 @@
     
     <title>
         
-            算法与数据结构基础 |
+            前端兼容性 |
         
         灵感胜于汗水
     </title>
@@ -168,7 +168,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">算法与数据结构基础</span>
+            <span class="title-hover-animation">前端兼容性</span>
         </div>
 
         
@@ -187,39 +187,13 @@
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fas fa-edit"></i>&nbsp;
-        <span class="pc">2022-05-17 18:45:31</span>
-        <span class="mobile">2022-05-17 18:45</span>
+        <span class="pc">2022-10-24 13:13:44</span>
+        <span class="mobile">2022-10-24 13:13</span>
     </span>
     
-        <span class="article-categories article-meta-item">
-            <i class="fas fa-folder"></i>&nbsp;
-            <ul>
-                
-                    <li>
-                        <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>&nbsp;
-                    </li>
-                
-            </ul>
-        </span>
-    
-    
-        <span class="article-tags article-meta-item">
-            <i class="fas fa-tags"></i>&nbsp;
-            <ul>
-                
-                    <li>
-                        <a href="/tags/%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6/">时间复杂度</a>&nbsp;
-                    </li>
-                
-            </ul>
-        </span>
     
 
     
-    
-        <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>689 字</span>
-        </span>
     
     
     
@@ -235,43 +209,18 @@
         
 
         <div class="article-content markdown-body">
-            <h1 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h1><h2 id="常数时间的操作"><a href="#常数时间的操作" class="headerlink" title="常数时间的操作"></a>常数时间的操作</h2><ol>
-<li>常见的算术运算(+、-、*、&#x2F;、%等)</li>
-<li>常见的位运算(&gt;&gt;、&gt;&gt;&gt;、&lt;&lt;、|、&amp;、^、~等)</li>
-<li>赋值、比较、自增、自减操作等</li>
-<li>数组寻址操作</li>
-</ol>
-<p>总之，执行时间固定的操作都是常数时间的操作。<br>反之，执行时间不固定的操作，都不是常数时间的操作。</p>
-<h2 id="估算时间复杂度"><a href="#估算时间复杂度" class="headerlink" title="估算时间复杂度"></a>估算时间复杂度</h2><ol>
-<li>想象该算法流程所处理的数据状况，要按照最差情况来。</li>
-<li>把整个流程彻底拆分为一个个基本动作，保证每个动作都是常数时间的操作。</li>
-<li>如果数据量为N，看看基本动作的数量和N是什么关系。</li>
-<li>当完成了表达式的建立，只要把最高阶项留下即可。低阶项都去掉，高阶项的系数也去掉。<br>记为:O(忽略掉系数的高阶项)</li>
-</ol>
-<p>比如：常数时间的操作的次数为<code>xN^2+yN+z</code>,则时间复杂度为O(N^2)</p>
-<h2 id="常见的时间复杂度"><a href="#常见的时间复杂度" class="headerlink" title="常见的时间复杂度"></a>常见的时间复杂度</h2><p>O(1)、O(N)、O(logN)、O(N*logN)、O(N^2)、O(N^3)、O(N^k)、O(2^N)、O(3^N)、O(k^N)、O(N!)</p>
-<h1 id="额外空间复杂度"><a href="#额外空间复杂度" class="headerlink" title="额外空间复杂度"></a>额外空间复杂度</h1><p>你要实现一个算法流程，在实现算法流程的过程中，你需要开辟一些空间来支持你的算法流程。<br>作为输入参数的空间,不算额外空间。<br>作为输出结果的空间，也不算额外空间。<br>因为这些都是必要的、和现实目标有关的。所以都不算。<br>但除此之外，你的流程如果还需要开辟空间才能让你的流程继续下去。这部分空间就是额外空间。如果你的流程只需要开辟有限几个变量，额外空间复杂度就是O(1)。</p>
-<h1 id="最优解"><a href="#最优解" class="headerlink" title="最优解"></a>最优解</h1><p>一般情况下，认为解决一个问题的算法流程,在时间复杂度的指标上，一定要尽可能的低，先满足了时间复杂度最低这个指标之后，使用最少的空间的算法流程，叫这个问题的最优解。<br>一般说起最优解都是忽略掉常数项这个因素的,因为这个因素只决定了实现层次的优化和考虑，而和怎么解决整个问题的思想无关。</p>
-<h1 id="异或运算"><a href="#异或运算" class="headerlink" title="异或运算"></a>异或运算</h1><ol>
-<li><p>不申请额外的存储空间，交换两个整数的值：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">1</span></span><br><span class="line"><span class="keyword">let</span> b = -<span class="number">1</span></span><br><span class="line">a = a ^ b</span><br><span class="line">b = a ^ b</span><br><span class="line">a = a ^ b</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(a) <span class="comment">//-1</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(b) <span class="comment">//1</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>一个数组中有一个数出现了奇数次，其余的数都出现偶数次，找出那个数：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="number">1</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">4</span>,<span class="number">3</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">2</span>]</span><br><span class="line"><span class="keyword">let</span> eor = <span class="number">0</span></span><br><span class="line">arr.<span class="title function_">forEach</span>(<span class="function"><span class="params">value</span> =&gt;</span> &#123;</span><br><span class="line">  eor ^= value</span><br><span class="line">&#125;)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(eor) <span class="comment">//3</span></span><br></pre></td></tr></table></figure></li>
-</ol>
-<p><a class="link"   target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1y34y1v78b?p=46&t=712.8" >参考视频<i class="fas fa-external-link-alt"></i></a></p>
-
+            
         </div>
 
         
             <div class="post-copyright-info">
                 <div class="article-copyright-info-container">
     <ul>
-        <li>本文标题：算法与数据结构基础</li>
+        <li>本文标题：前端兼容性</li>
         <li>本文作者：灵感胜于汗水</li>
-        <li>创建时间：2022-05-17 18:45:31</li>
+        <li>创建时间：2022-10-24 13:13:44</li>
         <li>
-            本文链接：https://cjhsyc.github.io/2022/05/17/算法与数据结构基础/
+            本文链接：https://cjhsyc.github.io/2022/10/24/前端兼容性/
         </li>
         <li>
             版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -283,41 +232,18 @@
         
 
         
-            <ul class="post-tags-box">
-                
-                    <li class="tag-item">
-                        <a href="/tags/%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6/">#时间复杂度</a>&nbsp;
-                    </li>
-                
-            </ul>
-        
 
         
             <div class="article-nav">
-                
-                    <div class="article-prev">
-                        <a class="prev"
-                           rel="prev"
-                           href="/2022/05/19/%E4%BA%8C%E5%8F%89%E6%A0%91/"
-                        >
-                            <span class="left arrow-icon flex-center">
-                              <i class="fas fa-chevron-left"></i>
-                            </span>
-                            <span class="title flex-center">
-                                <span class="post-nav-title-item">二叉树</span>
-                                <span class="post-nav-item">上一篇</span>
-                            </span>
-                        </a>
-                    </div>
                 
                 
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="/2022/05/16/%E9%93%BE%E8%A1%A8/"
+                           href="/2022/10/23/js%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">链表</span>
+                                <span class="post-nav-title-item">js事件循环</span>
                                 <span class="post-nav-item">下一篇</span>
                             </span>
                             <span class="right arrow-icon flex-center">
@@ -443,7 +369,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="nav-number">1.</span> <span class="nav-text">时间复杂度</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E6%95%B0%E6%97%B6%E9%97%B4%E7%9A%84%E6%93%8D%E4%BD%9C"><span class="nav-number">1.1.</span> <span class="nav-text">常数时间的操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%B0%E7%AE%97%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="nav-number">1.2.</span> <span class="nav-text">估算时间复杂度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="nav-number">1.3.</span> <span class="nav-text">常见的时间复杂度</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A2%9D%E5%A4%96%E7%A9%BA%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="nav-number">2.</span> <span class="nav-text">额外空间复杂度</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9C%80%E4%BC%98%E8%A7%A3"><span class="nav-number">3.</span> <span class="nav-text">最优解</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BC%82%E6%88%96%E8%BF%90%E7%AE%97"><span class="nav-number">4.</span> <span class="nav-text">异或运算</span></a></li></ol>
+        
     </div>
 </div>
         </aside>
