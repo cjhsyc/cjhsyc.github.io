@@ -211,11 +211,23 @@
                         <a href="/tags/vite/">vite</a>&nbsp;
                     </li>
                 
+                    <li>
+                        | <a href="/tags/ESM/">ESM</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Webpack/">Webpack</a>&nbsp;
+                    </li>
+                
             </ul>
         </span>
     
 
     
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>2k 字</span>
+        </span>
     
     
     
@@ -231,7 +243,84 @@
         
 
         <div class="article-content markdown-body">
-            
+            <h1 id="Vite"><a href="#Vite" class="headerlink" title="Vite"></a>Vite</h1><p>Vite是一种新型前端构建工具，能够显著提升前端开发体验。它主要由两部分组成：</p>
+<ul>
+<li>一个开发服务器，它基于 原生 ES 模块 提供了 丰富的内建功能，如速度快到惊人的 模块热更新（<code>HMR</code>）。</li>
+<li>一套构建指令，它使用 <code>Rollup</code> 打包你的代码，并且它是预配置的，可输出用于生产环境的高度优化过的静态资源。</li>
+</ul>
+<p>Vite 意在提供开箱即用的配置，同时它的 插件 <code>API</code> 和 <code>JavaScript API</code>带来了高度的可扩展性，并有完整的类型支持。</p>
+<h1 id="冷启动"><a href="#冷启动" class="headerlink" title="冷启动"></a>冷启动</h1><p>Vite 通过在一开始将应用中的模块区分为 <strong>依赖</strong> 和 <strong>源码</strong> 两类，改进了开发服务器启动时间。</p>
+<ul>
+<li><p><strong>依赖</strong> 大多为在开发时不会变动的纯 JavaScript。一些较大的依赖（例如有上百个模块的组件库）处理的代价也很高。依赖也通常会存在多种模块化格式（例如 <code>ESM</code> 或者 <code>CommonJS</code>）。</p>
+<p>Vite 将会使用 <code>esbuild</code> <strong>预构建依赖</strong>。<code>esbuild</code> 使用 Go 编写，并且比以 JavaScript 编写的打包器预构建依赖快 10-100 倍。</p>
+</li>
+<li><p><strong>源码</strong> 通常包含一些并非直接是 JavaScript 的文件，需要转换（例如 <code>JSX</code>，<code>CSS</code> 或者 <code>Vue/Svelte</code> 组件），时常会被编辑。同时，并不是所有的源码都需要同时被加载（例如基于路由拆分的代码模块）。</p>
+<p>Vite 以 原生 <code>ESM</code> 方式提供源码。这实际上是让浏览器接管了打包程序的部分工作：Vite 只需要在浏览器请求源码时进行转换并按需提供源码。根据情景动态导入代码，即只在当前屏幕上实际使用时才会被处理。</p>
+</li>
+</ul>
+<h2 id="生产环境仍需打包"><a href="#生产环境仍需打包" class="headerlink" title="生产环境仍需打包"></a>生产环境仍需打包</h2><p>尽管原生 <code>ESM</code> 现在得到了广泛支持，但由于嵌套导入会导致额外的网络往返，在生产环境中发布未打包的 <code>ESM</code> 仍然效率低下（即使使用 HTTP&#x2F;2）。为了在生产环境中获得最佳的加载性能，最好还是将代码进行 tree-shaking、懒加载和 chunk 分割（以获得更好的缓存）。</p>
+<p>Vite使用<code>Rollup</code>进行生产打包，因此，Vite的主要优势在开发阶段。</p>
+<h1 id="NPM-依赖解析"><a href="#NPM-依赖解析" class="headerlink" title="NPM 依赖解析"></a>NPM 依赖解析</h1><p>原生 ES 导入不支持下面这样的裸模块导入：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; someMethod &#125; <span class="keyword">from</span> <span class="string">&#x27;my-dep&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>上面的代码会在浏览器中抛出一个错误。Vite 将会检测到所有被加载的源文件中的此类裸模块导入，并执行以下操作:</p>
+<ol>
+<li><strong>预构建</strong> 它们可以提高页面加载速度，并将 <code>CommonJS / UMD</code> 转换为 <code>ESM</code> 格式。<strong>预构建</strong>这一步由 <code>esbuild</code> 执行，这使得 Vite 的冷启动时间比任何基于 JavaScript 的打包器都要快得多。</li>
+<li>重写导入为合法的 URL，例如 <code>/node_modules/.vite/deps/my-dep.js?v=f3sf2ebd</code> 以便浏览器能够正确导入它们。</li>
+</ol>
+<p><strong>依赖是强缓存的</strong>，Vite 通过 HTTP 头来缓存请求得到的依赖。</p>
+<h1 id="预构建"><a href="#预构建" class="headerlink" title="预构建"></a>预构建</h1><ol>
+<li><p><strong><code>CommonJS</code> 和 <code>UMD</code> 兼容性:</strong> 开发阶段中，Vite 的开发服务器将所有代码视为原生 ES 模块。因此，Vite 必须先将作为 <code>CommonJS</code> 或 <code>UMD</code> 发布的依赖项转换为 <code>ESM</code>。</p>
+<p>当转换 <code>CommonJS</code> 依赖时，Vite 会执行智能导入分析，这样即使导出是动态分配的（如 React），按名导入也会符合预期效果：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 符合预期</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; useState &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>性能：</strong> Vite 将有许多内部模块的 <code>ESM</code> 依赖关系转换为单个模块，以提高后续页面加载性能。</p>
+<p>一些包将它们的 ES 模块构建作为许多单独的文件相互导入。例如，<code>lodash-es</code> 有超过 600 个内置模块！当我们执行 <code>import &#123; debounce &#125; from &#39;lodash-es&#39;</code> 时，浏览器同时发出 600 多个 HTTP 请求！尽管服务器在处理这些请求时没有问题，但大量的请求会在浏览器端造成网络拥塞，导致页面的加载速度相当慢。</p>
+<p>通过预构建 <code>lodash-es</code> 成为一个模块，就只需要一个 HTTP 请求了。</p>
+</li>
+</ol>
+<p>在服务器已经启动之后，如果遇到一个新的依赖关系导入，而这个依赖关系还没有在缓存中，Vite 将重新运行依赖构建进程并重新加载页面。如果没有找到相应的缓存，Vite 将抓取你的源码，并自动寻找引入的依赖项（即 “bare import”，表示期望从 <code>node_modules</code> 解析），并将这些依赖项作为预构建包的入口点。预构建通过 <code>esbuild</code> 执行，所以它通常非常快。</p>
+<h2 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h2><h3 id="文件系统缓存"><a href="#文件系统缓存" class="headerlink" title="文件系统缓存"></a>文件系统缓存</h3><p>Vite 会将预构建的依赖缓存到 <code>node_modules/.vite</code>。它根据几个源来决定是否需要重新运行预构建步骤:</p>
+<ul>
+<li><code>package.json</code> 中的 <code>dependencies</code> 列表</li>
+<li>包管理器的 <code>lockfile</code>，例如 <code>package-lock.json</code>, <code>yarn.lock</code>，或者 <code>pnpm-lock.yaml</code></li>
+<li>可能在 <code>vite.config.js</code> 相关字段中配置过的</li>
+</ul>
+<p>只有在上述其中一项发生更改时，才需要重新运行预构建。</p>
+<p>如果出于某些原因，你想要强制 Vite 重新构建依赖，你可以用 <code>--force</code> 命令行选项启动开发服务器，或者手动删除 <code>node_modules/.vite</code> 目录。</p>
+<h3 id="浏览器缓存"><a href="#浏览器缓存" class="headerlink" title="浏览器缓存"></a>浏览器缓存</h3><p>解析后的依赖请求会以 HTTP 头 <code>max-age=31536000,immutable</code> 强缓存，以提高在开发时的页面重载性能。一旦被缓存，这些请求将永远不会再到达开发服务器。如果安装了不同的版本（这反映在包管理器的 <code>lockfile</code> 中），则附加的版本 query 会自动使它们失效。如果你想通过本地编辑来调试依赖项，你可以:</p>
+<ol>
+<li>通过浏览器调试工具的 Network 选项卡暂时禁用缓存；</li>
+<li>重启 Vite dev server，并添加 <code>--force</code> 命令以重新构建依赖；</li>
+<li>重新载入页面。</li>
+</ol>
+<h1 id="热更新"><a href="#热更新" class="headerlink" title="热更新"></a>热更新</h1><ul>
+<li><code>vite server</code>：指 <code>vite</code> 在开发时启动的 <code>server</code></li>
+<li><code>vite client</code>：<code>vite dev server</code> 会在 <code>index.html</code> 中，注入路径为 <code>@vite/client</code> 的脚本，这个脚本是运行在浏览器的</li>
+</ul>
+<p>热更新的核心流程：</p>
+<ol>
+<li>修改代码，vite server 监听到代码被修改</li>
+<li>vite 计算出热更新的边界（即受到影响，需要进行更新的模块）</li>
+<li>vite server 通过 websocket 告诉 vite client 需要进行热更新</li>
+<li>浏览器拉取修改后的模块</li>
+<li>执行热更新的代码</li>
+</ol>
+<p>Vite 提供了一套原生 <code>ESM</code> 的 <a target="_blank" rel="noopener" href="https://cn.vitejs.dev/guide/api-hmr.html"><code>HMR API</code></a>。 具有 <code>HMR</code> 功能的框架可以利用该 <code>API</code> 提供即时、准确的更新，而无需重新加载页面或清除应用程序状态。</p>
+<h1 id="TypeScript"><a href="#TypeScript" class="headerlink" title="TypeScript"></a>TypeScript</h1><p>Vite 天然支持引入 <code>.ts</code> 文件。</p>
+<p>Vite 仅执行 <code>.ts</code> 文件的转译工作，并 <strong>不</strong> 执行任何类型检查。并假设类型检查已经被你的 IDE 或构建过程接管了（你可以在构建脚本中运行 <code>tsc --noEmit</code> 或者安装 <code>vue-tsc</code> 然后运行 <code>vue-tsc --noEmit</code> 来对你的 <code>*.vue</code> 文件做类型检查）。</p>
+<p>Vite 使用 <code>esbuild</code> 将 <code>TypeScript</code> 转译到 JavaScript，约是 <code>tsc</code> 速度的 20~30 倍，同时 HMR 更新反映到浏览器的时间小于 50ms。</p>
+<p>使用 仅含类型的导入和导出 形式的语法可以避免潜在的 “仅含类型的导入被不正确打包” 的问题，写法示例如下：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="keyword">type</span> &#123; T &#125; <span class="keyword">from</span> <span class="string">&#x27;only/types&#x27;</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">type</span> &#123; T &#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="与Webpack区别"><a href="#与Webpack区别" class="headerlink" title="与Webpack区别"></a>与Webpack区别</h1><p><code>vite</code>和<code>webpack</code>的主要区别在开发阶段：</p>
+<ul>
+<li><p><code>Webpack</code>基于<code>commonjs</code>，先打包合并然后请求服务器，更改一个模块，其他有依赖关系的模块都会重新打包； </p>
+</li>
+<li><p><code>Vite</code>基于<code>es module</code>，自动向依赖的module发请求，服务端按需编译返回，改动一个模块仅仅会重新请求该模块；</p>
+</li>
+</ul>
+
         </div>
 
         
@@ -258,6 +347,14 @@
                 
                     <li class="tag-item">
                         <a href="/tags/vite/">#vite</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/ESM/">#ESM</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/Webpack/">#Webpack</a>&nbsp;
                     </li>
                 
             </ul>
@@ -414,7 +511,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Vite"><span class="nav-number">1.</span> <span class="nav-text">Vite</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%B7%E5%90%AF%E5%8A%A8"><span class="nav-number">2.</span> <span class="nav-text">冷启动</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E4%BB%8D%E9%9C%80%E6%89%93%E5%8C%85"><span class="nav-number">2.1.</span> <span class="nav-text">生产环境仍需打包</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#NPM-%E4%BE%9D%E8%B5%96%E8%A7%A3%E6%9E%90"><span class="nav-number">3.</span> <span class="nav-text">NPM 依赖解析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A2%84%E6%9E%84%E5%BB%BA"><span class="nav-number">4.</span> <span class="nav-text">预构建</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%93%E5%AD%98"><span class="nav-number">4.1.</span> <span class="nav-text">缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%BC%93%E5%AD%98"><span class="nav-number">4.1.1.</span> <span class="nav-text">文件系统缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E7%BC%93%E5%AD%98"><span class="nav-number">4.1.2.</span> <span class="nav-text">浏览器缓存</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%83%AD%E6%9B%B4%E6%96%B0"><span class="nav-number">5.</span> <span class="nav-text">热更新</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TypeScript"><span class="nav-number">6.</span> <span class="nav-text">TypeScript</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%8EWebpack%E5%8C%BA%E5%88%AB"><span class="nav-number">7.</span> <span class="nav-text">与Webpack区别</span></a></li></ol>
     </div>
 </div>
         </aside>
