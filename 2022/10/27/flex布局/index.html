@@ -9,7 +9,7 @@
     
     <title>
         
-            前端兼容性 |
+            flex布局 |
         
         灵感胜于汗水
     </title>
@@ -168,7 +168,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">前端兼容性</span>
+            <span class="title-hover-animation">flex布局</span>
         </div>
 
         
@@ -187,13 +187,39 @@
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fas fa-edit"></i>&nbsp;
-        <span class="pc">2022-10-24 13:13:44</span>
-        <span class="mobile">2022-10-24 13:13</span>
+        <span class="pc">2022-10-27 17:39:28</span>
+        <span class="mobile">2022-10-27 17:39</span>
     </span>
     
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/css/">css</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/flex/">flex</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
     
 
     
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>1.7k 字</span>
+        </span>
     
     
     
@@ -209,18 +235,87 @@
         
 
         <div class="article-content markdown-body">
-            
+            <h1 id="flexbox"><a href="#flexbox" class="headerlink" title="flexbox"></a>flexbox</h1><p>Flexible Box 模型，通常被称为 flexbox，是一种一维的布局模型。它给 flexbox 的子元素之间提供了强大的空间分布和对齐能力。一个 flexbox 一次只能处理一个维度上的元素布局，一行或者一列。作为对比的是另外一个二维布局 <code>Grid Layout</code>，可以同时处理行和列上的布局。</p>
+<h1 id="轴线"><a href="#轴线" class="headerlink" title="轴线"></a>轴线</h1><p>当使用 flex 布局时，首先想到的是两根轴线 — 主轴和交叉轴。主轴由 <code>flex-direction</code> 定义，另一根轴（交叉轴）垂直于它。我们使用 flexbox 的所有属性都跟这两根轴线有关，所以有必要在一开始首先理解它。</p>
+<h2 id="flex-direction"><a href="#flex-direction" class="headerlink" title="flex-direction"></a>flex-direction</h2><p>主轴由 <code>flex-direction</code> 定义，可以取 4 个值：</p>
+<ul>
+<li><code>row</code></li>
+<li><code>row-reverse</code></li>
+<li><code>column</code></li>
+<li><code>column-reverse</code></li>
+</ul>
+<p>如果你选择了 <code>row</code> 或者 <code>row-reverse</code>，你的主轴将沿着 <strong>inline</strong> 方向（水平）延伸。选择 <code>column</code> 或者 <code>column-reverse</code> 时，你的主轴会沿着垂直方向延伸，也就是 <strong>block 排列的方向。</strong></p>
+<p>理解主轴和交叉轴的概念对于对齐 flexbox 里面的元素是很重要的；flexbox 的特性是沿着主轴或者交叉轴对齐之中的元素。</p>
+<h1 id="Flex容器"><a href="#Flex容器" class="headerlink" title="Flex容器"></a>Flex容器</h1><p>文档中采用了 flexbox 的区域就叫做 flex 容器。为了创建 flex 容器，我们把一个容器的 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/display"><code>display</code></a> 属性值改为 <code>flex</code> 或者 <code>inline-flex</code>。完成这一步之后，容器中的直系子元素就会变为 <strong>flex 元素</strong>。所有 CSS 属性都会有一个初始值，所以 flex 容器中的所有 flex 元素都会有下列行为：</p>
+<ul>
+<li>元素排列为一行 (<code>flex-direction</code> 属性的初始值是 <code>row</code>)。</li>
+<li>元素从主轴的起始线开始。</li>
+<li>元素不会在主轴方向拉伸，但是可以缩小。</li>
+<li>元素被拉伸来填充交叉轴大小。</li>
+<li><code>flex-basis</code> 属性为 <code>auto</code>。</li>
+<li><code>flex-wrap</code> 属性为 <code>nowrap</code>。</li>
+</ul>
+<p>这会让你的元素呈线形排列，并且把自己的大小作为主轴上的大小。如果有太多元素超出容器，它们会溢出而不会换行。如果一些元素比其他元素高，那么元素会沿交叉轴被拉伸来填满它的大小。</p>
+<h1 id="flex-wrap"><a href="#flex-wrap" class="headerlink" title="flex-wrap"></a>flex-wrap</h1><p>虽然<code>flexbox</code>是一维模型，但可以使我们的<code>flex</code>项目应用到多行中。在这样做的时候，您应该把每一行看作一个新的<code>flex</code>容器。任何空间分布都将在该行上发生，而不影响该空间分布的其他行。</p>
+<p>为了实现多行效果，请为属性<code>flex-wrap</code>添加一个属性值<code>wrap</code>。如果您的项目太大而无法全部显示在一行中，则会换行显示。</p>
+<p>于<code>flex-wrap</code>的值设置为<code>wrap</code>，所以项目的子元素换行显示。若将其设置为<code>nowrap</code>，这也是初始值，它们将会缩小以适应容器，因为它们使用的是允许缩小的初始<code>Flexbox</code>值。如果项目的子元素无法缩小，使用<code>nowrap</code>会导致溢出，或者缩小程度还不够小。</p>
+<h1 id="flex-flow-简写属性"><a href="#flex-flow-简写属性" class="headerlink" title="flex-flow 简写属性"></a>flex-flow 简写属性</h1><p>可以将两个属性 <code>flex-direction</code> 和 <code>flex-wrap</code> 组合为简写属性 <code>flex-flow</code>。第一个指定的值为 <code>flex-direction</code> ，第二个指定的值为 <code>flex-wrap</code>。</p>
+<h1 id="flex属性"><a href="#flex属性" class="headerlink" title="flex属性"></a>flex属性</h1><p>为了更好地控制 flex 元素，有三个属性可以作用于它们。</p>
+<h2 id="flex-basis"><a href="#flex-basis" class="headerlink" title="flex-basis"></a>flex-basis</h2><p><code>flex-basis</code> 定义了该元素的<strong>空间大小</strong>，flex 容器里除了元素所占的空间以外的富余空间就是<strong>可用空间</strong>。该属性的默认值是 <code>auto</code> 。此时，浏览器会检测这个元素是否具有确定的尺寸。如果没有给元素设定尺寸，<code>flex-basis</code> 的值采用元素内容的尺寸。</p>
+<h2 id="flex-grow"><a href="#flex-grow" class="headerlink" title="flex-grow"></a>flex-grow</h2><p><code>flex-grow</code> 若被赋值为一个正整数，flex 元素会以 <code>flex-basis</code> 为基础，沿主轴方向增长尺寸。这会使该元素延展，并占据此方向轴上的可用空间。如果有其他元素也被允许延展，那么他们会各自占据可用空间的一部分。</p>
+<p>flex-grow 属性可以按比例分配空间。一行上有三个元素时，如果第一个元素 <code>flex-grow</code> 值为 2，其他元素值为 1，则第一个元素将占有 2&#x2F;4, 另外两个元素各占有 1&#x2F;4。</p>
+<h2 id="flex-shrink"><a href="#flex-shrink" class="headerlink" title="flex-shrink"></a>flex-shrink</h2><p>与<code>flex-grow</code> 相反，<code>flex-shrink</code>属性是处理 flex 元素收缩的问题。</p>
+<p>如果我们的容器中没有足够排列 flex 元素的空间，那么可以把 flex 元素<code>flex-shrink</code>属性设置为正整数来缩小它所占空间到<code>flex-basis</code>以下。与<code>flex-grow</code>属性一样，可以赋予不同的值来控制 flex 元素收缩的程度 —— 给<code>flex-shrink</code>属性赋予更大的数值可以比赋予小数值的同级元素收缩程度更大。</p>
+<p>在计算 flex 元素收缩的大小时，它的最小尺寸也会被考虑进去，就是说实际上 flex-shrink 属性可能会和 flex-grow 属性表现的不一致。</p>
+<h2 id="flex-简写属性"><a href="#flex-简写属性" class="headerlink" title="flex 简写属性"></a>flex 简写属性</h2><p><code>Flex</code> 简写形式允许你把三个数值按这个顺序书写 ： <code>flex-grow</code>，<code>flex-shrink</code>，<code>flex-basis</code>。</p>
+<p>第一个数值是 <code>flex-grow</code>。赋值为正数的话是让元素增加所占空间。第二个数值是<code>flex-shrink</code> — 正数可以让它缩小所占空间，但是只有在 flex 元素总和超出主轴才会生效。最后一个数值是 <code>flex-basis</code>；flex 元素是在这个基准值的基础上缩放的。</p>
+<p>大多数情况下还可以用预定义的简写形式：</p>
+<ul>
+<li><p><code>flex: initial</code></p>
+<p>是把 flex 元素重置为 Flexbox 的<strong>初始值</strong>，它相当于 <code>flex: 0 1 auto</code>。</p>
+</li>
+<li><p><code>flex: auto</code></p>
+<p>等同于 <code>flex: 1 1 auto</code>。</p>
+</li>
+<li><p><code>flex: none</code></p>
+<p>可以把 flex 元素设置为不可伸缩。它和设置为 <code>flex: 0 0 auto</code> 是一样的。</p>
+</li>
+<li><p><code>flex: &lt;positive-number&gt;</code></p>
+<p>常看到的 <code>flex: 1</code> 或者 <code>flex: 2</code> 等等。它相当于<code>flex: 1 1 0</code>。元素可以在<code>flex-basis</code>为 0 的基础上伸缩。</p>
+</li>
+</ul>
+<h1 id="align-items"><a href="#align-items" class="headerlink" title="align-items"></a>align-items</h1><p><code>align-items</code> 属性可以使元素在交叉轴方向对齐。</p>
+<ul>
+<li><code>stretch</code>：初始值，最高的元素定义了容器的高度。</li>
+<li><code>flex-start</code>：按 flex 容器的顶部对齐。</li>
+<li><code>flex-end</code>：按 flex 容器的尾部对齐。</li>
+<li><code>center</code>：居中对齐。</li>
+</ul>
+<h1 id="justify-content"><a href="#justify-content" class="headerlink" title="justify-content"></a>justify-content</h1><p><code>justify-content</code>属性用来使元素在主轴方向上对齐，主轴方向是通过 <code>flex-direction</code> 设置的方向。</p>
+<ul>
+<li><p><code>flex-start</code>：初始值，元素从容器的起始线排列。</p>
+</li>
+<li><p><code>flex-end</code>：从终止线开始排列。</p>
+</li>
+<li><p><code>center</code>：在中间排列。</p>
+</li>
+<li><p><code>space-between</code>：把元素排列好之后的剩余空间拿出来，平均分配到元素之间，所以元素之间间隔相等。</p>
+</li>
+<li><p><code>space-around</code>：使每个元素的左右空间相等。</p>
+</li>
+</ul>
+
         </div>
 
         
             <div class="post-copyright-info">
                 <div class="article-copyright-info-container">
     <ul>
-        <li>本文标题：前端兼容性</li>
+        <li>本文标题：flex布局</li>
         <li>本文作者：灵感胜于汗水</li>
-        <li>创建时间：2022-10-24 13:13:44</li>
+        <li>创建时间：2022-10-27 17:39:28</li>
         <li>
-            本文链接：https://cjhsyc.github.io/2022/10/24/前端兼容性/
+            本文链接：https://cjhsyc.github.io/2022/10/27/flex布局/
         </li>
         <li>
             版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -232,33 +327,26 @@
         
 
         
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/flex/">#flex</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
 
         
             <div class="article-nav">
-                
-                    <div class="article-prev">
-                        <a class="prev"
-                           rel="prev"
-                           href="/2022/10/24/%E4%BA%8B%E4%BB%B6%E7%9B%91%E5%90%AC%E5%99%A8/"
-                        >
-                            <span class="left arrow-icon flex-center">
-                              <i class="fas fa-chevron-left"></i>
-                            </span>
-                            <span class="title flex-center">
-                                <span class="post-nav-title-item">事件监听器</span>
-                                <span class="post-nav-item">上一篇</span>
-                            </span>
-                        </a>
-                    </div>
                 
                 
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="/2022/10/23/js%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/"
+                           href="/2022/10/27/Promise%E3%80%81Generator%E5%92%8Casync%E5%87%BD%E6%95%B0/"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">js事件循环</span>
+                                <span class="post-nav-title-item">Promise、Generator和async函数</span>
                                 <span class="post-nav-item">下一篇</span>
                             </span>
                             <span class="right arrow-icon flex-center">
@@ -384,7 +472,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#flexbox"><span class="nav-number">1.</span> <span class="nav-text">flexbox</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BD%B4%E7%BA%BF"><span class="nav-number">2.</span> <span class="nav-text">轴线</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#flex-direction"><span class="nav-number">2.1.</span> <span class="nav-text">flex-direction</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Flex%E5%AE%B9%E5%99%A8"><span class="nav-number">3.</span> <span class="nav-text">Flex容器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#flex-wrap"><span class="nav-number">4.</span> <span class="nav-text">flex-wrap</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#flex-flow-%E7%AE%80%E5%86%99%E5%B1%9E%E6%80%A7"><span class="nav-number">5.</span> <span class="nav-text">flex-flow 简写属性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#flex%E5%B1%9E%E6%80%A7"><span class="nav-number">6.</span> <span class="nav-text">flex属性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#flex-basis"><span class="nav-number">6.1.</span> <span class="nav-text">flex-basis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#flex-grow"><span class="nav-number">6.2.</span> <span class="nav-text">flex-grow</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#flex-shrink"><span class="nav-number">6.3.</span> <span class="nav-text">flex-shrink</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#flex-%E7%AE%80%E5%86%99%E5%B1%9E%E6%80%A7"><span class="nav-number">6.4.</span> <span class="nav-text">flex 简写属性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#align-items"><span class="nav-number">7.</span> <span class="nav-text">align-items</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#justify-content"><span class="nav-number">8.</span> <span class="nav-text">justify-content</span></a></li></ol>
     </div>
 </div>
         </aside>
