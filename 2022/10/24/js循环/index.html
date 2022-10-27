@@ -207,7 +207,7 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>1.5k 字</span>
+            <i class="fas fa-file-word"></i>&nbsp;<span>1.6k 字</span>
         </span>
     
     
@@ -282,15 +282,25 @@
 <h1 id="while-循环"><a href="#while-循环" class="headerlink" title="while 循环"></a>while 循环</h1><p>while 循环只要指定条件结果为 true，循环就可以一直执行代码块。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (条件)&#123;</span><br><span class="line">    需要执行的代码</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h1 id="do-…-while-循环"><a href="#do-…-while-循环" class="headerlink" title="do**…** while 循环"></a>do**…** while 循环</h1><p>do**…** while 循环是 while 循环的变体。该循环会在判断条件是否为真之前执行一次代码块，然后如果条件为真的话，就会重复这个循环。</p>
+<h1 id="do-while-循环"><a href="#do-while-循环" class="headerlink" title="do while 循环"></a>do while 循环</h1><p>do**…** while 循环是 while 循环的变体。该循环会在判断条件是否为真之前执行一次代码块，然后如果条件为真的话，就会重复这个循环。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">do</span></span><br><span class="line">&#123;</span><br><span class="line">    需要执行的代码</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">while</span> (条件);</span><br></pre></td></tr></table></figure>
 
-<h1 id="for-…-in-循环"><a href="#for-…-in-循环" class="headerlink" title="for … in 循环"></a>for … in 循环</h1><p>for … in 是在 ES5 中新增的，遍历所有可枚举的属性（包括原型上的），最好只用来循环对象。</p>
+<h1 id="for-in-循环"><a href="#for-in-循环" class="headerlink" title="for in 循环"></a>for in 循环</h1><p>for … in 是在 <code>ES5</code> 中新增的，遍历所有可枚举的属性（包括原型上的），最好只用来循环对象。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> 成员 <span class="keyword">in</span> 对象)&#123;</span><br><span class="line">    循环的代码块</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h1 id="for-…-of-循环"><a href="#for-…-of-循环" class="headerlink" title="for … of 循环"></a>for … of 循环</h1><p>for…of 是在 ES6 中新增的 语句，它遍历一个可迭代的对象。</p>
-<h1 id="forEach-循环"><a href="#forEach-循环" class="headerlink" title="forEach 循环"></a>forEach 循环</h1><p>forEach 是 ES5 提出的，挂载在可迭代对象原型上的方法。forEach是一个遍历器，负责遍历可迭代对象。</p>
-<h1 id="map-循环"><a href="#map-循环" class="headerlink" title="map 循环"></a>map 循环</h1><p>map 和 forEach 一样都是 ES5 提出的 ，map 方法是挂载在 Array 对象的原型上的 。基本用法跟 forEach 方法类似。</p>
+<p>for in 会遍历到对象上的原型方法,如果不想遍历原型方法和属性值，可以在循环内部判断一下,<code>hasOwnPropery</code>方法可以判断某属性是否是该对象的实例属性</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> key <span class="keyword">in</span> object) &#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="title class_">Object</span>.<span class="property">hasOwnProperty</span>.<span class="title function_">call</span>(object, key)) &#123;</span><br><span class="line">    <span class="keyword">const</span> element = object[key];</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>遍历顺序</strong>：先遍历出整数属性（integer properties，按照升序），然后其他属性按照创建时候的顺序遍历出来。</p>
+<h1 id="for-of-循环"><a href="#for-of-循环" class="headerlink" title="for of 循环"></a>for of 循环</h1><p>for…of 是在 <code>ES6</code> 中新增的 语句，它遍历一个可迭代的对象，Object是不行的。</p>
+<h1 id="forEach-循环"><a href="#forEach-循环" class="headerlink" title="forEach 循环"></a>forEach 循环</h1><p><code>forEach</code> 是 <code>ES5</code> 提出的，挂载在可迭代对象原型上的方法。<code>forEach</code>是一个遍历器，负责遍历可迭代对象。</p>
+<h1 id="速度比较"><a href="#速度比较" class="headerlink" title="速度比较"></a>速度比较</h1><p>各循环执行速度从快到慢排序如下：</p>
+<ol>
+<li>for循环、while循环、do while循环</li>
+<li>for of循环</li>
+<li>forEach循环、map循环、reduce循环</li>
+<li>for in循环</li>
+</ol>
 
         </div>
 
@@ -466,7 +476,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%81%8D%E5%8E%86%E5%99%A8"><span class="nav-number">1.</span> <span class="nav-text">遍历器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Symbol-iterator"><span class="nav-number">1.1.</span> <span class="nav-text">Symbol.iterator</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#for-%E5%BE%AA%E7%8E%AF"><span class="nav-number">2.</span> <span class="nav-text">for 循环</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#while-%E5%BE%AA%E7%8E%AF"><span class="nav-number">3.</span> <span class="nav-text">while 循环</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#do-%E2%80%A6-while-%E5%BE%AA%E7%8E%AF"><span class="nav-number">4.</span> <span class="nav-text">do**…** while 循环</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#for-%E2%80%A6-in-%E5%BE%AA%E7%8E%AF"><span class="nav-number">5.</span> <span class="nav-text">for … in 循环</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#for-%E2%80%A6-of-%E5%BE%AA%E7%8E%AF"><span class="nav-number">6.</span> <span class="nav-text">for … of 循环</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#forEach-%E5%BE%AA%E7%8E%AF"><span class="nav-number">7.</span> <span class="nav-text">forEach 循环</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#map-%E5%BE%AA%E7%8E%AF"><span class="nav-number">8.</span> <span class="nav-text">map 循环</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%81%8D%E5%8E%86%E5%99%A8"><span class="nav-number">1.</span> <span class="nav-text">遍历器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Symbol-iterator"><span class="nav-number">1.1.</span> <span class="nav-text">Symbol.iterator</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#for-%E5%BE%AA%E7%8E%AF"><span class="nav-number">2.</span> <span class="nav-text">for 循环</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#while-%E5%BE%AA%E7%8E%AF"><span class="nav-number">3.</span> <span class="nav-text">while 循环</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#do-while-%E5%BE%AA%E7%8E%AF"><span class="nav-number">4.</span> <span class="nav-text">do while 循环</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#for-in-%E5%BE%AA%E7%8E%AF"><span class="nav-number">5.</span> <span class="nav-text">for in 循环</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#for-of-%E5%BE%AA%E7%8E%AF"><span class="nav-number">6.</span> <span class="nav-text">for of 循环</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#forEach-%E5%BE%AA%E7%8E%AF"><span class="nav-number">7.</span> <span class="nav-text">forEach 循环</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%80%9F%E5%BA%A6%E6%AF%94%E8%BE%83"><span class="nav-number">8.</span> <span class="nav-text">速度比较</span></a></li></ol>
     </div>
 </div>
         </aside>
