@@ -239,7 +239,7 @@
         
 
         <div class="article-content markdown-body">
-            <h1 id="响应式"><a href="#响应式" class="headerlink" title="响应式"></a>响应式</h1><p><code>vue2</code>中采用 <code>defineProperty</code>来劫持整个对象，然后进行深度遍历所有属性，给每个属性添加<code>getter</code>和<code>setter</code>，实现响应式</p>
+            <h1 id="响应式"><a href="#响应式" class="headerlink" title="响应式"></a>响应式</h1><p><code>vue2</code>中采用 <code>defineProperty</code>来劫持整个对象，然后进行深度遍历所有属性，给每个属性添加<code>getter</code>和<code>setter</code>，实现响应式；</p>
 <p><code>vue3</code>采用<code>proxy</code>重写了响应式系统，因为<code>proxy</code>可以对整个对象进行监听，所以不需要深度遍历</p>
 <ul>
 <li>可以监听动态属性的添加</li>

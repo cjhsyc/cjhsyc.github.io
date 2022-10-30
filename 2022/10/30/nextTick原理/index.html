@@ -9,7 +9,7 @@
     
     <title>
         
-            虚拟DOM |
+            nextTick原理 |
         
         灵感胜于汗水
     </title>
@@ -168,7 +168,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">虚拟DOM</span>
+            <span class="title-hover-animation">nextTick原理</span>
         </div>
 
         
@@ -187,8 +187,8 @@
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fas fa-edit"></i>&nbsp;
-        <span class="pc">2022-10-30 15:51:22</span>
-        <span class="mobile">2022-10-30 15:51</span>
+        <span class="pc">2022-10-30 16:33:01</span>
+        <span class="mobile">2022-10-30 16:33</span>
     </span>
     
         <span class="article-categories article-meta-item">
@@ -196,7 +196,7 @@
             <ul>
                 
                     <li>
-                        <a href="/categories/JavaScript/">JavaScript</a>&nbsp;
+                        <a href="/categories/vue/">vue</a>&nbsp;
                     </li>
                 
             </ul>
@@ -208,7 +208,7 @@
             <ul>
                 
                     <li>
-                        <a href="/tags/VNode/">VNode</a>&nbsp;
+                        <a href="/tags/nextTick/">nextTick</a>&nbsp;
                     </li>
                 
             </ul>
@@ -218,7 +218,7 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>529 字</span>
+            <i class="fas fa-file-word"></i>&nbsp;<span>589 字</span>
         </span>
     
     
@@ -235,17 +235,30 @@
         
 
         <div class="article-content markdown-body">
-            <h1 id="虚拟DOM"><a href="#虚拟DOM" class="headerlink" title="虚拟DOM"></a>虚拟DOM</h1><p>实际上它只是一层对真实<code>DOM</code>的抽象，以<code>JavaScript</code> 对象 (<code>VNode</code> 节点) 作为基础的树，用对象的属性来描述节点，最终可以通过一系列操作使这棵树映射到真实环境上。</p>
-<p>在<code>Javascript</code>对象中，虚拟<code>DOM</code> 表现为一个 <code>Object</code>对象。并且最少包含标签名 (<code>tag</code>)、属性 (<code>attrs</code>) 和子元素对象 (<code>children</code>) 三个属性，不同框架对这三个属性的命名可能会有差别。</p>
-<p>通过<code>VNode</code>，<code>vue</code>可以对这颗抽象树进行创建节点,删除节点以及修改节点的操作， 经过<code>diff</code>算法得出一些需要修改的最小单位,再更新视图，减少了<code>dom</code>操作，提高了性能。</p>
-<h1 id="为什么需要"><a href="#为什么需要" class="headerlink" title="为什么需要"></a>为什么需要</h1><p><code>DOM</code>是很慢的，其元素非常庞大，页面的性能问题，大部分都是由<code>DOM</code>操作引起的。真实的<code>DOM</code>节点，哪怕一个最简单的<code>div</code>也包含着很多属性。操作<code>DOM</code>的代价仍旧是昂贵的，频繁操作还是会出现页面卡顿，影响用户的体验。</p>
-<p><strong>举个例子：</strong></p>
-<p>你用传统的原生<code>api</code>或<code>jQuery</code>去操作<code>DOM</code>时，浏览器会从构建<code>DOM</code>树开始从头到尾执行一遍流程。当你在一次操作时，需要更新10个<code>DOM</code>节点，浏览器没这么智能，收到第一个更新<code>DOM</code>请求后，并不知道后续还有9次更新操作，因此会马上执行流程，最终执行10次流程。</p>
-<p>而通过<code>VNode</code>，同样更新10个<code>DOM</code>节点，虚拟<code>DOM</code>不会立即操作<code>DOM</code>，而是将这10次更新的<code>diff</code>内容保存到本地的一个<code>js</code>对象中，最终将这个<code>js</code>对象一次性<code>attach</code>到<code>DOM</code>树上，避免大量的无谓计算。</p>
-<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ul>
-<li><code>diff</code>算法：减少 JavaScript 操作真实 DOM 的带来的性能消耗。</li>
-<li>跨平台：抽象了原本的渲染过程，实现了跨平台的能力，而不仅仅局限于浏览器的 DOM，可以是安卓和 <code>IOS</code> 的原生组件，可以是小程序，也可以是各种GUI。</li>
+            <h1 id="NextTick"><a href="#NextTick" class="headerlink" title="NextTick"></a>NextTick</h1><p>官方定义：在下次 DOM 更新循环结束之后执行延迟回调。在修改数据之后立即使用这个方法，获取更新后的 DOM。</p>
+<p>我们可以理解成，<code>Vue</code> 在更新 <code>DOM</code> 时是异步执行的。当数据发生变化，<code>Vue</code>将开启一个异步更新队列，视图需要等队列中所有数据变化完成之后，再统一进行更新。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;num&#125;&#125;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>; i&lt;<span class="number">100000</span>; i++)&#123;</span><br><span class="line">    num = i</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果没有 <code>nextTick</code> 更新机制，那么 <code>num</code> 每次更新值都会触发视图更新(上面这段代码也就是会更新10万次视图)，有了<code>nextTick</code>机制，只需要更新一次，所以<code>nextTick</code>本质是一种优化策略</p>
+<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 类型</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">nextTick</span>(<span class="params">callback?: () =&gt; <span class="built_in">void</span></span>): <span class="title class_">Promise</span>&lt;<span class="built_in">void</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<p>你可以传递一个回调函数作为参数，或者 await 返回的 Promise。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;script setup&gt;</span><br><span class="line">import &#123; ref, nextTick &#125; from &#x27;vue&#x27;</span><br><span class="line"></span><br><span class="line">const count = ref(0)</span><br><span class="line"></span><br><span class="line">async function increment() &#123;</span><br><span class="line">  count.value++</span><br><span class="line"></span><br><span class="line">  // DOM 还未更新</span><br><span class="line">  console.log(document.getElementById(&#x27;counter&#x27;).textContent) // 0</span><br><span class="line"></span><br><span class="line">  await nextTick()</span><br><span class="line">  // DOM 此时已经更新</span><br><span class="line">  console.log(document.getElementById(&#x27;counter&#x27;).textContent) // 1</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;button id=&quot;counter&quot; @click=&quot;increment&quot;&gt;&#123;&#123; count &#125;&#125;&lt;/button&gt;</span><br><span class="line">&lt;/template&gt;</span><br></pre></td></tr></table></figure>
+
+<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p><code>Vue</code>在更新<code>dom</code>时是异步执行的。只要监听到数据变化，<code>Vue</code>将开启一个队列，并缓冲在同一事件循环中发生的所有数据变更。如果同一个<code>watcher</code>被多次触发，只会被推入到队列中一次。这种在缓存时去重对于避免不必要的计算和dom操作是非常重要的。<code>nextTick</code>方法会在队列中加入一个回调函数，确保该函数在前面的<code>dom</code>操作完成后才调用。 </p>
+<p><code>nextTick</code> 主要使用了宏任务和微任务。根据执行环境分别尝试采用：</p>
+<ul>
+<li><code>Promise</code></li>
+<li><code>MutationObserver</code>：微任务，创建并返回一个新的 <code>MutationObserver</code> 它会在指定的 DOM 发生变化时被调用</li>
+<li><code>setImmediate</code>：宏任务，可以用来替代 <code>setTimeout(fn, 0)</code></li>
+<li>如果以上都不行则采用 <code>setTimeout</code></li>
 </ul>
+<p>过程：</p>
+<ol>
+<li>把回调函数放入callbacks等待执行</li>
+<li>根据执行环境，将执行函数放到微任务或者宏任务中</li>
+<li>事件循环到了微任务或者宏任务，执行函数依次执行callbacks中的回调</li>
+</ol>
 
         </div>
 
@@ -253,11 +266,11 @@
             <div class="post-copyright-info">
                 <div class="article-copyright-info-container">
     <ul>
-        <li>本文标题：虚拟DOM</li>
+        <li>本文标题：nextTick原理</li>
         <li>本文作者：灵感胜于汗水</li>
-        <li>创建时间：2022-10-30 15:51:22</li>
+        <li>创建时间：2022-10-30 16:33:01</li>
         <li>
-            本文链接：https://cjhsyc.github.io/2022/10/30/vue中的虚拟DOM/
+            本文链接：https://cjhsyc.github.io/2022/10/30/nextTick原理/
         </li>
         <li>
             版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -272,7 +285,7 @@
             <ul class="post-tags-box">
                 
                     <li class="tag-item">
-                        <a href="/tags/VNode/">#VNode</a>&nbsp;
+                        <a href="/tags/nextTick/">#nextTick</a>&nbsp;
                     </li>
                 
             </ul>
@@ -285,10 +298,10 @@
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="/2022/10/30/vue%E4%B8%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"
+                           href="/2022/10/30/%E8%99%9A%E6%8B%9FDOM/"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">vue中的设计模式</span>
+                                <span class="post-nav-title-item">虚拟DOM</span>
                                 <span class="post-nav-item">下一篇</span>
                             </span>
                             <span class="right arrow-icon flex-center">
@@ -414,7 +427,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%99%9A%E6%8B%9FDOM"><span class="nav-number">1.</span> <span class="nav-text">虚拟DOM</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81"><span class="nav-number">2.</span> <span class="nav-text">为什么需要</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BC%98%E7%82%B9"><span class="nav-number">3.</span> <span class="nav-text">优点</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#NextTick"><span class="nav-number">1.</span> <span class="nav-text">NextTick</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8E%9F%E7%90%86"><span class="nav-number">3.</span> <span class="nav-text">原理</span></a></li></ol>
     </div>
 </div>
         </aside>

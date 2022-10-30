@@ -289,7 +289,48 @@ Git廖雪峰的官方网站-Git教程
                 
 
                 <h3 class="home-article-title">
-                    <a href="/2022/10/30/vue%E4%B8%AD%E7%9A%84%E8%99%9A%E6%8B%9FDOM/">
+                    <a href="/2022/10/30/nextTick%E5%8E%9F%E7%90%86/">
+                        nextTick原理
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        NextTick官方定义：在下次 DOM 更新循环结束之后执行延迟回调。在修改数据之后立即使用这个方法，获取更新后的 DOM。
+我们可以理解成，Vue 在更新 DOM 时是异步执行的。当数据发生变化，Vue将开启一个异步更新队列，视图需要等队列中所有...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Sun Oct 30 2022 16:33:01 GMT+0800">2022-10-30</span></span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fas fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/nextTick/">nextTick</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2022/10/30/nextTick%E5%8E%9F%E7%90%86/">阅读全文&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/2022/10/30/%E8%99%9A%E6%8B%9FDOM/">
                         虚拟DOM
                     </a>
                 </h3>
@@ -320,7 +361,7 @@ Git廖雪峰的官方网站-Git教程
         
     </div>
 
-    <a href="/2022/10/30/vue%E4%B8%AD%E7%9A%84%E8%99%9A%E6%8B%9FDOM/">阅读全文&nbsp;<i class="fas fa-angle-right"></i></a>
+    <a href="/2022/10/30/%E8%99%9A%E6%8B%9FDOM/">阅读全文&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -330,14 +371,17 @@ Git廖雪峰的官方网站-Git教程
                 
 
                 <h3 class="home-article-title">
-                    <a href="/2022/10/30/vue%E4%B8%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
-                        vue中的设计模式
+                    <a href="/2022/10/30/%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85%E6%A8%A1%E5%BC%8F%E5%92%8C%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/">
+                        发布订阅模式和观察者模式
                     </a>
                 </h3>
 
                 <div class="home-article-content markdown-body">
                     
-                        
+                        观察者模式观察者模式定义了对象间的一种一对多的依赖关系，当一个对象的状态发生改变时，所有依赖于它的对象都将得到通知，并自动更新。
+观察者模式属于行为型模式，行为型模式关注的是对象之间的通讯，观察者模式就是观察者和被观察者之间的通讯。
+被观察者：
+12...
                     
                 </div>
 
@@ -346,9 +390,31 @@ Git廖雪峰的官方网站-Git教程
         <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Sun Oct 30 2022 15:47:23 GMT+0800">2022-10-30</span></span>
         
         
+            <span class="home-article-tag">
+                <i class="fas fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/vue/">vue</a>&nbsp;
+                        </li>
+                    
+                        <li>
+                            | 
+                            <a href="/tags/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/">观察者模式</a>&nbsp;
+                        </li>
+                    
+                        <li>
+                            | 
+                            <a href="/tags/%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85%E6%A8%A1%E5%BC%8F/">发布订阅模式</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
     </div>
 
-    <a href="/2022/10/30/vue%E4%B8%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">阅读全文&nbsp;<i class="fas fa-angle-right"></i></a>
+    <a href="/2022/10/30/%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85%E6%A8%A1%E5%BC%8F%E5%92%8C%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/">阅读全文&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -484,6 +550,33 @@ this 关键字是函数运行时自动生成的一个内部对象，只能...
         <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Thu Oct 27 2022 16:58:33 GMT+0800">2022-10-27</span></span>
         
         
+            <span class="home-article-tag">
+                <i class="fas fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/Promise/">Promise</a>&nbsp;
+                        </li>
+                    
+                        <li>
+                            | 
+                            <a href="/tags/Generator/">Generator</a>&nbsp;
+                        </li>
+                    
+                        <li>
+                            | 
+                            <a href="/tags/async/">async</a>&nbsp;
+                        </li>
+                    
+                        <li>
+                            | 
+                            <a href="/tags/await/">await</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
     </div>
 
     <a href="/2022/10/27/Promise%E3%80%81Generator%E5%92%8Casync%E5%87%BD%E6%95%B0/">阅读全文&nbsp;<i class="fas fa-angle-right"></i></a>
@@ -543,34 +636,6 @@ this 关键字是函数运行时自动生成的一个内部对象，只能...
     </div>
 
     <a href="/2022/10/24/js%E5%BE%AA%E7%8E%AF/">阅读全文&nbsp;<i class="fas fa-angle-right"></i></a>
-</div>
-
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                <h3 class="home-article-title">
-                    <a href="/2022/10/24/%E4%BA%8B%E4%BB%B6%E7%9B%91%E5%90%AC%E5%99%A8/">
-                        事件监听器
-                    </a>
-                </h3>
-
-                <div class="home-article-content markdown-body">
-                    
-                        
-                    
-                </div>
-
-                <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Mon Oct 24 2022 18:50:48 GMT+0800">2022-10-24</span></span>
-        
-        
-    </div>
-
-    <a href="/2022/10/24/%E4%BA%8B%E4%BB%B6%E7%9B%91%E5%90%AC%E5%99%A8/">阅读全文&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
