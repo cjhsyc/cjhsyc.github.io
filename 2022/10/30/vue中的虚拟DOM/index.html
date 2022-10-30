@@ -9,7 +9,7 @@
     
     <title>
         
-            分类: 服务端渲染 |
+            虚拟DOM |
         
         灵感胜于汗水
     </title>
@@ -80,7 +80,7 @@
                         </li>
                     
                         <li class="menu-item">
-                            <a class="active"
+                            <a class=""
                                href="/categories"
                             >
                                 分类
@@ -135,7 +135,7 @@
                 </li>
             
                 <li class="drawer-menu-item flex-center">
-                    <a class="active"
+                    <a class=""
                        href="/categories">分类</a>
                 </li>
             
@@ -165,42 +165,142 @@
 
                 
                     <div class="fade-in-down-animation">
-    <div class="category-container">
-        <div class="category-name">
-            <i class="fas fa-folder"></i>&nbsp;服务端渲染
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">虚拟DOM</span>
         </div>
-        <div class="category-post-list">
-            
-<div class="archive-list-container">
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="https://cdn.jsdelivr.net/gh/cjhsyc/image-hosting@master/%E5%A4%B4%E5%83%8F.677yiujw5980.webp">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">灵感胜于汗水</span>
+                        
+                            <span class="author-label">Lv4</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2022-10-30 15:51:22</span>
+        <span class="mobile">2022-10-30 15:51</span>
+    </span>
     
-        <section class="archive-item">
-            <div class="archive-item-header">
-                <span class="archive-year">2022</span>
-                <span class="archive-year-post-count">[1]</span>
-            </div>
-            <ul class="article-list">
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
                 
-                    <li class="article-item">
-                        <a class="article-title"
-                           href="/2022/03/27/Vue%E8%A7%A3%E5%86%B3SEO/"
-                        >Vue解决SEO</a>
-                        <span class="article-date">03-27</span>
+                    <li>
+                        <a href="/categories/JavaScript/">JavaScript</a>&nbsp;
                     </li>
                 
             </ul>
-        </section>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/VNode/">VNode</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>529 字</span>
+        </span>
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
     
 </div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h1 id="虚拟DOM"><a href="#虚拟DOM" class="headerlink" title="虚拟DOM"></a>虚拟DOM</h1><p>实际上它只是一层对真实<code>DOM</code>的抽象，以<code>JavaScript</code> 对象 (<code>VNode</code> 节点) 作为基础的树，用对象的属性来描述节点，最终可以通过一系列操作使这棵树映射到真实环境上。</p>
+<p>在<code>Javascript</code>对象中，虚拟<code>DOM</code> 表现为一个 <code>Object</code>对象。并且最少包含标签名 (<code>tag</code>)、属性 (<code>attrs</code>) 和子元素对象 (<code>children</code>) 三个属性，不同框架对这三个属性的命名可能会有差别。</p>
+<p>通过<code>VNode</code>，<code>vue</code>可以对这颗抽象树进行创建节点,删除节点以及修改节点的操作， 经过<code>diff</code>算法得出一些需要修改的最小单位,再更新视图，减少了<code>dom</code>操作，提高了性能。</p>
+<h1 id="为什么需要"><a href="#为什么需要" class="headerlink" title="为什么需要"></a>为什么需要</h1><p><code>DOM</code>是很慢的，其元素非常庞大，页面的性能问题，大部分都是由<code>DOM</code>操作引起的。真实的<code>DOM</code>节点，哪怕一个最简单的<code>div</code>也包含着很多属性。操作<code>DOM</code>的代价仍旧是昂贵的，频繁操作还是会出现页面卡顿，影响用户的体验。</p>
+<p><strong>举个例子：</strong></p>
+<p>你用传统的原生<code>api</code>或<code>jQuery</code>去操作<code>DOM</code>时，浏览器会从构建<code>DOM</code>树开始从头到尾执行一遍流程。当你在一次操作时，需要更新10个<code>DOM</code>节点，浏览器没这么智能，收到第一个更新<code>DOM</code>请求后，并不知道后续还有9次更新操作，因此会马上执行流程，最终执行10次流程。</p>
+<p>而通过<code>VNode</code>，同样更新10个<code>DOM</code>节点，虚拟<code>DOM</code>不会立即操作<code>DOM</code>，而是将这10次更新的<code>diff</code>内容保存到本地的一个<code>js</code>对象中，最终将这个<code>js</code>对象一次性<code>attach</code>到<code>DOM</code>树上，避免大量的无谓计算。</p>
+<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ul>
+<li><code>diff</code>算法：减少 JavaScript 操作真实 DOM 的带来的性能消耗。</li>
+<li>跨平台：抽象了原本的渲染过程，实现了跨平台的能力，而不仅仅局限于浏览器的 DOM，可以是安卓和 <code>IOS</code> 的原生组件，可以是小程序，也可以是各种GUI。</li>
+</ul>
 
         </div>
-    </div>
-    <div class="category-paginator">
-        <div class="paginator">
-    
 
-    
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：虚拟DOM</li>
+        <li>本文作者：灵感胜于汗水</li>
+        <li>创建时间：2022-10-30 15:51:22</li>
+        <li>
+            本文链接：https://cjhsyc.github.io/2022/10/30/vue中的虚拟DOM/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
 </div>
 
+            </div>
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/VNode/">#VNode</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2022/10/30/vue%E4%B8%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">vue中的设计模式</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
     </div>
 </div>
 
@@ -248,6 +348,23 @@
     </div>
 
     
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
 
     <div class="right-bottom-side-tools">
         <div class="side-tools-container">
@@ -293,6 +410,14 @@
 
     </div>
 
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%99%9A%E6%8B%9FDOM"><span class="nav-number">1.</span> <span class="nav-text">虚拟DOM</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81"><span class="nav-number">2.</span> <span class="nav-text">为什么需要</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BC%98%E7%82%B9"><span class="nav-number">3.</span> <span class="nav-text">优点</span></a></li></ol>
+    </div>
+</div>
+        </aside>
     
 
     <div class="image-viewer-container">
@@ -362,6 +487,14 @@
 
 
 <div class="post-scripts pjax">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
     
 </div>
 

@@ -268,10 +268,10 @@
 <h2 id="编译阶段"><a href="#编译阶段" class="headerlink" title="编译阶段"></a>编译阶段</h2><p>回顾<code>Vue2</code>，我们知道每个组件实例都对应一个 <code>watcher</code> 实例，它会在组件渲染的过程中把用到的数据<code>property</code>记录为依赖，当依赖发生改变，触发<code>setter</code>，则会通知<code>watcher</code>，从而使关联的组件重新渲染。</p>
 <p><code>Vue3</code>在编译阶段，做了进一步优化。主要有如下：</p>
 <ul>
-<li>diff算法优化</li>
+<li><code>diff</code>算法优化</li>
 <li>静态提升</li>
 <li>事件监听缓存</li>
-<li>SSR优化</li>
+<li><code>SSR</code>优化</li>
 </ul>
 <h3 id="diff算法优化"><a href="#diff算法优化" class="headerlink" title="diff算法优化"></a>diff算法优化</h3><p>一个组件结构如下：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">	&lt;div id=&quot;content&quot;&gt;</span><br><span class="line">    &lt;p class=&quot;text&quot;&gt;静态文本&lt;/p&gt;</span><br><span class="line">    &lt;p class=&quot;text&quot;&gt;静态文本&lt;/p&gt;</span><br><span class="line">    &lt;p class=&quot;text&quot;&gt;&#123;&#123; message &#125;&#125;&lt;/p&gt;</span><br><span class="line">    &lt;p class=&quot;text&quot;&gt;静态文本&lt;/p&gt;</span><br><span class="line">    ...</span><br><span class="line">    &lt;p class=&quot;text&quot;&gt;静态文本&lt;/p&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br></pre></td></tr></table></figure>
