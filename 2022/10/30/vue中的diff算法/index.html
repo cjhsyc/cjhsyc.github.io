@@ -203,8 +203,27 @@
         </span>
     
     
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/diff%E7%AE%97%E6%B3%95/">diff算法</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/key/">key</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
 
     
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>1.3k 字</span>
+        </span>
     
     
     
@@ -220,7 +239,63 @@
         
 
         <div class="article-content markdown-body">
-            
+            <h1 id="diff算法"><a href="#diff算法" class="headerlink" title="diff算法"></a>diff算法</h1><p><code>diff</code> 算法是一种通过同层的树节点进行比较的高效算法。</p>
+<p>其有两个特点：</p>
+<ul>
+<li>比较只会在同层级进行, 不会跨层级比较</li>
+<li>在diff比较的过程中，循环从两边向中间比较</li>
+</ul>
+<p><code>diff</code> 算法在很多场景下都有应用，在 <code>vue</code> 中，作用于虚拟 <code>dom</code> 渲染成真实 <code>dom</code> 的新旧 <code>VNode</code> 节点比较。</p>
+<h1 id="比较方式"><a href="#比较方式" class="headerlink" title="比较方式"></a>比较方式</h1><h2 id="传统diff算法"><a href="#传统diff算法" class="headerlink" title="传统diff算法"></a>传统diff算法</h2><p>处理方案: 循环递归每一个节点</p>
+<p>算法复杂度能达到O(n^2) ，查找完差异后还需计算最小转换方式，最终达到的算法复杂度是O(n^3)。</p>
+<blockquote>
+<p>将两颗树中所有的节点一一对比需要O(n²)的复杂度，在对比过程中发现旧节点在新的树中未找到，那么就需要把旧节点删除，删除一棵树的一个节点(找到一个合适的节点放到被删除的位置)的时间复杂度为O(n),同理添加新节点的复杂度也是O(n),合起来diff两个树的复杂度就是O(n³)</p>
+</blockquote>
+<h2 id="优化的diff算法"><a href="#优化的diff算法" class="headerlink" title="优化的diff算法"></a>优化的diff算法</h2><p><code>diff</code>整体策略为：深度优先，同层比较</p>
+<ol>
+<li>比较只会在同层级进行, 不会跨层级比较</li>
+<li>比较的过程中，循环从两边向中间收拢</li>
+</ol>
+<p>时间复杂度为O(n)</p>
+<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>当数据发生改变时，<code>set</code>方法会调用<code>Dep.notify</code>通知所有订阅者<code>Watcher</code>，订阅者就会调用<code>patch</code>给真实的<code>DOM</code>打补丁，更新相应的视图。</p>
+<h2 id="patch"><a href="#patch" class="headerlink" title="patch"></a>patch</h2><p><code>patch</code>函数前两个参数位为<code>oldVnode</code> 和 <code>Vnode</code> ，分别代表新的节点和之前的旧节点，主要做了四个判断：</p>
+<ul>
+<li>没有新节点，直接触发旧节点的<code>destory</code>钩子</li>
+<li>没有旧节点，说明是页面刚开始初始化的时候，此时，根本不需要比较了，直接全是新建，所以只调用 <code>createElm</code></li>
+<li>旧节点和新节点自身一样，通过 <code>sameVnode</code> 判断节点是否一样，一样时，直接调用 <code>patchVnode</code>去处理这两个节点</li>
+<li>旧节点和新节点自身不一样，当两个节点不一样的时候，直接创建新节点，删除旧节点</li>
+</ul>
+<h2 id="patchVnode"><a href="#patchVnode" class="headerlink" title="patchVnode"></a>patchVnode</h2><p><code>patchVnode</code>用来比较两个虚拟节点的子节点并更新其子节点对应的真实Dom节点。</p>
+<p><code>patchVnode</code>主要做了几个判断：</p>
+<ul>
+<li>新节点是否是文本节点，如果是，则直接更新<code>dom</code>的文本内容为新节点的文本内容</li>
+<li>新节点和旧节点如果都有子节点，则处理比较更新子节点</li>
+<li>只有新节点有子节点，旧节点没有，那么不用比较了，所有节点都是全新的，所以直接全部新建就好了，新建是指创建出所有新<code>DOM</code>，并且添加进父节点</li>
+<li>只有旧节点有子节点而新节点没有，说明更新后的页面，旧节点全部都不见了，那么要做的，就是把所有的旧节点删除，也就是直接把<code>DOM</code> 删除</li>
+</ul>
+<p>子节点不完全一致，则调用<code>updateChildren</code></p>
+<h2 id="updateChildren"><a href="#updateChildren" class="headerlink" title="updateChildren"></a>updateChildren</h2><p><code>updateChildren</code>是vue diff的核心。</p>
+<p><code>updateChildren</code>主要做了以下操作：</p>
+<ul>
+<li>设置新旧<code>VNode</code>的头尾指针</li>
+<li>新旧头尾指针进行比较，循环向中间靠拢，根据情况调用<code>patchVnode</code>进行<code>patch</code>重复流程、调用<code>createElem</code>创建一个新节点，从哈希表寻找 <code>key</code>一致的<code>VNode</code> 节点再分情况操作</li>
+</ul>
+<p>过程可以概括为：<code>oldCh</code>和<code>newCh</code>各有两个头尾的变量<code>StartIdx</code>和<code>EndIdx</code>，它们的2个变量相互比较，一共有4种比较方式。如果4种比较都没匹配，如果设置了key，就会用key进行比较，在比较的过程中，变量会往中间靠，一旦<code>StartIdx</code>&gt;<code>EndIdx</code>表明<code>oldCh</code>和<code>newCh</code>至少有一个已经遍历完了，就会结束比较。</p>
+<h1 id="key"><a href="#key" class="headerlink" title="key"></a>key</h1><ol>
+<li>当我们在使用<code>v-for</code>时，需要给单元加上<code>key</code></li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;ul&gt;</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">&quot;item in items&quot;</span> <span class="attr">:key</span>=<span class="string">&quot;item.id&quot;</span>&gt;</span>...<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line">&lt;/ul&gt;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>用<code>+new Date()</code>生成的时间戳作为<code>key</code>，手动强制触发重新渲染</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="title class_">Comp</span> :key=<span class="string">&quot;+new Date()&quot;</span> /&gt;</span><br></pre></td></tr></table></figure>
+
+<p>key是给每一个vnode的唯一id，也是diff的一种优化策略，可以根据key，更准确， 更快的找到对应的vnode节点。</p>
+<h1 id="vue3的diff算法"><a href="#vue3的diff算法" class="headerlink" title="vue3的diff算法"></a>vue3的diff算法</h1><p>Vue3.x借鉴了 ivi算法和 inferno算法。在创建VNode时就确定其类型，以及在mount&#x2F;patch的过程中采用位运算来判断一个VNode的类型，在这个基础之上再配合核心的Diff算法，使得性能上较Vue2.x有了提升。</p>
+<p>该算法中还运用了动态规划的思想求解最长递归子序列。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>由于diff算法对比的是虚拟Dom，而虚拟Dom是呈树状的，所以我们可以发现，diff算法中充满了递归。总结起来，其实diff算法就是一个 patch —&gt; patchVnode —&gt; updateChildren —&gt; patchVnode —&gt; updateChildren —&gt; patchVnode这样的一个循环递归的过程。</p>
+
         </div>
 
         
@@ -242,6 +317,18 @@
             </div>
         
 
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/diff%E7%AE%97%E6%B3%95/">#diff算法</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/key/">#key</a>&nbsp;
+                    </li>
+                
+            </ul>
         
 
         
@@ -395,7 +482,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#diff%E7%AE%97%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">diff算法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%AF%94%E8%BE%83%E6%96%B9%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">比较方式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%A0%E7%BB%9Fdiff%E7%AE%97%E6%B3%95"><span class="nav-number">2.1.</span> <span class="nav-text">传统diff算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E7%9A%84diff%E7%AE%97%E6%B3%95"><span class="nav-number">2.2.</span> <span class="nav-text">优化的diff算法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8E%9F%E7%90%86"><span class="nav-number">3.</span> <span class="nav-text">原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#patch"><span class="nav-number">3.1.</span> <span class="nav-text">patch</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#patchVnode"><span class="nav-number">3.2.</span> <span class="nav-text">patchVnode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#updateChildren"><span class="nav-number">3.3.</span> <span class="nav-text">updateChildren</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#key"><span class="nav-number">4.</span> <span class="nav-text">key</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vue3%E7%9A%84diff%E7%AE%97%E6%B3%95"><span class="nav-number">5.</span> <span class="nav-text">vue3的diff算法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol>
     </div>
 </div>
         </aside>

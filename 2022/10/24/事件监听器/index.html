@@ -211,6 +211,10 @@
                         <a href="/tags/addEventListener/">addEventListener</a>&nbsp;
                     </li>
                 
+                    <li>
+                        | <a href="/tags/removeEventListener/">removeEventListener</a>&nbsp;
+                    </li>
+                
             </ul>
         </span>
     
@@ -218,7 +222,7 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>560 字</span>
+            <i class="fas fa-file-word"></i>&nbsp;<span>1k 字</span>
         </span>
     
     
@@ -269,6 +273,40 @@
 <p>一个布尔值，表示在 DOM 树中注册了 <code>listener</code> 的元素，是否要先于它下面的 <code>EventTarget</code> 调用该 <code>listener</code>。当 useCapture（设为 true）时，沿着 DOM 树向上冒泡的事件不会触发 listener。当一个元素嵌套了另一个元素，并且两个元素都对同一事件注册了一个处理函数时，所发生的事件冒泡和事件捕获是两种不同的事件传播方式。事件传播模式决定了元素以哪个顺序接收事件。如果没有指定，<code>useCapture</code> 默认为 <code>false</code>。</p>
 </li>
 </ul>
+<h1 id="removeEventListener"><a href="#removeEventListener" class="headerlink" title="removeEventListener"></a>removeEventListener</h1><p><code>EventTarget</code> 的 <strong><code>removeEventListener()</code></strong> 方法可以删除使用 <code>EventTarget.addEventListener()</code> 方法添加的事件。可以使用事件类型，事件侦听器函数本身，以及可能影响匹配过程的各种可选择的选项的组合来标识要删除的事件侦听器。</p>
+<p>调用 <code>removeEventListener()</code> 时，若传入的参数不能用于确定当前注册过的任何一个事件监听器，该函数不会起任何作用。</p>
+<p>使用：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">removeEventListener</span>(type, listener);</span><br><span class="line"><span class="title function_">removeEventListener</span>(type, listener, options);</span><br><span class="line"><span class="title function_">removeEventListener</span>(type, listener, useCapture);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>type</code></li>
+</ul>
+<p>一个字符串，表示需要移除的事件类型。</p>
+<ul>
+<li><code>listener</code></li>
+</ul>
+<p>需要从目标事件移除的事件监听器函数。</p>
+<ul>
+<li><p><code>options</code> (可选)</p>
+<p>一个指定事件侦听器特征的可选对象。可选项有：</p>
+<ul>
+<li><code>capture</code>: 一个布尔值，指定需要移除的事件监听器函数是否为捕获监听器。如果未指定此参数，默认值为 <code>false</code>。</li>
+</ul>
+</li>
+<li><p><code>useCapture</code> (可选)</p>
+</li>
+</ul>
+<p>一个布尔值，指定需要移除的事件监听器函数是否为捕获监听器。如果未指定此参数，默认值为 <code>false</code>。</p>
+<p>例子1：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">element.<span class="title function_">addEventListener</span>(<span class="string">&quot;mousedown&quot;</span>, handleMouseDown, <span class="literal">true</span>);</span><br><span class="line">element.<span class="title function_">removeEventListener</span>(<span class="string">&quot;mousedown&quot;</span>, handleMouseDown, <span class="literal">false</span>);     <span class="comment">// 失败</span></span><br><span class="line">element.<span class="title function_">removeEventListener</span>(<span class="string">&quot;mousedown&quot;</span>, handleMouseDown, <span class="literal">true</span>);      <span class="comment">// 成功</span></span><br></pre></td></tr></table></figure>
+
+<p>第一个调用失败是因为 <code>useCapture</code> 没有匹配。第二个调用成功，是因为 <code>useCapture</code> 匹配相同。</p>
+<p>例子2：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">element.<span class="title function_">addEventListener</span>(<span class="string">&quot;mousedown&quot;</span>, handleMouseDown, &#123; <span class="attr">passive</span>: <span class="literal">true</span> &#125;);</span><br></pre></td></tr></table></figure>
+
+<p>这里，我们在 <code>options</code> 对象里将 <code>passive</code> 设成 <code>true</code>，其他 <code>options</code> 配置都是默认值 <code>false</code>。</p>
+<p>现在我们看下下面的 <code>removeEventListener()</code>。当配置 <code>capture</code> 或 <code>useCapture</code> 为 <code>true</code> 时，移除事件失败；其他所有都是成功的。这说明只有 <code>capture</code> 配置影响 <code>removeEventListener()</code>。js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">element.<span class="title function_">removeEventListener</span>(<span class="string">&quot;mousedown&quot;</span>, handleMouseDown, &#123; <span class="attr">passive</span>: <span class="literal">true</span> &#125;);     <span class="comment">// 成功</span></span><br><span class="line">element.<span class="title function_">removeEventListener</span>(<span class="string">&quot;mousedown&quot;</span>, handleMouseDown, &#123; <span class="attr">capture</span>: <span class="literal">false</span> &#125;);    <span class="comment">// 成功</span></span><br><span class="line">element.<span class="title function_">removeEventListener</span>(<span class="string">&quot;mousedown&quot;</span>, handleMouseDown, &#123; <span class="attr">capture</span>: <span class="literal">true</span> &#125;);     <span class="comment">// 失败</span></span><br><span class="line">element.<span class="title function_">removeEventListener</span>(<span class="string">&quot;mousedown&quot;</span>, handleMouseDown, &#123; <span class="attr">passive</span>: <span class="literal">false</span> &#125;);    <span class="comment">// 成功</span></span><br><span class="line">element.<span class="title function_">removeEventListener</span>(<span class="string">&quot;mousedown&quot;</span>, handleMouseDown, <span class="literal">false</span>);                 <span class="comment">// 成功</span></span><br><span class="line">element.<span class="title function_">removeEventListener</span>(<span class="string">&quot;mousedown&quot;</span>, handleMouseDown, <span class="literal">true</span>);                  <span class="comment">// 失败</span></span><br></pre></td></tr></table></figure>
 
         </div>
 
@@ -296,6 +334,10 @@
                 
                     <li class="tag-item">
                         <a href="/tags/addEventListener/">#addEventListener</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/removeEventListener/">#removeEventListener</a>&nbsp;
                     </li>
                 
             </ul>
@@ -452,7 +494,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#addEventListener"><span class="nav-number">1.</span> <span class="nav-text">addEventListener</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E6%95%B0"><span class="nav-number">2.1.</span> <span class="nav-text">参数</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#addEventListener"><span class="nav-number">1.</span> <span class="nav-text">addEventListener</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E6%95%B0"><span class="nav-number">2.1.</span> <span class="nav-text">参数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#removeEventListener"><span class="nav-number">3.</span> <span class="nav-text">removeEventListener</span></a></li></ol>
     </div>
 </div>
         </aside>
