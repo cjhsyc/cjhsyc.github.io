@@ -9,7 +9,7 @@
     
     <title>
         
-            nextTick原理 |
+            type和interface区别 |
         
         灵感胜于汗水
     </title>
@@ -168,7 +168,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">nextTick原理</span>
+            <span class="title-hover-animation">type和interface区别</span>
         </div>
 
         
@@ -187,8 +187,8 @@
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fas fa-edit"></i>&nbsp;
-        <span class="pc">2022-10-30 16:33:01</span>
-        <span class="mobile">2022-10-30 16:33</span>
+        <span class="pc">2022-10-31 17:35:03</span>
+        <span class="mobile">2022-10-31 17:35</span>
     </span>
     
         <span class="article-categories article-meta-item">
@@ -196,7 +196,7 @@
             <ul>
                 
                     <li>
-                        <a href="/categories/vue/">vue</a>&nbsp;
+                        <a href="/categories/TypeScript/">TypeScript</a>&nbsp;
                     </li>
                 
             </ul>
@@ -208,7 +208,11 @@
             <ul>
                 
                     <li>
-                        <a href="/tags/nextTick/">nextTick</a>&nbsp;
+                        <a href="/tags/type/">type</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/interface/">interface</a>&nbsp;
                     </li>
                 
             </ul>
@@ -218,7 +222,7 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>589 字</span>
+            <i class="fas fa-file-word"></i>&nbsp;<span>361 字</span>
         </span>
     
     
@@ -235,30 +239,33 @@
         
 
         <div class="article-content markdown-body">
-            <h1 id="NextTick"><a href="#NextTick" class="headerlink" title="NextTick"></a>NextTick</h1><p>官方定义：在下次 DOM 更新循环结束之后执行延迟回调。在修改数据之后立即使用这个方法，获取更新后的 DOM。</p>
-<p>我们可以理解成，<code>Vue</code> 在更新 <code>DOM</code> 时是异步执行的。当数据发生变化，<code>Vue</code>将开启一个异步更新队列，视图需要等队列中所有数据变化完成之后，再统一进行更新。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;num&#125;&#125;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>; i&lt;<span class="number">100000</span>; i++)&#123;</span><br><span class="line">    num = i</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+            <h1 id="定义类型范围"><a href="#定义类型范围" class="headerlink" title="定义类型范围"></a>定义类型范围</h1><p><code>interface</code>只能定义对象类型，而<code>type</code>声明可以声明任何类型，包括基础类型、联合类型、元组类型、交叉类型。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 基本类型 </span></span><br><span class="line"><span class="keyword">type</span> person = <span class="built_in">string</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">// 对象类型</span></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">Dog</span> &#123;</span><br><span class="line"> <span class="attr">name</span>: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">Cat</span> &#123;</span><br><span class="line"> <span class="attr">age</span>: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 联合类型</span></span><br><span class="line"><span class="keyword">type</span> animal = <span class="title class_">Dog</span> | <span class="title class_">Cat</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">// 元组类型</span></span><br><span class="line"><span class="keyword">type</span> animal = [<span class="title class_">Dog</span>, <span class="title class_">Cat</span>]</span><br></pre></td></tr></table></figure>
 
-<p>如果没有 <code>nextTick</code> 更新机制，那么 <code>num</code> 每次更新值都会触发视图更新(上面这段代码也就是会更新10万次视图)，有了<code>nextTick</code>机制，只需要更新一次，所以<code>nextTick</code>本质是一种优化策略</p>
-<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 类型</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">nextTick</span>(<span class="params">callback?: () =&gt; <span class="built_in">void</span></span>): <span class="title class_">Promise</span>&lt;<span class="built_in">void</span>&gt;</span><br></pre></td></tr></table></figure>
-
-<p>你可以传递一个回调函数作为参数，或者 await 返回的 Promise。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;script setup&gt;</span><br><span class="line">import &#123; ref, nextTick &#125; from &#x27;vue&#x27;</span><br><span class="line"></span><br><span class="line">const count = ref(0)</span><br><span class="line"></span><br><span class="line">async function increment() &#123;</span><br><span class="line">  count.value++</span><br><span class="line"></span><br><span class="line">  // DOM 还未更新</span><br><span class="line">  console.log(document.getElementById(&#x27;counter&#x27;).textContent) // 0</span><br><span class="line"></span><br><span class="line">  await nextTick()</span><br><span class="line">  // DOM 此时已经更新</span><br><span class="line">  console.log(document.getElementById(&#x27;counter&#x27;).textContent) // 1</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;button id=&quot;counter&quot; @click=&quot;increment&quot;&gt;&#123;&#123; count &#125;&#125;&lt;/button&gt;</span><br><span class="line">&lt;/template&gt;</span><br></pre></td></tr></table></figure>
-
-<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p><code>Vue</code>在更新<code>dom</code>时是异步执行的。只要监听到数据变化，<code>Vue</code>将开启一个队列，并缓冲在同一事件循环中发生的所有数据变更。如果同一个<code>watcher</code>被多次触发，只会被推入到队列中一次。这种在缓存时去重对于避免不必要的计算和dom操作是非常重要的。<code>nextTick</code>方法会在队列中加入一个回调函数，确保该函数在前面的<code>dom</code>操作完成后才调用。 </p>
-<p><code>nextTick</code> 主要使用了宏任务和微任务。根据执行环境分别尝试采用：</p>
-<ul>
-<li><code>Promise</code></li>
-<li><code>MutationObserver</code>：微任务，创建并返回一个新的 <code>MutationObserver</code> 它会在指定的 DOM 发生变化时被调用</li>
-<li><code>setImmediate</code>：宏任务，可以用来替代 <code>setTimeout(fn, 0)</code></li>
-<li>如果以上都不行则采用 <code>setTimeout</code></li>
+<h1 id="扩展性"><a href="#扩展性" class="headerlink" title="扩展性"></a>扩展性</h1><ul>
+<li>接口可以<code>extends</code>、<code>implements</code>扩展多个接口或类。</li>
 </ul>
-<p>过程：</p>
-<ol>
-<li>把回调函数放入callbacks等待执行</li>
-<li>根据执行环境，将执行函数放到微任务或者宏任务中</li>
-<li>事件循环到了微任务或者宏任务，执行函数依次执行callbacks中的回调</li>
-</ol>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// interface extends interface</span></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">Person</span> &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="built_in">string</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">User</span> <span class="keyword">extends</span> <span class="title class_">Person</span> &#123;</span><br><span class="line">  <span class="attr">age</span>: <span class="built_in">number</span></span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">// interface extends type</span></span><br><span class="line"><span class="keyword">type</span> <span class="title class_">Person</span> = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="built_in">string</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">User</span> <span class="keyword">extends</span> <span class="title class_">Person</span> &#123;</span><br><span class="line">  <span class="attr">age</span>: <span class="built_in">number</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>type</code>可以使用交叉类型&amp;，来使成员类型合并。</li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// type &amp; type</span></span><br><span class="line"><span class="keyword">type</span> <span class="title class_">Person</span> = &#123;</span><br><span class="line">   <span class="attr">name</span>: <span class="built_in">string</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">type</span> <span class="title class_">User</span> = <span class="title class_">Person</span> &amp; &#123; <span class="attr">age</span>: <span class="built_in">number</span> &#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">// type &amp; interface</span></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">Person</span> &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="built_in">string</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">type</span> <span class="title class_">User</span> = &#123;<span class="attr">age</span>: <span class="built_in">number</span>&#125; &amp; <span class="title class_">Person</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="合并声明"><a href="#合并声明" class="headerlink" title="合并声明"></a>合并声明</h1><p>定义两个相同名称的接口会合并声明；而定义两个同名的<code>type</code>会出现异常。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> <span class="title class_">Person</span> &#123; </span><br><span class="line">  <span class="attr">name</span>: <span class="built_in">string</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">Person</span> &#123;</span><br><span class="line">  <span class="attr">age</span>: <span class="built_in">number</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 合并为:</span></span><br><span class="line"><span class="comment">// interface Person &#123; </span></span><br><span class="line"><span class="comment">//   name: string </span></span><br><span class="line"><span class="comment">//   age: number</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="映射类型"><a href="#映射类型" class="headerlink" title="映射类型"></a>映射类型</h1><p><code>type</code> 能使用 in 关键字生成映射类型，但 <code>interface</code> 不行。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> <span class="title class_">Keys</span> = <span class="string">&#x27;firstname&#x27;</span> | <span class="string">&#x27;surname&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> <span class="title class_">DudeType</span> = &#123;</span><br><span class="line">  [key <span class="keyword">in</span> <span class="title class_">Keys</span>]: <span class="built_in">string</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="attr">test</span>: <span class="title class_">DudeType</span> = &#123;</span><br><span class="line">  <span class="attr">firstname</span>: <span class="string">&#x27;Pawel&#x27;</span>,</span><br><span class="line">  <span class="attr">surname</span>: <span class="string">&#x27;Grzybek&#x27;</span>,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h1 id="typeof"><a href="#typeof" class="headerlink" title="typeof"></a>typeof</h1><p><code>type</code>可以使用<code>typeof</code>获取实例类型</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> div = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&#x27;div&#x27;</span>);</span><br><span class="line"><span class="keyword">type</span> B = <span class="keyword">typeof</span> div</span><br></pre></td></tr></table></figure>
+
+<h1 id="默认导出方式"><a href="#默认导出方式" class="headerlink" title="默认导出方式"></a>默认导出方式</h1><p><code>inerface</code> 支持同时声明 和 默认导出；而type必须先声明后导出</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">interface</span> <span class="title class_">Config</span> &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> <span class="title class_">Config2</span> = &#123;<span class="attr">name</span>: <span class="built_in">string</span>&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">Config2</span></span><br></pre></td></tr></table></figure>
+
 
         </div>
 
@@ -266,11 +273,11 @@
             <div class="post-copyright-info">
                 <div class="article-copyright-info-container">
     <ul>
-        <li>本文标题：nextTick原理</li>
+        <li>本文标题：type和interface区别</li>
         <li>本文作者：灵感胜于汗水</li>
-        <li>创建时间：2022-10-30 16:33:01</li>
+        <li>创建时间：2022-10-31 17:35:03</li>
         <li>
-            本文链接：https://cjhsyc.github.io/2022/10/30/nextTick原理/
+            本文链接：https://cjhsyc.github.io/2022/10/31/type和interface区别/
         </li>
         <li>
             版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -285,7 +292,11 @@
             <ul class="post-tags-box">
                 
                     <li class="tag-item">
-                        <a href="/tags/nextTick/">#nextTick</a>&nbsp;
+                        <a href="/tags/type/">#type</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/interface/">#interface</a>&nbsp;
                     </li>
                 
             </ul>
@@ -297,13 +308,13 @@
                     <div class="article-prev">
                         <a class="prev"
                            rel="prev"
-                           href="/2022/10/31/type%E5%92%8Cinterface%E5%8C%BA%E5%88%AB/"
+                           href="/2022/10/31/%E9%A6%96%E5%B1%8F%E5%8A%A0%E8%BD%BD%E6%97%B6%E9%97%B4/"
                         >
                             <span class="left arrow-icon flex-center">
                               <i class="fas fa-chevron-left"></i>
                             </span>
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">type和interface区别</span>
+                                <span class="post-nav-title-item">首屏加载时间</span>
                                 <span class="post-nav-item">上一篇</span>
                             </span>
                         </a>
@@ -313,10 +324,10 @@
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="/2022/10/30/%E8%99%9A%E6%8B%9FDOM/"
+                           href="/2022/10/30/nextTick%E5%8E%9F%E7%90%86/"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">虚拟DOM</span>
+                                <span class="post-nav-title-item">nextTick原理</span>
                                 <span class="post-nav-item">下一篇</span>
                             </span>
                             <span class="right arrow-icon flex-center">
@@ -442,7 +453,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#NextTick"><span class="nav-number">1.</span> <span class="nav-text">NextTick</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8E%9F%E7%90%86"><span class="nav-number">3.</span> <span class="nav-text">原理</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B%E8%8C%83%E5%9B%B4"><span class="nav-number">1.</span> <span class="nav-text">定义类型范围</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%89%A9%E5%B1%95%E6%80%A7"><span class="nav-number">2.</span> <span class="nav-text">扩展性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%90%88%E5%B9%B6%E5%A3%B0%E6%98%8E"><span class="nav-number">3.</span> <span class="nav-text">合并声明</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%98%A0%E5%B0%84%E7%B1%BB%E5%9E%8B"><span class="nav-number">4.</span> <span class="nav-text">映射类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#typeof"><span class="nav-number">5.</span> <span class="nav-text">typeof</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%BB%98%E8%AE%A4%E5%AF%BC%E5%87%BA%E6%96%B9%E5%BC%8F"><span class="nav-number">6.</span> <span class="nav-text">默认导出方式</span></a></li></ol>
     </div>
 </div>
         </aside>
