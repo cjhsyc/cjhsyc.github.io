@@ -180,7 +180,7 @@
                     <div class="author">
                         <span class="name">灵感胜于汗水</span>
                         
-                            <span class="author-label">Lv4</span>
+                            <span class="author-label">Lv5</span>
                         
                     </div>
                     <div class="meta-info">
@@ -203,8 +203,27 @@
         </span>
     
     
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/DOM/">DOM</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/document/">document</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
 
     
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>1k 字</span>
+        </span>
     
     
     
@@ -220,7 +239,74 @@
         
 
         <div class="article-content markdown-body">
-            
+            <h1 id="DOM"><a href="#DOM" class="headerlink" title="DOM"></a>DOM</h1><p>文档对象模型 (DOM) 是 HTML 和 XML 文档的编程接口。它提供了对文档的结构化的表述，并定义了一种方式可以使从程序中对该结构进行访问，从而改变文档的结构，样式和内容。DOM 将文档解析为一个由节点和对象（包含属性和方法的对象）组成的结构集合。简言之，它会将 web 页面和脚本或程序语言连接起来。</p>
+<p>一个 web 页面是一个文档。这个文档可以在浏览器窗口或作为 HTML 源码显示出来。但上述两个情况中都是同一份文档。文档对象模型（DOM）提供了对同一份文档的另一种表现，存储和操作的方式。DOM 是 web 页面的完全的面向对象表述，它能够使用如 JavaScript 等脚本语言进行修改。</p>
+<h1 id="常用API"><a href="#常用API" class="headerlink" title="常用API"></a>常用API</h1><h2 id="document"><a href="#document" class="headerlink" title="document"></a>document</h2><h3 id="getElementById"><a href="#getElementById" class="headerlink" title="getElementById"></a>getElementById</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> element = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(id);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>**<code>element</code>**是一个 <code>Element</code> 对象。如果当前文档中拥有特定 ID 的元素不存在则返回 null。</li>
+<li>**<code>id</code>**是大小写敏感的字符串，代表了所要查找的元素的唯一 ID。</li>
+</ul>
+<h3 id="getElementsByTagName"><a href="#getElementsByTagName" class="headerlink" title="getElementsByTagName"></a>getElementsByTagName</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> elements = <span class="variable language_">document</span>.<span class="title function_">getElementsByTagName</span>(name);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>elements</code> 是一个由发现的元素出现在树中的顺序构成的动态的 HTML 集合 <code>HTMLCollection</code> (但是，这个方法在 WebKit 内核的浏览器中返回一个 <code>NodeList</code> ） 。</li>
+<li><code>name</code> 是一个代表元素的名称的字符串。特殊字符 “*” 代表了所有元素。</li>
+</ul>
+<h3 id="createElement"><a href="#createElement" class="headerlink" title="createElement"></a>createElement</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> element = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(tagName[, options]);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>tagName</code> 指定要创建元素类型的字符串。</li>
+<li><code>options</code> 一个可选的参数<code>ElementCreationOptions</code> 是包含一个属性名为 <code>is</code> 的对象，该对象的值是用 <code>customElements.define()</code> 方法定义过的一个自定义元素的标签名。</li>
+<li>返回值：新建的元素（<code>Element</code>）。</li>
+</ul>
+<h2 id="Node"><a href="#Node" class="headerlink" title="Node"></a>Node</h2><h3 id="appendChild"><a href="#appendChild" class="headerlink" title="appendChild"></a>appendChild</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">element.<span class="title function_">appendChild</span>(aChild)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>aChild</code>：要追加给父节点（通常为一个元素）的节点。</li>
+<li>返回值：返回追加后的子节点（<code>aChild</code>），除非 <code>aChild</code> 是一个文档片段（<code>DocumentFragment</code>），这种情况下将返回空文档片段（<code>DocumentFragment</code>）。</li>
+</ul>
+<h3 id="cloneNode"><a href="#cloneNode" class="headerlink" title="cloneNode"></a>cloneNode</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> dupNode = node.<span class="title function_">cloneNode</span>(deep);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>node</code>：将要被克隆的节点</li>
+<li><code>dupNode</code>：克隆生成的副本节点</li>
+<li><code>deep</code> ：可选，是否采用深度克隆，如果为 <code>true</code>，则该节点的所有后代节点也都会被克隆，如果为 <code>false</code>，则只克隆该节点本身。在最新的规范里，其默认值为 false。</li>
+</ul>
+<h3 id="innerText"><a href="#innerText" class="headerlink" title="innerText"></a>innerText</h3><p>表示一个节点及其后代的“渲染”文本内容。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> renderedText = <span class="title class_">HTMLElement</span>.<span class="property">innerText</span>; <span class="comment">// 获取的文本有层次结构</span></span><br><span class="line"><span class="title class_">HTMLElement</span>.<span class="property">innerText</span> = string;</span><br></pre></td></tr></table></figure>
+
+<p>只展示给人看的元素（不包括 <code>script</code> 和 <code>style</code> 元素）；受 CSS 样式的影响，并且不会返回隐藏元素的文本。</p>
+<p>修改<code>innerText</code> 会删除它的所有子节点，替换为给定的文本节点，<code>\n</code>被替换为 <code>&lt;br&gt;</code>元素。</p>
+<h3 id="textContent"><a href="#textContent" class="headerlink" title="textContent"></a>textContent</h3><p>属性表示一个节点及其后代的文本内容。</p>
+<p>可获取所有元素的内容，包括 <code>script</code> 和 <code>style</code> 元素</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> text = someNode.<span class="property">textContent</span>; <span class="comment">// 获取的文本没有层次结构</span></span><br><span class="line">someOtherNode.<span class="property">textContent</span> = string;</span><br></pre></td></tr></table></figure>
+
+<p>在节点上设置 <code>textContent</code> 属性的话，会删除它的所有子节点，并替换为一个具有给定值的文本节点。</p>
+<p>使用 <code>textContent</code> 可以防止 XSS 攻击。</p>
+<h2 id="Element"><a href="#Element" class="headerlink" title="Element"></a>Element</h2><h3 id="innerHTML"><a href="#innerHTML" class="headerlink" title="innerHTML"></a>innerHTML</h3><p>设置或获取 HTML 语法表示的元素的后代。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> content = element.<span class="property">innerHTML</span>;</span><br><span class="line">element.<span class="property">innerHTML</span> = htmlString;</span><br></pre></td></tr></table></figure>
+
+<h3 id="setAttribute"><a href="#setAttribute" class="headerlink" title="setAttribute"></a>setAttribute</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">element.<span class="title function_">setAttribute</span>(name, value);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>name</code>：表示属性名称的字符串。</li>
+<li><code>value</code>：属性的值&#x2F;新值。</li>
+</ul>
+<h3 id="getAttribute"><a href="#getAttribute" class="headerlink" title="getAttribute"></a>getAttribute</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> attribute = element.<span class="title function_">getAttribute</span>(attributeName);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>attribute</code> 是一个包含 <code>attributeName</code> 属性值的字符串。</li>
+<li><code>attributeName</code> 是你想要获取的属性值的属性名称。</li>
+</ul>
+<h3 id="addEventListener"><a href="#addEventListener" class="headerlink" title="addEventListener"></a><a href="https://cjhsyc.github.io/2022/10/24/%E4%BA%8B%E4%BB%B6%E7%9B%91%E5%90%AC%E5%99%A8/">addEventListener</a></h3><h2 id="window"><a href="#window" class="headerlink" title="window"></a>window</h2><h3 id="onload"><a href="#onload" class="headerlink" title="onload"></a>onload</h3><p><strong><code>load</code></strong> 事件在整个页面及所有依赖资源如样式表和图片都已完成加载时触发。它与 <code>DOMContentLoaded</code> 不同，后者只要页面 DOM 加载完成就触发，无需等待依赖资源的加载。</p>
+<p>该事件不可取消，也不会冒泡。</p>
+<p>当页面完全加载后在控制台打印一段信息：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">window</span>.<span class="title function_">addEventListener</span>(<span class="string">&#x27;load&#x27;</span>, <span class="function">(<span class="params">event</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;page is fully loaded&#x27;</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>也可以使用 <code>onload</code> 事件处理器属性实现：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">window</span>.<span class="property">onload</span> = <span class="function">(<span class="params">event</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;page is fully loaded&#x27;</span>);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
         </div>
 
         
@@ -242,6 +328,18 @@
             </div>
         
 
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/DOM/">#DOM</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/document/">#document</a>&nbsp;
+                    </li>
+                
+            </ul>
         
 
         
@@ -395,7 +493,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#DOM"><span class="nav-number">1.</span> <span class="nav-text">DOM</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8API"><span class="nav-number">2.</span> <span class="nav-text">常用API</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#document"><span class="nav-number">2.1.</span> <span class="nav-text">document</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#getElementById"><span class="nav-number">2.1.1.</span> <span class="nav-text">getElementById</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getElementsByTagName"><span class="nav-number">2.1.2.</span> <span class="nav-text">getElementsByTagName</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#createElement"><span class="nav-number">2.1.3.</span> <span class="nav-text">createElement</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Node"><span class="nav-number">2.2.</span> <span class="nav-text">Node</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#appendChild"><span class="nav-number">2.2.1.</span> <span class="nav-text">appendChild</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cloneNode"><span class="nav-number">2.2.2.</span> <span class="nav-text">cloneNode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#innerText"><span class="nav-number">2.2.3.</span> <span class="nav-text">innerText</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#textContent"><span class="nav-number">2.2.4.</span> <span class="nav-text">textContent</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Element"><span class="nav-number">2.3.</span> <span class="nav-text">Element</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#innerHTML"><span class="nav-number">2.3.1.</span> <span class="nav-text">innerHTML</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#setAttribute"><span class="nav-number">2.3.2.</span> <span class="nav-text">setAttribute</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getAttribute"><span class="nav-number">2.3.3.</span> <span class="nav-text">getAttribute</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#addEventListener"><span class="nav-number">2.3.4.</span> <span class="nav-text">addEventListener</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#window"><span class="nav-number">2.4.</span> <span class="nav-text">window</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#onload"><span class="nav-number">2.4.1.</span> <span class="nav-text">onload</span></a></li></ol></li></ol></li></ol>
     </div>
 </div>
         </aside>
