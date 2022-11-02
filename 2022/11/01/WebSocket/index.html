@@ -191,9 +191,35 @@
         <span class="mobile">2022-11-01 14:25</span>
     </span>
     
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/WebSocket/">WebSocket</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
     
 
     
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>384 字</span>
+        </span>
     
     
     
@@ -209,7 +235,16 @@
         
 
         <div class="article-content markdown-body">
-            
+            <h1 id="WebSocket"><a href="#WebSocket" class="headerlink" title="WebSocket"></a>WebSocket</h1><p>WebSocket，是一种网络传输协议，位于<code>OSI</code>模型的应用层。可在单个<code>TCP</code>连接上进行全双工通信，能更好的节省服务器资源和带宽并达到实时通迅。</p>
+<p>客户端和服务器只需要完成一次握手，两者之间就可以创建持久性的连接，并进行双向数据传输。(两者都能主动的向对方发送或接受数据)</p>
+<p>在<code>websocket</code>出现之前，开发实时<code>web</code>应用的方式为轮询，不停地向服务器发送 HTTP 请求，问有没有数据，有数据的话服务器就用响应报文回应。如果轮询的频率比较高，那么就可以近似地实现“实时通信”的效果。</p>
+<p>轮询的缺点也很明显，反复发送无效查询请求耗费了大量的带宽和 <code>CPU</code>资源</p>
+<h1 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h1><h3 id="全双工"><a href="#全双工" class="headerlink" title="全双工"></a>全双工</h3><p>通信允许数据在两个方向上同时传输，它在能力上相当于两个单工通信方式的结合。</p>
+<p>例如指 A→B 的同时 B→A ，是瞬时同步的。</p>
+<h3 id="二进制帧"><a href="#二进制帧" class="headerlink" title="二进制帧"></a>二进制帧</h3><p>采用了二进制帧结构，语法、语义与 HTTP 完全不兼容，相比<code>http/2</code>，<code>WebSocket</code>更侧重于“实时通信”，而<code>HTTP/2</code> 更侧重于提高传输效率，所以两者的帧结构也有很大的区别。</p>
+<p>不像 <code>HTTP/2</code> 那样定义流，也就不存在多路复用、优先级等特性。</p>
+<p>自身就是全双工，也不需要服务器推送。</p>
+
         </div>
 
         
@@ -232,9 +267,32 @@
         
 
         
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/WebSocket/">#WebSocket</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
 
         
             <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2022/11/02/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%8D%E5%90%8C%E6%A0%87%E7%AD%BE%E9%A1%B5%E9%97%B4%E4%BA%92%E7%9B%B8%E9%80%9A%E4%BF%A1/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">浏览器不同标签页间互相通信</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
                 
                 
                     <div class="article-next">
@@ -369,7 +427,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#WebSocket"><span class="nav-number">1.</span> <span class="nav-text">WebSocket</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%89%B9%E7%82%B9"><span class="nav-number">2.</span> <span class="nav-text">特点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%A8%E5%8F%8C%E5%B7%A5"><span class="nav-number">2.0.1.</span> <span class="nav-text">全双工</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%B8%A7"><span class="nav-number">2.0.2.</span> <span class="nav-text">二进制帧</span></a></li></ol></li></ol></li></ol>
     </div>
 </div>
         </aside>

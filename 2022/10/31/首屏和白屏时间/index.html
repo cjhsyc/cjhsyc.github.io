@@ -203,8 +203,27 @@
         </span>
     
     
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E9%A6%96%E5%B1%8F%E6%97%B6%E9%97%B4/">首屏时间</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E7%99%BD%E5%B1%8F%E6%97%B6%E9%97%B4/">白屏时间</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
 
     
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>670 字</span>
+        </span>
     
     
     
@@ -220,7 +239,29 @@
         
 
         <div class="article-content markdown-body">
-            
+            <h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><h2 id="首屏时间"><a href="#首屏时间" class="headerlink" title="首屏时间"></a>首屏时间</h2><p>指的是浏览器从响应用户输入网址地址，到首屏内容渲染完成的时间，此时整个网页不一定要全部渲染完成，但需要展示当前视窗需要的内容。</p>
+<h2 id="白屏时间"><a href="#白屏时间" class="headerlink" title="白屏时间"></a>白屏时间</h2><p>白屏时间是指浏览器开始显示内容的时间。因此，我们通常认为解析完 <code>&lt;head&gt;</code> 的时刻或开始渲染 <code>&lt;body&gt;</code> 标签就是页面白屏结束的时间。</p>
+<h1 id="如何计算"><a href="#如何计算" class="headerlink" title="如何计算"></a>如何计算</h1><h2 id="首屏时间-1"><a href="#首屏时间-1" class="headerlink" title="首屏时间"></a>首屏时间</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">window</span>.<span class="property">onload</span> = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Date</span>.<span class="title function_">now</span>() - performance.<span class="property">timing</span>.<span class="property">navigationStart</span>) <span class="comment">//DOM树加载完成所消耗的时间</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">document</span>.<span class="title function_">addEventListener</span>(<span class="string">&#x27;DOMContentLoaded&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Date</span>.<span class="title function_">now</span>() - performance.<span class="property">timing</span>.<span class="property">navigationStart</span>) <span class="comment">//DOM树以及图片等外部资源全部加载完成所消耗的时间</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p><code>DomContentLoaded</code>在DOM树加载完之后立刻触发，DOM树加载完成之后，继续加载图片等外部文件，加载完成之后，<code>onload</code>事件触发。所以这两个都<strong>不适合</strong>用于计算首屏时间。</p>
+<h3 id="MutationObserver"><a href="#MutationObserver" class="headerlink" title="MutationObserver"></a>MutationObserver</h3><p>TODO</p>
+<h2 id="白屏时间-1"><a href="#白屏时间-1" class="headerlink" title="白屏时间"></a>白屏时间</h2><p>使用<code>performance</code>，可以获取到当前页面中与性能相关的信息。</p>
+<p>在 <code>head</code> 标签末尾添加 <code>script</code> 标签如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>首屏<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;common.css&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;page.css&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">		<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="keyword">new</span> <span class="title class_">Date</span>().<span class="title function_">getTime</span>() - performance.<span class="property">timing</span>.<span class="property">navigationStart</span>)</span></span><br><span class="line"><span class="language-javascript">	</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="首屏优化"><a href="#首屏优化" class="headerlink" title="首屏优化"></a>首屏优化</h1><h2 id="路由懒加载"><a href="#路由懒加载" class="headerlink" title="路由懒加载"></a>路由懒加载</h2><p>把不同路由对应的组件分割成不同的代码块，待路由被请求的时候会单独打包路由，使得入口文件变小，加载速度大大增加。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">routes</span>:[ </span><br><span class="line">    <span class="attr">path</span>: <span class="string">&#x27;Blogs&#x27;</span>,</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&#x27;ShowBlogs&#x27;</span>,</span><br><span class="line">    <span class="attr">component</span>: <span class="function">() =&gt;</span> <span class="title function_">import</span>(<span class="string">&#x27;./components/ShowBlogs.vue&#x27;</span>)</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<h2 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h2><p>采用<code>HTTP</code>缓存，设置<code>Cache-Control</code>，<code>Last-Modified</code>，<code>Etag</code>等响应头；</p>
+<p>前端合理使用<code>LocalStorage</code></p>
+<h2 id="服务端渲染"><a href="#服务端渲染" class="headerlink" title="服务端渲染"></a>服务端渲染</h2><p>使用<code>SSR</code>，也就是服务端渲染， 组件或页面通过服务器生成<code>html</code>字符串，再发送到浏览器。</p>
+<h2 id="图片懒加载"><a href="#图片懒加载" class="headerlink" title="图片懒加载"></a><a href="https://cjhsyc.github.io/2022/04/03/%E6%89%8B%E5%86%99vue-lazyload/">图片懒加载</a></h2><h2 id="按需加载代码"><a href="#按需加载代码" class="headerlink" title="按需加载代码"></a>按需加载代码</h2><p>比如按需引入UI组件库：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Button</span>, <span class="title class_">Input</span>, <span class="title class_">Pagination</span>, <span class="title class_">Table</span>, <span class="title class_">TableColumn</span>, <span class="title class_">MessageBox</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;element-ui&#x27;</span>;</span><br><span class="line"><span class="title class_">Vue</span>.<span class="title function_">use</span>(<span class="title class_">Button</span>)</span><br><span class="line"><span class="title class_">Vue</span>.<span class="title function_">use</span>(<span class="title class_">Input</span>)</span><br><span class="line"><span class="title class_">Vue</span>.<span class="title function_">use</span>(<span class="title class_">Pagination</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="HTTP2"><a href="#HTTP2" class="headerlink" title="HTTP2"></a>HTTP2</h2><p>使用 <code>HTTP2</code> ，相比于 <code>HTTP1</code>，解析速度更快；支持多路复用，多个请求可以共用一个 TCP 连接；提供了首部压缩功能；支持服务器推送，服务器可以在发送 HTML 页面时，主动推送其他资源，而不用等到浏览器解析到相应位置发请求再响应。</p>
+<p>减少 HTTP 请求数量，减少 HTTP 请求大小。（雪碧图）</p>
+<h2 id="CDN"><a href="#CDN" class="headerlink" title="CDN"></a>CDN</h2><h2 id="开启GZip压缩"><a href="#开启GZip压缩" class="headerlink" title="开启GZip压缩"></a>开启GZip压缩</h2><h2 id="优化CSS代码"><a href="#优化CSS代码" class="headerlink" title="优化CSS代码"></a>优化CSS代码</h2><p>减少回流、重绘；降低CSS选择器复杂度</p>
+
         </div>
 
         
@@ -242,6 +283,18 @@
             </div>
         
 
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E9%A6%96%E5%B1%8F%E6%97%B6%E9%97%B4/">#首屏时间</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E7%99%BD%E5%B1%8F%E6%97%B6%E9%97%B4/">#白屏时间</a>&nbsp;
+                    </li>
+                
+            </ul>
         
 
         
@@ -395,7 +448,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A6%96%E5%B1%8F%E6%97%B6%E9%97%B4"><span class="nav-number">1.1.</span> <span class="nav-text">首屏时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%99%BD%E5%B1%8F%E6%97%B6%E9%97%B4"><span class="nav-number">1.2.</span> <span class="nav-text">白屏时间</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E8%AE%A1%E7%AE%97"><span class="nav-number">2.</span> <span class="nav-text">如何计算</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A6%96%E5%B1%8F%E6%97%B6%E9%97%B4-1"><span class="nav-number">2.1.</span> <span class="nav-text">首屏时间</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MutationObserver"><span class="nav-number">2.1.1.</span> <span class="nav-text">MutationObserver</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%99%BD%E5%B1%8F%E6%97%B6%E9%97%B4-1"><span class="nav-number">2.2.</span> <span class="nav-text">白屏时间</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A6%96%E5%B1%8F%E4%BC%98%E5%8C%96"><span class="nav-number">3.</span> <span class="nav-text">首屏优化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1%E6%87%92%E5%8A%A0%E8%BD%BD"><span class="nav-number">3.1.</span> <span class="nav-text">路由懒加载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%93%E5%AD%98"><span class="nav-number">3.2.</span> <span class="nav-text">缓存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%B8%B2%E6%9F%93"><span class="nav-number">3.3.</span> <span class="nav-text">服务端渲染</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%BE%E7%89%87%E6%87%92%E5%8A%A0%E8%BD%BD"><span class="nav-number">3.4.</span> <span class="nav-text">图片懒加载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%89%E9%9C%80%E5%8A%A0%E8%BD%BD%E4%BB%A3%E7%A0%81"><span class="nav-number">3.5.</span> <span class="nav-text">按需加载代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP2"><span class="nav-number">3.6.</span> <span class="nav-text">HTTP2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CDN"><span class="nav-number">3.7.</span> <span class="nav-text">CDN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E5%90%AFGZip%E5%8E%8B%E7%BC%A9"><span class="nav-number">3.8.</span> <span class="nav-text">开启GZip压缩</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%98%E5%8C%96CSS%E4%BB%A3%E7%A0%81"><span class="nav-number">3.9.</span> <span class="nav-text">优化CSS代码</span></a></li></ol></li></ol>
     </div>
 </div>
         </aside>
