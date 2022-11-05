@@ -191,9 +191,35 @@
         <span class="mobile">2022-11-02 19:40</span>
     </span>
     
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/JavaScript/">JavaScript</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/MutationObserver/">MutationObserver</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
     
 
     
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>1.4k 字</span>
+        </span>
     
     
     
@@ -209,7 +235,71 @@
         
 
         <div class="article-content markdown-body">
-            
+            <h1 id="MutationObserver"><a href="#MutationObserver" class="headerlink" title="MutationObserver"></a>MutationObserver</h1><p><code>MutationObserver</code> 接口提供了监视对 DOM 树所做更改的能力。DOM 的任何变动，比如节点的增减、属性的变动、文本内容的变动，这个 API 都可以得到通知。</p>
+<p>概念上，它很接近事件，可以理解为 DOM 发生变动就会触发 Mutation Observer 事件。但是，它与事件有一个本质不同：事件是同步触发，也就是说，DOM 的变动立刻会触发相应的事件；Mutation Observer 则是异步触发，DOM 的变动并不会马上触发，而是要等到当前所有 DOM 操作都结束才触发。</p>
+<p><code>MutationObserver</code> 有以下特点：</p>
+<ul>
+<li>它等待所有脚本任务完成后，才会运行（即异步触发方式）。</li>
+<li>它把 DOM 变动记录封装成一个数组进行处理，而不是一条条个别处理 DOM 变动。</li>
+<li>它既可以观察 DOM 的所有类型变动，也可以指定只观察某一类变动。</li>
+</ul>
+<h1 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h1><p>创建并返回一个新的 <code>MutationObserver</code> 它会在指定的 DOM 发生变化时被调用。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> observer = <span class="keyword">new</span> <span class="title class_">MutationObserver</span>(callback);</span><br></pre></td></tr></table></figure>
+
+<p><code>callback</code>：一个回调函数，每当被指定的节点或子树以及配置项有 DOM 变动时会被调用。回调函数拥有两个参数：一个是描述所有被触发改动的 <code>MutationRecord</code> 对象数组，另一个是调用该函数的 <code>MutationObserver</code> 对象。</p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">callback</span>(<span class="params">mutationList, observer</span>) &#123;</span><br><span class="line">  mutationList.<span class="title function_">forEach</span>(<span class="function">(<span class="params">mutation</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">switch</span>(mutation.<span class="property">type</span>) &#123;</span><br><span class="line">      <span class="keyword">case</span> <span class="string">&#x27;childList&#x27;</span>:</span><br><span class="line">        <span class="comment">/* 从树上添加或移除了一个或更多的子节点；参见 mutation.addedNodes 与</span></span><br><span class="line"><span class="comment">           mutation.removedNodes */</span></span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="string">&#x27;attributes&#x27;</span>:</span><br><span class="line">        <span class="comment">/* mutation.target 中某节点的一个属性值被更改；该属性名称在 mutation.attributeName 中，</span></span><br><span class="line"><span class="comment">           该属性之前的值为 mutation.oldValue */</span></span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> targetNode = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&quot;#someElement&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> observerOptions = &#123;</span><br><span class="line">  <span class="attr">childList</span>: <span class="literal">true</span>,  <span class="comment">// 观察目标子节点的变化，是否有添加或者删除</span></span><br><span class="line">  <span class="attr">attributes</span>: <span class="literal">true</span>, <span class="comment">// 观察属性变动</span></span><br><span class="line">  <span class="attr">subtree</span>: <span class="literal">true</span>     <span class="comment">// 观察后代节点，默认为 false</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> observer = <span class="keyword">new</span> <span class="title class_">MutationObserver</span>(callback);</span><br><span class="line">observer.<span class="title function_">observe</span>(targetNode, observerOptions);</span><br></pre></td></tr></table></figure>
+
+<p>使用 ID <code>someElement</code> 来获取目标节点树。<code>observerOptions</code> 中设定了观察者的选项，通过设定 <code>childList</code> 和 <code>attributes</code> 为 <code>true</code> 来获取所需信息。</p>
+<p>当 observer 实例化时，指定 <code>callback()</code> 函数。之后指定目标节点与记录选项，我们开始观察使用 <code>observe()</code> 指定的 DOM 节点。</p>
+<p>从现在开始直到调用 <code>disconnect()</code> ，每次以 <code>targetNode</code> 为根节点的 DOM 树添加或移除元素时，以及这些元素的任意属性改变时，<code>callback()</code> 都会被调用。</p>
+<h1 id="实例方法"><a href="#实例方法" class="headerlink" title="实例方法"></a>实例方法</h1><h2 id="observe"><a href="#observe" class="headerlink" title="observe"></a>observe</h2><p><code>MutationObserver</code> 的 <strong><code>observe()</code></strong> 方法配置了 <code>MutationObserver</code> 对象的回调方法以开始接收与给定选项匹配的 DOM 变化的通知。根据配置，观察者会观察 DOM 树中的单个 <code>Node</code>，也可能会观察被指定节点的部分或者所有的子孙节点。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mutationObserver.<span class="title function_">observe</span>(target[, options])</span><br></pre></td></tr></table></figure>
+
+<p><code>target</code>：DOM 树中的一个要观察变化的 DOM <code>Node</code> (可能是一个 <code>Element</code>)，或者是被观察的子节点树的根节点。</p>
+<p><code>options</code>：此对象的配置项描述了 DOM 的哪些变化应该报告给 <code>MutationObserver</code> 的 <code>callback</code>。当调用 <code>observe()</code> 时， <code>childList</code>、<code>attributes</code> 和 <code>characterData</code> 中，必须有一个参数为 <code>true</code>。否则会抛出 <code>TypeError</code> 异常。</p>
+<p><code>options</code> 的属性如下：</p>
+<ul>
+<li><p><code>subtree</code> 可选</p>
+<p>当为 <code>true</code> 时，将会监听以 <code>target</code> 为根节点的整个子树。包括子树中所有节点的属性，而不仅仅是针对 <code>target</code>。默认值为 <code>false</code>。</p>
+</li>
+<li><p><code>childList</code> 可选</p>
+<p>当为 <code>true</code> 时，监听 <code>target</code> 节点中发生的节点的新增与删除（同时，如果 <code>subtree</code> 为 <code>true</code>，会针对整个子树生效）。默认值为 <code>false</code>。</p>
+</li>
+<li><p><code>attributes</code> 可选</p>
+<p>当为 <code>true</code> 时观察所有监听的节点属性值的变化。默认值为 <code>true</code>，当声明了 <code>attributeFilter</code> 或 <code>attributeOldValue</code>，默认值则为 <code>false</code>。</p>
+</li>
+<li><p><code>attributeFilter</code> 可选</p>
+<p>一个用于声明哪些属性名会被监听的数组。如果不声明该属性，所有属性的变化都将触发通知。</p>
+</li>
+<li><p><code>attributeOldValue</code> 可选</p>
+<p>当为 <code>true</code> 时，记录上一次被监听的节点的属性变化。默认值为 <code>false</code>。</p>
+</li>
+<li><p><code>characterData</code> 可选</p>
+<p>当为 <code>true</code> 时，监听声明的 <code>target</code> 节点上所有字符的变化。默认值为 <code>true</code>，如果声明了 <code>characterDataOldValue</code>，默认值则为 <code>false</code></p>
+</li>
+<li><p><code>characterDataOldValue</code> 可选</p>
+<p>当为 <code>true</code> 时，记录前一个被监听的节点中发生的文本变化。默认值为 <code>false</code></p>
+</li>
+</ul>
+<h2 id="disconnect"><a href="#disconnect" class="headerlink" title="disconnect"></a>disconnect</h2><p><code>MutationObserver</code> 的 <strong><code>disconnect()</code></strong> 方法告诉观察者停止观察变动。可以通过调用其 <code>observe()</code> 方法来重用观察者。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mutationObserver.<span class="title function_">disconnect</span>()</span><br></pre></td></tr></table></figure>
+
+<h2 id="takeRecords"><a href="#takeRecords" class="headerlink" title="takeRecords"></a>takeRecords</h2><p><code>MutationObserver</code> 的 <strong><code>takeRecords()</code></strong> 方法返回已检测到但尚未由观察者的回调函数处理的所有匹配 DOM 更改的列表，使变更队列保持为空。此方法最常见的使用场景是在断开观察者之前立即获取所有未处理的更改记录，以便在停止观察者时可以处理任何未处理的更改。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mutationRecords = mutationObserver.<span class="title function_">takeRecords</span>()</span><br></pre></td></tr></table></figure>
+
+<p>返回一个<code>MutationRecord</code> 对象列表，每个对象都描述了应用于 DOM 树某部分的一次改动。</p>
+<p><code>MutationRecord</code>对象包含了DOM的相关信息，有如下属性：</p>
+<ul>
+<li><code>type</code>：观察的变动类型（<code>attribute</code>、<code>characterData</code>或者<code>childList</code>）。</li>
+<li><code>target</code>：发生变动的DOM节点。</li>
+<li><code>addedNodes</code>：新增的DOM节点。</li>
+<li><code>removedNodes</code>：删除的DOM节点。</li>
+<li><code>previousSibling</code>：前一个同级节点，如果没有则返回<code>null</code>。</li>
+<li><code>nextSibling</code>：下一个同级节点，如果没有则返回<code>null</code>。</li>
+<li><code>attributeName</code>：发生变动的属性。如果设置了<code>attributeFilter</code>，则只返回预先指定的属性。</li>
+<li><code>oldValue</code>：变动前的值。这个属性只对<code>attribute</code>和<code>characterData</code>变动有效，如果发生<code>childList</code>变动，则返回<code>null</code>。</li>
+</ul>
+
         </div>
 
         
@@ -231,6 +321,14 @@
             </div>
         
 
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/MutationObserver/">#MutationObserver</a>&nbsp;
+                    </li>
+                
+            </ul>
         
 
         
@@ -384,7 +482,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MutationObserver"><span class="nav-number">1.</span> <span class="nav-text">MutationObserver</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="nav-number">2.</span> <span class="nav-text">构造函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8"><span class="nav-number">2.1.</span> <span class="nav-text">使用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B%E6%96%B9%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">实例方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#observe"><span class="nav-number">3.1.</span> <span class="nav-text">observe</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#disconnect"><span class="nav-number">3.2.</span> <span class="nav-text">disconnect</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#takeRecords"><span class="nav-number">3.3.</span> <span class="nav-text">takeRecords</span></a></li></ol></li></ol>
     </div>
 </div>
         </aside>
