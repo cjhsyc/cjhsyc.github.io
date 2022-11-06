@@ -9,7 +9,7 @@
     
     <title>
         
-            前端屏幕自适应 |
+            响应式布局 |
         
         灵感胜于汗水
     </title>
@@ -168,7 +168,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">前端屏幕自适应</span>
+            <span class="title-hover-animation">响应式布局</span>
         </div>
 
         
@@ -191,9 +191,39 @@
         <span class="mobile">2022-11-03 15:20</span>
     </span>
     
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/css/">css</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/flex/">flex</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/rem/">rem</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
     
 
     
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>1k 字</span>
+        </span>
     
     
     
@@ -209,18 +239,62 @@
         
 
         <div class="article-content markdown-body">
-            
+            <h1 id="响应式布局"><a href="#响应式布局" class="headerlink" title="响应式布局"></a>响应式布局</h1><p>响应式网站设计（Responsive Web design）是一种网络页面设计布局，页面的设计与开发应当根据用户行为以及设备环境(系统平台、屏幕尺寸、屏幕定向等)进行相应的响应和调整。</p>
+<p>响应式网站常见特点：</p>
+<ul>
+<li>同时适配PC + 平板 + 手机等</li>
+<li>标签导航在接近手持终端设备时改变为经典的抽屉式导航</li>
+<li>网站的布局会根据视口来调整模块的大小和位置</li>
+</ul>
+<h1 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h1><p>响应式设计的基本原理是通过媒体查询检测不同的设备屏幕尺寸做处理，为了处理移动端，页面头部必须有<code>meta</code>声明<code>viewport</code></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no”&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<p>属性对应如下：</p>
+<ul>
+<li><code>width=device-width</code>: 是自适应手机屏幕的尺寸宽度</li>
+<li><code>maximum-scale</code>: 是缩放比例的最大值</li>
+<li><code>inital-scale</code>: 是缩放的初始化</li>
+<li><code>user-scalable</code>: 是用户的可以缩放的操作</li>
+</ul>
+<h2 id="媒体查询"><a href="#媒体查询" class="headerlink" title="媒体查询"></a>媒体查询</h2><p><code>CSS3</code>中的增加了更多的媒体查询，就像<code>if</code>条件表达式一样，我们可以设置不同类型的媒体条件，并根据对应的条件，给相应符合条件的媒体调用相对应的样式表</p>
+<p>使用<code>@Media</code>查询，可以针对不同的媒体类型定义不同的样式，如：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@media</span> screen <span class="keyword">and</span> (<span class="attribute">max-width</span>: <span class="number">1920px</span>) &#123; ... &#125;</span><br></pre></td></tr></table></figure>
+
+<p>当视口在<code>375px - 600px</code>之间，设置特定字体大小<code>18px</code></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@media</span> screen (<span class="attribute">min-width</span>: <span class="number">375px</span>) <span class="keyword">and</span> (<span class="attribute">max-width</span>: <span class="number">600px</span>) &#123;</span><br><span class="line">  <span class="selector-tag">body</span> &#123;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">18px</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过媒体查询，可以通过给不同分辨率的设备编写不同的样式来实现响应式的布局，比如我们为不同分辨率的屏幕，设置不同的背景图片</p>
+<h2 id="使用flex布局"><a href="#使用flex布局" class="headerlink" title="使用flex布局"></a><a href="https://cjhsyc.github.io/2022/10/27/flex%E5%B8%83%E5%B1%80/">使用flex布局</a></h2><h2 id="百分比"><a href="#百分比" class="headerlink" title="百分比"></a>百分比</h2><p>通过百分比单位 “ % “ 来实现响应式的效果</p>
+<p>比如当浏览器的宽度或者高度发生变化时，通过百分比单位，可以使得浏览器中的组件的宽和高随着浏览器的变化而变化，从而实现响应式的效果</p>
+<p><code>height</code>、<code>width</code>属性的百分比依托于父标签的宽高，但是其他盒子属性则不完全依赖父元素：</p>
+<ul>
+<li>子元素的top&#x2F;left和bottom&#x2F;right如果设置百分比，则相对于直接非static定位(默认定位)的父元素的高度&#x2F;宽度</li>
+<li>子元素的padding如果设置百分比，不论是垂直方向或者是水平方向，都相对于直接父亲元素的width，而与父元素的height无关。</li>
+<li>子元素的margin如果设置成百分比，不论是垂直方向还是水平方向，都相对于直接父元素的width</li>
+<li>border-radius不一样，如果设置border-radius为百分比，则是相对于自身的宽度</li>
+</ul>
+<p>可以看到每个属性都使用百分比，会照成布局的复杂度，所以不建议使用百分比来实现响应式</p>
+<h2 id="vw-x2F-vh"><a href="#vw-x2F-vh" class="headerlink" title="vw&#x2F;vh"></a>vw&#x2F;vh</h2><p><code>vw</code>表示相对于视图窗口的宽度，<code>vh</code>表示相对于视图窗口高度。 任意层级元素，在使用<code>vw</code>单位的情况下，<code>1vw</code>都等于视图宽度的百分之一。</p>
+<h2 id="rem"><a href="#rem" class="headerlink" title="rem"></a>rem</h2><p><code>rem</code>是相对于根元素<code>html</code>的<code>font-size</code>属性，默认情况下浏览器字体大小为<code>16px</code>，此时<code>1rem = 16px</code></p>
+<p>为了更准确的监听设备可视窗口变化，我们可以在<code>css</code>之前插入<code>script</code>标签，动态修改<code>html</code>的<code>font-size</code>属性：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//动态为根元素设置字体大小</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">init</span> () &#123;</span><br><span class="line">    <span class="comment">// 获取屏幕宽度</span></span><br><span class="line">    <span class="keyword">var</span> width = <span class="variable language_">document</span>.<span class="property">documentElement</span>.<span class="property">clientWidth</span></span><br><span class="line">    <span class="comment">// 设置根元素字体大小。此时为宽的10等分</span></span><br><span class="line">    <span class="variable language_">document</span>.<span class="property">documentElement</span>.<span class="property">style</span>.<span class="property">fontSize</span> = width / <span class="number">10</span> + <span class="string">&#x27;px&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//首次加载应用，设置一次</span></span><br><span class="line"><span class="title function_">init</span>()</span><br><span class="line"><span class="comment">// 监听手机旋转的事件的时机，重新设置</span></span><br><span class="line"><span class="variable language_">window</span>.<span class="title function_">addEventListener</span>(<span class="string">&#x27;orientationchange&#x27;</span>, init)</span><br><span class="line"><span class="comment">// 监听窗口视图大小变化，重新设置</span></span><br><span class="line"><span class="variable language_">window</span>.<span class="title function_">addEventListener</span>(<span class="string">&#x27;resize&#x27;</span>, init)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>参考：</p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://vue3js.cn/interview/css/responsive_layout.html#%E9%9D%A2%E8%AF%95%E5%AE%98-%E4%BB%80%E4%B9%88%E6%98%AF%E5%93%8D%E5%BA%94%E5%BC%8F%E8%AE%BE%E8%AE%A1-%E5%93%8D%E5%BA%94%E5%BC%8F%E8%AE%BE%E8%AE%A1%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86%E6%98%AF%E4%BB%80%E4%B9%88-%E5%A6%82%E4%BD%95%E5%81%9A" >什么是响应式设计？响应式设计的基本原理是什么？如何做？<i class="fas fa-external-link-alt"></i></a></p>
+
         </div>
 
         
             <div class="post-copyright-info">
                 <div class="article-copyright-info-container">
     <ul>
-        <li>本文标题：前端屏幕自适应</li>
+        <li>本文标题：响应式布局</li>
         <li>本文作者：灵感胜于汗水</li>
         <li>创建时间：2022-11-03 15:20:46</li>
         <li>
-            本文链接：https://cjhsyc.github.io/2022/11/03/前端屏幕自适应/
+            本文链接：https://cjhsyc.github.io/2022/11/03/响应式布局/
         </li>
         <li>
             版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -231,6 +305,18 @@
             </div>
         
 
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/flex/">#flex</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/rem/">#rem</a>&nbsp;
+                    </li>
+                
+            </ul>
         
 
         
@@ -384,7 +470,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%93%8D%E5%BA%94%E5%BC%8F%E5%B8%83%E5%B1%80"><span class="nav-number">1.</span> <span class="nav-text">响应式布局</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">实现方式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AA%92%E4%BD%93%E6%9F%A5%E8%AF%A2"><span class="nav-number">2.1.</span> <span class="nav-text">媒体查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8flex%E5%B8%83%E5%B1%80"><span class="nav-number">2.2.</span> <span class="nav-text">使用flex布局</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%99%BE%E5%88%86%E6%AF%94"><span class="nav-number">2.3.</span> <span class="nav-text">百分比</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vw-x2F-vh"><span class="nav-number">2.4.</span> <span class="nav-text">vw&#x2F;vh</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rem"><span class="nav-number">2.5.</span> <span class="nav-text">rem</span></a></li></ol></li></ol>
     </div>
 </div>
         </aside>
