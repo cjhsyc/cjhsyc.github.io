@@ -191,9 +191,35 @@
         <span class="mobile">2022-11-02 21:15</span>
     </span>
     
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/web/">web</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/worker/">worker</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
     
 
     
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>2k 字</span>
+        </span>
     
     
     
@@ -209,7 +235,73 @@
         
 
         <div class="article-content markdown-body">
-            
+            <h1 id="Web-Workers"><a href="#Web-Workers" class="headerlink" title="Web Workers"></a>Web Workers</h1><p>通过使用 Web Workers，Web 应用程序可以在独立于主线程的后台线程中，运行一个脚本操作。这样做的好处是可以在独立线程中执行费时的处理任务，从而允许主线程（通常是 UI 线程）不会因此被阻塞&#x2F;放慢。</p>
+<p>它的作用就是给 JS 创造多线程运行环境，允许主线程创建worker线程，分配任务给后者，主线程运行的同时worker线程也在运行，相互不干扰，在worker线程运行结束后把结果返回给主线程。这样做的好处是主线程可以把计算密集型或高延迟的任务交给worker线程执行，这样主线程就会变得轻松，不会被阻塞或拖慢。这并不意味着 JS 语言本身支持了多线程能力，而是浏览器作为宿主环境提供了 JS 一个多线程运行的环境。</p>
+<p>不过因为worker一旦新建，就会一直运行，不会被主线程的活动打断，这样有利于随时响应主线程的通性，但是也会造成资源的浪费，所以不应过度使用，用完需要关闭。</p>
+<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><p>使用构造函数（例如，<code>Worker()</code>）创建一个 <strong>worker</strong> 对象，构造函数接受一个 JavaScript 文件 URL，这个文件包含了将在 worker 线程中运行的代码。worker 将运行在与当前 <code>window</code>不同的另一个全局上下文中，这个上下文由一个对象表示，标准情况下为<code>DedicatedWorkerGlobalScope</code> （标准 workers 由单个脚本使用; 共享 workers 使用<code>SharedWorkerGlobalScope</code> ）。</p>
+<p>主线程和 worker 线程相互之间使用 <code>postMessage()</code> 方法来发送信息，并且通过 <code>onmessage</code> 这个 event handler 来接收信息（传递的信息包含在 <code>message</code> 这个事件的<code>data</code>属性内) 。数据的交互方式为传递副本，而不是直接共享数据。</p>
+<p>worker 可以另外生成新的 worker，这些 worker 与它们父页面的宿主相同。此外，worker 可以通过 <code>XMLHttpRequest</code> 来访问网络，只不过 <code>XMLHttpRequest</code> 的 <code>responseXML</code> 和 <code>channel</code> 这两个属性的值将总是 <code>null</code> 。</p>
+<h2 id="限制"><a href="#限制" class="headerlink" title="限制"></a>限制</h2><p>你可以在 worker 线程中运行任意的代码，但注意存在一些例外：</p>
+<ol>
+<li>同源限制<br>worker线程执行的脚本文件必须和主线程的脚本文件同源，这是当然的了，总不能允许worker线程到别人电脑上到处读文件吧</li>
+<li>文件限制<br>为了安全，worker线程无法读取本地文件，它所加载的脚本必须来自网络，且需要与主线程的脚本同源</li>
+<li>DOM操作限制<br>worker线程在与主线程的window不同的另一个全局上下文中运行，其中无法读取主线程所在网页的DOM对象，也不能获取 <code>document</code>、<code>window</code>等对象，但是可以获取<code>navigator</code>、<code>location(只读)</code>、<code>XMLHttpRequest</code>、<code>setTimeout族</code>等浏览器<code>API</code>。</li>
+<li>通信限制<br>worker线程与主线程不在同一个上下文，不能直接通信，需要通过<code>postMessage</code>方法来通信。</li>
+<li>脚本限制<br>worker线程不能执行<code>alert</code>、<code>confirm</code>，但可以使用 <code>XMLHttpRequest</code> 对象发出<code>ajax</code>请求。</li>
+</ol>
+<h1 id="Worker"><a href="#Worker" class="headerlink" title="Worker"></a>Worker</h1><p>在主线程中生成 Worker 线程很容易：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myWorker = <span class="keyword">new</span> <span class="title class_">Worker</span>(jsUrl, options)</span><br></pre></td></tr></table></figure>
+
+<p>Worker()构造函数，第一个参数是脚本的网址（必须遵守同源政策），该参数是必需的，且只能加载 JS 脚本，否则报错。第二个参数是配置对象，该对象可选。它的一个作用就是指定 Worker 的名称，用来区分多个 Worker 线程。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 主线程</span></span><br><span class="line"><span class="keyword">var</span> myWorker = <span class="keyword">new</span> <span class="title class_">Worker</span>(<span class="string">&#x27;worker.js&#x27;</span>, &#123; name : <span class="string">&#x27;myWorker&#x27;</span> &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Worker 线程</span></span><br><span class="line">self.<span class="property">name</span> <span class="comment">// myWorker</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><p>首先是worker线程的js文件：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// workerThread1.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> i = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">simpleCount</span>(<span class="params"></span>) &#123;</span><br><span class="line">  i++</span><br><span class="line">  self.<span class="title function_">postMessage</span>(i)</span><br><span class="line">  <span class="built_in">setTimeout</span>(simpleCount, <span class="number">1000</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">simpleCount</span>()</span><br><span class="line"></span><br><span class="line">self.<span class="property">onmessage</span> = <span class="function"><span class="params">ev</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="title function_">postMessage</span>(ev.<span class="property">data</span> + <span class="string">&#x27; 呵呵~&#x27;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在HTML文件中的body中：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--主线程，HTML文件的body标签中--&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">  Worker 输出内容：<span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">&#x27;app&#x27;</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&#x27;text&#x27;</span> <span class="attr">title</span>=<span class="string">&#x27;&#x27;</span> <span class="attr">id</span>=<span class="string">&#x27;msg&#x27;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">onclick</span>=<span class="string">&#x27;sendMessage()&#x27;</span>&gt;</span>发送<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">onclick</span>=<span class="string">&#x27;stopWorker()&#x27;</span>&gt;</span>stop!<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&#x27;text/javascript&#x27;</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">if</span> (<span class="title function_">typeof</span>(<span class="title class_">Worker</span>) === <span class="string">&#x27;undefined&#x27;</span>)	<span class="comment">// 使用Worker前检查一下浏览器是否支持</span></span></span><br><span class="line"><span class="language-javascript">    <span class="variable language_">document</span>.<span class="title function_">writeln</span>(<span class="string">&#x27; Sorry! No Web Worker support.. &#x27;</span>)</span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">else</span> &#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="variable language_">window</span>.<span class="property">w</span> = <span class="keyword">new</span> <span class="title class_">Worker</span>(<span class="string">&#x27;workerThread1.js&#x27;</span>)</span></span><br><span class="line"><span class="language-javascript">    <span class="variable language_">window</span>.<span class="property">w</span>.<span class="property">onmessage</span> = <span class="function"><span class="params">ev</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;app&#x27;</span>).<span class="property">innerHTML</span> = ev.<span class="property">data</span></span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript">    </span></span><br><span class="line"><span class="language-javascript">    <span class="variable language_">window</span>.<span class="property">w</span>.<span class="property">onerror</span> = <span class="function"><span class="params">err</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-javascript">      w.<span class="title function_">terminate</span>()</span></span><br><span class="line"><span class="language-javascript">      <span class="variable language_">console</span>.<span class="title function_">log</span>(error.<span class="property">filename</span>, error.<span class="property">lineno</span>, error.<span class="property">message</span>) <span class="comment">// 发生错误的文件名、行号、错误内容</span></span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript">    </span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">function</span> <span class="title function_">sendMessage</span>(<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">const</span> msg = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;msg&#x27;</span>)</span></span><br><span class="line"><span class="language-javascript">      <span class="variable language_">window</span>.<span class="property">w</span>.<span class="title function_">postMessage</span>(msg.<span class="property">value</span>)</span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript">    </span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">function</span> <span class="title function_">stopWorker</span>(<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="variable language_">window</span>.<span class="property">w</span>.<span class="title function_">terminate</span>()</span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript">  &#125;</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>主线程中的<code>api</code>，<code>worker</code>表示是 Worker 的实例：</p>
+<ul>
+<li><code>worker.postMessage</code>: 主线程往worker线程发消息，消息可以是任意类型数据，包括二进制数据</li>
+<li><code>worker.terminate</code>: 主线程关闭worker线程</li>
+<li><code>worker.onmessage</code>: 指定worker线程发消息时的回调，也可以通过<code>worker.addEventListener(&#39;message&#39;,cb)</code>的方式</li>
+<li><code>worker.onerror</code>: 指定worker线程发生错误时的回调，也可以 <code>worker.addEventListener(&#39;error&#39;,cb)</code></li>
+</ul>
+<p>Worker线程中全局对象为 <code>self</code>，代表子线程自身，这时 <code>this</code>指向<code>self</code>，其上有一些<code>api</code>：</p>
+<ul>
+<li><code>self.postMessage</code>: worker线程往主线程发消息，消息可以是任意类型数据，包括二进制数据</li>
+<li><code>self.close</code>: worker线程关闭自己</li>
+<li><code>self.onmessage</code>: 指定主线程发worker线程消息时的回调，也可以<code>self.addEventListener(&#39;message&#39;,cb)</code></li>
+<li><code>self.onerror</code>: 指定worker线程发生错误时的回调，也可以 <code>self.addEventListener(&#39;error&#39;,cb)</code></li>
+</ul>
+<p>worker线程中加载脚本的<code>api</code>：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">importScripts</span>(<span class="string">&#x27;script1.js&#x27;</span>)	<span class="comment">// 加载单个脚本</span></span><br><span class="line"><span class="title function_">importScripts</span>(<span class="string">&#x27;script1.js&#x27;</span>, <span class="string">&#x27;script2.js&#x27;</span>)	<span class="comment">// 加载多个脚本</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h1><ol>
+<li>加密数据<br>有些加解密的算法比较复杂，或者在加解密很多数据的时候，这会非常耗费计算资源，导致UI线程无响应，因此这是使用Web Worker的好时机，使用Worker线程可以让用户更加无缝的操作UI。</li>
+<li>预取数据<br>有时候为了提升数据加载速度，可以提前使用Worker线程获取数据，因为Worker线程是可以是用 <code>XMLHttpRequest</code> 的。</li>
+<li>预渲染<br>在某些渲染场景下，比如渲染复杂的canvas的时候需要计算的效果比如反射、折射、光影、材料等，这些计算的逻辑可以使用Worker线程来执行，也可以使用多个Worker线程。</li>
+<li>复杂数据处理场景<br>某些检索、排序、过滤、分析会非常耗费时间，这时可以使用Web Worker来进行，不占用主线程。</li>
+<li>预加载图片<br>有时候一个页面有很多图片，或者有几个很大的图片的时候，如果业务限制不考虑懒加载，也可以使用Web Worker来加载图片。</li>
+</ol>
+<p>注意</p>
+<ul>
+<li>虽然使用worker线程不会占用主线程，但是启动worker会比较耗费资源</li>
+<li>主线程中使用<code>XMLHttpRequest</code>在请求过程中浏览器另开了一个异步<code>http</code>请求线程，但是交互过程中还是要消耗主线程资源</li>
+</ul>
+<h1 id="其他worker"><a href="#其他worker" class="headerlink" title="其他worker"></a>其他worker</h1><p>除了专用 worker 之外，还有一些其他种类的 worker：</p>
+<ul>
+<li><code>Shared Workers</code> 可被不同的窗体的多个脚本运行，例如 <code>IFrames</code> 等，只要这些 workers 处于同一主域。共享 worker 比专用 worker 稍微复杂一点，脚本必须通过活动端口进行通讯。</li>
+<li><code>Service Workers</code> 一般作为 web 应用程序、浏览器和网络（如果可用）之间的代理服务。他们旨在（除开其他方面）创建有效的离线体验，拦截网络请求，以及根据网络是否可用采取合适的行动，更新驻留在服务器上的资源。他们还将允许访问推送通知和后台同步 <code>API</code>。</li>
+<li><code>音频 Workers</code>可以在网络 worker 上下文中直接完成脚本化音频处理。</li>
+</ul>
+<p>参考：</p>
+<ol>
+<li><a class="link"   target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/Web_Workers_API" >Web Workers API<i class="fas fa-external-link-alt"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/79484282" >一文看懂 Web Worker<i class="fas fa-external-link-alt"></i></a></li>
+</ol>
+
         </div>
 
         
@@ -231,6 +323,14 @@
             </div>
         
 
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/worker/">#worker</a>&nbsp;
+                    </li>
+                
+            </ul>
         
 
         
@@ -384,7 +484,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Web-Workers"><span class="nav-number">1.</span> <span class="nav-text">Web Workers</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%99%90%E5%88%B6"><span class="nav-number">2.1.</span> <span class="nav-text">限制</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Worker"><span class="nav-number">3.</span> <span class="nav-text">Worker</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90"><span class="nav-number">3.1.</span> <span class="nav-text">例子</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BA%94%E7%94%A8"><span class="nav-number">4.</span> <span class="nav-text">应用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B6%E4%BB%96worker"><span class="nav-number">5.</span> <span class="nav-text">其他worker</span></a></li></ol>
     </div>
 </div>
         </aside>
