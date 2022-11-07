@@ -191,9 +191,39 @@
         <span class="mobile">2022-11-04 12:20</span>
     </span>
     
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/JavaScript/">JavaScript</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/worker/">worker</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/postMessage/">postMessage</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
     
 
     
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>911 字</span>
+        </span>
     
     
     
@@ -209,7 +239,52 @@
         
 
         <div class="article-content markdown-body">
-            
+            <h1 id="window-postMessage"><a href="#window-postMessage" class="headerlink" title="window.postMessage"></a>window.postMessage</h1><p><strong><code>window.postMessage()</code></strong> 方法可以安全地实现跨源通信。通常，对于两个不同页面的脚本，只有当执行它们的页面位于具有相同的协议（通常为 <code>https</code>），端口号（443 为 <code>https</code> 的默认值），以及主机 (两个页面的模数 <code>Document.domain</code>设置为相同的值) 时，这两个脚本才能相互通信。**<code>window.postMessage()</code>** 方法提供了一种受控机制来规避此限制，只要正确的使用，这种方法就很安全。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">otherWindow.<span class="title function_">postMessage</span>(message, targetOrigin, [transfer]);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><code>otherWindow</code></p>
+<p>其他窗口的一个引用，比如 <code>iframe</code> 的 <code>contentWindow</code> 属性、执行<code>window.open</code>返回的窗口对象、或者是命名过或数值索引的<code>window.frames</code> 。</p>
+</li>
+<li><p><code>message</code></p>
+<p>将要发送到其他 window 的数据。它将会被 结构化克隆算法 序列化。这意味着你可以不受什么限制的将数据对象安全的传送给目标窗口而无需自己序列化。</p>
+</li>
+<li><p><code>targetOrigin</code></p>
+<p>通过窗口的 origin 属性来指定哪些窗口能接收到消息事件，其值可以是字符串”<em>“（表示无限制）或者一个 URI。在发送消息的时候，如果目标窗口的协议、主机地址或端口这三者的任意一项不匹配 <code>targetOrigin</code> 提供的值，那么消息就不会被发送；只有三者完全匹配，消息才会被发送。*<em>如果你明确的知道消息应该发送到哪个窗口，那么请始终提供一个有确切值的 <code>targetOrigin</code>，而不是 *。不提供确切的目标将导致数据泄露到任何对数据感兴趣的恶意站点。</em></em></p>
+</li>
+<li><p><code>transfer</code> 可选</p>
+<p>是一串和 message 同时传递的 <code>Transferable</code> 对象。这些对象的所有权将被转移给消息的接收方，而发送一方将不再保有所有权。</p>
+</li>
+</ul>
+<h2 id="onmessage"><a href="#onmessage" class="headerlink" title="onmessage"></a>onmessage</h2><p>执行如下代码，其他 window 可以监听分发的 message:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">window</span>.<span class="title function_">addEventListener</span>(<span class="string">&quot;message&quot;</span>, receiveMessage, <span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">receiveMessage</span>(<span class="params">event</span>)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">var</span> origin = event.<span class="property">origin</span></span><br><span class="line">  <span class="keyword">if</span> (origin !== <span class="string">&quot;http://example.org:8080&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 作为回信的对象，并且把 event.origin 作为 targetOrigin</span></span><br><span class="line">  event.<span class="property">source</span>.<span class="title function_">postMessage</span>(<span class="string">&quot;hello&quot;</span>, event.<span class="property">origin</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>event</code>的属性有：</p>
+<ul>
+<li><p><code>data</code></p>
+<p>从其他 window 中传递过来的对象。</p>
+</li>
+<li><p><code>origin</code></p>
+<p>调用 <code>postMessage</code> 时消息发送方窗口的 origin ，这个字符串由 协议、“:&#x2F;&#x2F;“、域名、“ : 端口号”拼接而成。请注意，这个 origin 不能保证是该窗口的当前或未来 origin，因为 <code>postMessage</code> 被调用后可能被导航到不同的位置。</p>
+</li>
+<li><p><code>source</code></p>
+<p>对发送消息的窗口对象的引用; 您可以使用此来在具有不同 origin 的两个窗口之间建立双向通信。</p>
+</li>
+</ul>
+<p>注意：任何窗口可以在任何其他窗口访问此方法，在任何时间，无论文档在窗口中的位置，向其发送消息。因此，用于接收消息的任何事件监听器<strong>必须</strong>首先使用 origin 和 source 属性来检查消息的发送者的身份。 <strong>这不能低估：无法检查 origin 和 source 属性会导致跨站点脚本攻击。</strong></p>
+<h1 id="Worker-postMessage"><a href="#Worker-postMessage" class="headerlink" title="Worker.postMessage"></a>Worker.postMessage</h1><p><a href="https://cjhsyc.github.io/2022/11/02/WebWorker/"><code>Worker</code></a> 接口的 **<code>postMessage()</code>**方法向 worker 的内部作用域发送一个消息。这接受单个参数，这是要发送给 worker 的数据。数据可以是由 结构化克隆算法 处理的任何值或 JavaScript 对象，其包括循环引用。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">myWorker.<span class="title function_">postMessage</span>(aMessage, transferList);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>aMessage</code>：发送给 worker 的数据</li>
+<li><code>transferList</code>：一个可选的<code>Transferable</code>对象的数组，用于传递所有权。如果一个对象的所有权被转移，在发送它的上下文中将变为不可用（中止），并且只有在它被发送到的 worker 中可用。</li>
+</ul>
+<p>参考：</p>
+<ul>
+<li><a class="link"   target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/Window/postMessage" >window.postMessage<i class="fas fa-external-link-alt"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/Worker/postMessage" >Worker.postMessage()<i class="fas fa-external-link-alt"></i></a></li>
+</ul>
+
         </div>
 
         
@@ -231,6 +306,18 @@
             </div>
         
 
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/worker/">#worker</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/postMessage/">#postMessage</a>&nbsp;
+                    </li>
+                
+            </ul>
         
 
         
@@ -384,7 +471,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#window-postMessage"><span class="nav-number">1.</span> <span class="nav-text">window.postMessage</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#onmessage"><span class="nav-number">1.1.</span> <span class="nav-text">onmessage</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Worker-postMessage"><span class="nav-number">2.</span> <span class="nav-text">Worker.postMessage</span></a></li></ol>
     </div>
 </div>
         </aside>
