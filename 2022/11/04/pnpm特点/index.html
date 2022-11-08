@@ -221,6 +221,10 @@
 
     
     
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>1.3k 字</span>
+        </span>
+    
     
     
         <span class="article-pv article-meta-item">
@@ -235,7 +239,54 @@
         
 
         <div class="article-content markdown-body">
-            
+            <h1 id="pnpm"><a href="#pnpm" class="headerlink" title="pnpm"></a>pnpm</h1><p><code>pnpm</code> 本质上就是一个包管理器，这一点跟 <code>npm/yarn</code> 没有区别，但它作为杀手锏的两个优势在于:</p>
+<ul>
+<li>包安装速度极快</li>
+<li>高效利用磁盘空间</li>
+</ul>
+<h1 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h1><h2 id="速度快"><a href="#速度快" class="headerlink" title="速度快"></a>速度快</h2><p><code>pnpm</code>在绝多大数场景下，包安装的速度都是明显优于 <code>npm/yarn</code>，速度会比 <code>npm/yarn</code> 快 2-3 倍。</p>
+<h2 id="高效利用磁盘空间"><a href="#高效利用磁盘空间" class="headerlink" title="高效利用磁盘空间"></a>高效利用磁盘空间</h2><p><code>pnpm</code> 内部使用<code>基于内容寻址</code>的文件系统来存储磁盘上所有的文件，这个文件系统出色的地方在于:</p>
+<ul>
+<li>不会重复安装同一个包。用 <code>npm/yarn</code> 的时候，如果 100 个项目都依赖 <code>lodash</code>，那么 <code>lodash</code> 很可能就被安装了 100 次，磁盘中就有 100 个地方写入了这部分代码。但在使用 <code>pnpm</code> 只会安装一次，磁盘中只有一个地方写入，后面再次使用都会直接使用 <code>hardlink</code>(硬链接)。</li>
+<li>即使一个包的不同版本，<code>pnpm</code> 也会极大程度地复用之前版本的代码。举个例子，比如 <code>lodash</code> 有 100 个文件，更新版本之后多了一个文件，那么磁盘当中并不会重新写入 101 个文件，而是保留原来的 100 个文件的 <code>hardlink</code>，仅仅写入那<code>一个新增的文件</code>。</li>
+</ul>
+<h2 id="支持-monorepo"><a href="#支持-monorepo" class="headerlink" title="支持 monorepo"></a>支持 monorepo</h2><p>之前对于多个项目的管理，我们一般都是使用多个 git 仓库，但 <code>monorepo</code> 的宗旨就是用一个 git 仓库来管理多个子项目，所有的子项目都存放在根目录的<code>packages</code>目录下，那么一个子项目就代表一个<code>package</code>。</p>
+<p><code>pnpm</code> 与 <code>npm/yarn</code> 另外一个很大的不同就是支持了 <code>monorepo</code>，体现在各个子命令的功能上，比如在根目录下 <code>pnpm add A -r</code>, 那么所有的 package 中都会被添加 A 这个依赖，当然也支持 <code>--filter</code>字段来对 package 进行过滤。</p>
+<h2 id="安全性高"><a href="#安全性高" class="headerlink" title="安全性高"></a>安全性高</h2><p>之前在使用 <code>npm/yarn</code> 的时候，由于 node_module 的扁平结构，如果 A 依赖 B， B 依赖 C，那么 A 当中是可以直接使用 C 的，但问题是 A 当中并没有声明 C 这个依赖。因此会出现这种非法访问的情况。但 <code>pnpm</code> 脑洞特别大，自创了一套依赖管理方式，很好地解决了这个问题，保证了安全性。</p>
+<h1 id="依赖管理"><a href="#依赖管理" class="headerlink" title="依赖管理"></a>依赖管理</h1><h2 id="npm-x2F-yarn"><a href="#npm-x2F-yarn" class="headerlink" title="npm&#x2F;yarn"></a>npm&#x2F;yarn</h2><p>执行 <code>npm/yarn install</code>之后，首先会构建依赖树，然后针对每个节点下的包，会经历下面四个步骤:</p>
+<ul>
+<li>将依赖包的版本区间解析为某个具体的版本号</li>
+<li>下载对应版本依赖的 tar 包到本地离线镜像</li>
+<li>将依赖从离线镜像解压到本地缓存</li>
+<li>然后，对应的包就会到达项目的<code>node_modules</code>当中</li>
+</ul>
+<p>这些依赖在<code>node_modules</code>内部是什么样的目录结构呢：</p>
+<p>在 <code>npm1</code>、<code>npm2</code> 中呈现出的是嵌套结构，比如下面这样:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">node_modules</span><br><span class="line">└─ foo</span><br><span class="line">   ├─ index.js</span><br><span class="line">   ├─ package.json</span><br><span class="line">   └─ node_modules</span><br><span class="line">      └─ bar</span><br><span class="line">         ├─ index.js</span><br><span class="line">         └─ package.json</span><br></pre></td></tr></table></figure>
+
+<p>如果 <code>bar</code> 当中又有依赖，那么又会继续嵌套下去。试想一下这样的设计存在什么问题:</p>
+<ol>
+<li>依赖层级太深，会导致文件路径过长的问题，尤其在 window 系统下。</li>
+<li>大量重复的包被安装，文件体积超级大。比如跟 <code>foo</code> 同级目录下有一个<code>baz</code>，两者都依赖于同一个版本的<code>lodash</code>，那么 <code>lodash</code> 会分别在两者的 node_modules 中被安装，也就是重复安装。</li>
+<li>模块实例不能共享。比如 React 有一些内部变量，在两个不同包引入的 React 不是同一个模块实例，因此无法共享内部变量，导致一些不可预知的 bug。</li>
+</ol>
+<p>接着，从 <code>npm3</code> 开始，包括 <code>yarn</code>，都着手来通过<code>扁平化依赖</code>的方式来解决这个问题。</p>
+<p>相比之前的<code>嵌套结构</code>，现在的目录结构类似下面这样:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">node_modules</span><br><span class="line">├─ foo</span><br><span class="line">|  ├─ index.js</span><br><span class="line">|  └─ package.json</span><br><span class="line">└─ bar</span><br><span class="line">   ├─ index.js</span><br><span class="line">   └─ package.json</span><br></pre></td></tr></table></figure>
+
+<p>所有的依赖都被拍平到<code>node_modules</code>目录下，不再有很深层次的嵌套关系。这样在安装新的包时，根据 node require 机制，会不停往上级的<code>node_modules</code>当中去找，如果找到相同版本的包就不会重新安装，解决了大量包重复安装的问题，而且依赖层级也不会太深。</p>
+<p>之前的问题是解决了，但它照样存在诸多问题：</p>
+<ul>
+<li>依赖结构的<strong>不确定性</strong>。</li>
+<li>扁平化算法本身的<strong>复杂性</strong>很高，耗时较长。</li>
+<li>项目中仍然可以<strong>非法访问</strong>没有声明过依赖的包</li>
+</ul>
+<p>依赖结构的<code>不确定</code>问题，也是 <code>lock 文件</code>诞生的原因，无论是<code>package-lock.json</code>(<code>npm 5.x</code>才出现)还是<code>yarn.lock</code>，都是为了保证 install 之后都产生确定的<code>node_modules</code>结构。</p>
+<p>尽管如此，<code>npm/yarn</code> 本身还是存在<code>扁平化算法复杂</code>和<code>package 非法访问</code>的问题，影响性能和安全。</p>
+<h2 id="pnpm-1"><a href="#pnpm-1" class="headerlink" title="pnpm"></a>pnpm</h2><p>TODO</p>
+<p>参考：</p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://juejin.cn/post/6932046455733485575?share_token=863f4c48-e720-458f-935b-b7b78fc119cc" >关于现代包管理器的深度思考——为什么现在我更推荐 pnpm 而不是 npm&#x2F;yarn?<i class="fas fa-external-link-alt"></i></a></p>
+
         </div>
 
         
@@ -422,7 +473,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#pnpm"><span class="nav-number">1.</span> <span class="nav-text">pnpm</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%89%B9%E7%82%B9"><span class="nav-number">2.</span> <span class="nav-text">特点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9F%E5%BA%A6%E5%BF%AB"><span class="nav-number">2.1.</span> <span class="nav-text">速度快</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AB%98%E6%95%88%E5%88%A9%E7%94%A8%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4"><span class="nav-number">2.2.</span> <span class="nav-text">高效利用磁盘空间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%94%AF%E6%8C%81-monorepo"><span class="nav-number">2.3.</span> <span class="nav-text">支持 monorepo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E6%80%A7%E9%AB%98"><span class="nav-number">2.4.</span> <span class="nav-text">安全性高</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86"><span class="nav-number">3.</span> <span class="nav-text">依赖管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#npm-x2F-yarn"><span class="nav-number">3.1.</span> <span class="nav-text">npm&#x2F;yarn</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pnpm-1"><span class="nav-number">3.2.</span> <span class="nav-text">pnpm</span></a></li></ol></li></ol>
     </div>
 </div>
         </aside>
