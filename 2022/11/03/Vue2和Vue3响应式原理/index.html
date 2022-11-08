@@ -323,7 +323,10 @@
 <p>比如通过索引为数组设置新的元素，可能会隐式地修改数组的 length 属性的值。同时如果修改数组的 length 属性的值，也可能会间接影响数组中的已有元素。另外用户通过 includes、indexOf 以及 lastIndexOf 等对数组元素进行查找时，可能是使用代理对象进行查找，也有可能使用原始值进行查找，所以我们就需要重写这些数组的查找方法，从而实现用户的需求。原理很简单，当用户使用这些方法查找元素时，先去响应式对象中查找，如果没找到，则再去原始值中查找。</p>
 <p>另外如果使用 push、pop、shift、unshift、splice 这些方法操作响应式数组对象时会间接读取和设置数组的 length 属性，所以我们也需要对这些数组的原型方法进行重新，让当使用这些方法间接读取 length 属性时禁止进行依赖追踪，这样就可以断开 length 属性与副作用函数之间的响应式联系了。</p>
 <p>参考：</p>
-<p><a class="link"   target="_blank" rel="noopener" href="https://juejin.cn/post/7124351370521477128?share_token=0616d10b-a811-4c7f-a7be-acf037342726" >面试官的步步紧逼：Vue2 和 Vue3 的响应式原理比对<i class="fas fa-external-link-alt"></i></a></p>
+<ul>
+<li><a class="link"   target="_blank" rel="noopener" href="https://juejin.cn/post/7124351370521477128?share_token=0616d10b-a811-4c7f-a7be-acf037342726" >面试官的步步紧逼：Vue2 和 Vue3 的响应式原理比对<i class="fas fa-external-link-alt"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://juejin.cn/post/6922276550004080653?share_token=1248c57b-94ee-4b90-8d7c-a0de97b72916" >从设计模式理解 Vue 响应式（多图警告）<i class="fas fa-external-link-alt"></i></a></li>
+</ul>
 
         </div>
 
