@@ -222,7 +222,7 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>1.3k 字</span>
+            <i class="fas fa-file-word"></i>&nbsp;<span>1.5k 字</span>
         </span>
     
     
@@ -283,7 +283,9 @@
 </ul>
 <p>依赖结构的<code>不确定</code>问题，也是 <code>lock 文件</code>诞生的原因，无论是<code>package-lock.json</code>(<code>npm 5.x</code>才出现)还是<code>yarn.lock</code>，都是为了保证 install 之后都产生确定的<code>node_modules</code>结构。</p>
 <p>尽管如此，<code>npm/yarn</code> 本身还是存在<code>扁平化算法复杂</code>和<code>package 非法访问</code>的问题，影响性能和安全。</p>
-<h2 id="pnpm-1"><a href="#pnpm-1" class="headerlink" title="pnpm"></a>pnpm</h2><p>TODO</p>
+<h2 id="pnpm-1"><a href="#pnpm-1" class="headerlink" title="pnpm"></a>pnpm</h2><h3 id="hard-link-硬链接"><a href="#hard-link-硬链接" class="headerlink" title="hard link 硬链接"></a>hard link 硬链接</h3><p>计算机里面一个叫做 Hard link 的机制，hard link 使得用户可以通过不同的路径引用方式去找到某个文件。<code>pnpm</code> 会在全局的 <code>store</code> 目录里存储项目 <code>node_modules</code> 文件的 hard links 。</p>
+<p>因为这样一个机制，导致每次安装依赖的时候，如果是个相同的依赖，有好多项目都用到这个依赖，那么这个依赖实际上最优情况（即版本相同）只用安装一次。使用 <code>pnpm</code> 对项目安装依赖的时候，如果某个依赖在 <code>sotre</code> 目录中存在，那么就会直接从 <code>store</code> 目录里面去 hard-link，避免了二次安装带来的时间消耗，如果依赖在 <code>store</code> 目录里面不存在的话，就会去下载一次。</p>
+<h3 id="软连接（符号链接）"><a href="#软连接（符号链接）" class="headerlink" title="软连接（符号链接）"></a>软连接（符号链接）</h3><p>TODO</p>
 <p>参考：</p>
 <p><a class="link"   target="_blank" rel="noopener" href="https://juejin.cn/post/6932046455733485575?share_token=863f4c48-e720-458f-935b-b7b78fc119cc" >关于现代包管理器的深度思考——为什么现在我更推荐 pnpm 而不是 npm&#x2F;yarn?<i class="fas fa-external-link-alt"></i></a></p>
 
@@ -473,7 +475,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#pnpm"><span class="nav-number">1.</span> <span class="nav-text">pnpm</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%89%B9%E7%82%B9"><span class="nav-number">2.</span> <span class="nav-text">特点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9F%E5%BA%A6%E5%BF%AB"><span class="nav-number">2.1.</span> <span class="nav-text">速度快</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AB%98%E6%95%88%E5%88%A9%E7%94%A8%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4"><span class="nav-number">2.2.</span> <span class="nav-text">高效利用磁盘空间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%94%AF%E6%8C%81-monorepo"><span class="nav-number">2.3.</span> <span class="nav-text">支持 monorepo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E6%80%A7%E9%AB%98"><span class="nav-number">2.4.</span> <span class="nav-text">安全性高</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86"><span class="nav-number">3.</span> <span class="nav-text">依赖管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#npm-x2F-yarn"><span class="nav-number">3.1.</span> <span class="nav-text">npm&#x2F;yarn</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pnpm-1"><span class="nav-number">3.2.</span> <span class="nav-text">pnpm</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#pnpm"><span class="nav-number">1.</span> <span class="nav-text">pnpm</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%89%B9%E7%82%B9"><span class="nav-number">2.</span> <span class="nav-text">特点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9F%E5%BA%A6%E5%BF%AB"><span class="nav-number">2.1.</span> <span class="nav-text">速度快</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AB%98%E6%95%88%E5%88%A9%E7%94%A8%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4"><span class="nav-number">2.2.</span> <span class="nav-text">高效利用磁盘空间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%94%AF%E6%8C%81-monorepo"><span class="nav-number">2.3.</span> <span class="nav-text">支持 monorepo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E6%80%A7%E9%AB%98"><span class="nav-number">2.4.</span> <span class="nav-text">安全性高</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86"><span class="nav-number">3.</span> <span class="nav-text">依赖管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#npm-x2F-yarn"><span class="nav-number">3.1.</span> <span class="nav-text">npm&#x2F;yarn</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pnpm-1"><span class="nav-number">3.2.</span> <span class="nav-text">pnpm</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#hard-link-%E7%A1%AC%E9%93%BE%E6%8E%A5"><span class="nav-number">3.2.1.</span> <span class="nav-text">hard link 硬链接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%AF%E8%BF%9E%E6%8E%A5%EF%BC%88%E7%AC%A6%E5%8F%B7%E9%93%BE%E6%8E%A5%EF%BC%89"><span class="nav-number">3.2.2.</span> <span class="nav-text">软连接（符号链接）</span></a></li></ol></li></ol></li></ol>
     </div>
 </div>
         </aside>
