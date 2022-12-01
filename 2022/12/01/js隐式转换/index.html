@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="灵感胜于汗水">
+    
+    <title>
+        
+            js隐式转换 |
+        
+        灵感胜于汗水
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/cjhsyc/image-hosting@master/头像.677yiujw5980.webp">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"cjhsyc.github.io","root":"/","language":"zh-CN","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"https://cdn.jsdelivr.net/gh/cjhsyc/image-hosting@master/头像.677yiujw5980.webp","favicon":"https://cdn.jsdelivr.net/gh/cjhsyc/image-hosting@master/头像.677yiujw5980.webp","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"https://cdn.jsdelivr.net/gh/cjhsyc/image-hosting@master/罗小黑战记.2g12vx9z84u8.webp","description":null},"scroll":{"progress_bar":{"enable":false},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":true},"lazyload":{"enable":false},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fas fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                灵感胜于汗水
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">js隐式转换</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="https://cdn.jsdelivr.net/gh/cjhsyc/image-hosting@master/%E5%A4%B4%E5%83%8F.677yiujw5980.webp">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">灵感胜于汗水</span>
+                        
+                            <span class="author-label">Lv5</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2022-12-01 17:48:46</span>
+        <span class="mobile">2022-12-01 17:48</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/JavaScript/">JavaScript</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>1.2k 字</span>
+        </span>
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h1 id="三种隐式转换类型"><a href="#三种隐式转换类型" class="headerlink" title="三种隐式转换类型"></a>三种隐式转换类型</h1><p>涉及隐式转换最多的是两个运算符 + 和 &#x3D;&#x3D;。- * &#x2F; 这些运算符只会针对number类型，故转换的结果只能是转换成number类型。</p>
+<p>隐式转换中主要涉及到三种转换：</p>
+<ol>
+<li><p>将值转为原始值，<code>ToPrimitive()</code>。</p>
+</li>
+<li><p>将值转为数字，<code>ToNumber()</code>。</p>
+</li>
+<li><p>将值转为字符串，<code>ToString()</code>。</p>
+</li>
+</ol>
+<h1 id="ToPrimitive"><a href="#ToPrimitive" class="headerlink" title="ToPrimitive"></a>ToPrimitive</h1><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">ToPrimitive</span>(input[, <span class="title class_">PreferredType</span>])</span><br></pre></td></tr></table></figure>
+
+<p><code>input</code>是要转换的值；<code>PreferredType</code>是可选参数，可以是<code>number</code>或<code>string</code>，他只是一个转换标志，转化后的结果并不一定是这个参数所指的类型，但是转换结果一定是一个原始值（或者报错）。</p>
+<ul>
+<li><p><code>PreferredType</code> 为<code>number</code>时：</p>
+<ol>
+<li>如果输入的值已经是一个原始值，则直接返回它 </li>
+<li>否则，如果输入的值是一个对象，则调用该对象的<code>valueOf()</code>方法，如果<code>valueOf()</code>方法的返回值是一个原始值，则返回这个原始值。 </li>
+<li>否则，调用这个对象的<code>toString()</code>方法，如果<code>toString()</code>方法返回的是一个原始值，则返回这个原始值。 </li>
+<li>否则，抛出<code>TypeError</code>异常。</li>
+</ol>
+</li>
+<li><p><code>PreferredType</code> 为<code>string</code>时：</p>
+<ol>
+<li>如果输入的值已经是一个原始值，则直接返回它 </li>
+<li>否则，调用这个对象的<code>toString()</code>方法，如果<code>toString()</code>方法返回的是一个原始值，则返回这个原始值。 </li>
+<li>否则，如果输入的值是一个对象，则调用该对象的<code>valueOf()</code>方法， 如果<code>valueOf()</code>方法的返回值是一个原始值，则返回这个原始值。 </li>
+<li>否则，抛出<code>TypeError</code>异常。</li>
+</ol>
+</li>
+<li><p>未设置<code>PreferredType</code>时：</p>
+<ol>
+<li>该对象为<code>Date</code>类型，则<code>PreferredType</code>被设置为<code>String</code> </li>
+<li>否则，<code>PreferredType</code>被设置为<code>Number</code></li>
+</ol>
+</li>
+</ul>
+<h1 id="valueOf和toString"><a href="#valueOf和toString" class="headerlink" title="valueOf和toString"></a>valueOf和toString</h1><p>任何对象都会有<code>valueOf</code>和<code>toString</code>方法，这两个方法都在<code>Object.prototype</code>上。</p>
+<h2 id="valueOf-NaN"><a href="#valueOf-NaN" class="headerlink" title="valueOf"></a>valueOf</h2><ul>
+<li><p>Number、Boolean、String这三种构造函数生成的基础值的对象形式，通过<code>valueOf</code>转换后会变成相应的原始值。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="keyword">new</span> <span class="title class_">Number</span>(<span class="string">&#x27;123&#x27;</span>);</span><br><span class="line">num.<span class="title function_">valueOf</span>(); <span class="comment">// 123</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> str = <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&#x27;12df&#x27;</span>);</span><br><span class="line">str.<span class="title function_">valueOf</span>(); <span class="comment">// &#x27;12df&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> bool = <span class="keyword">new</span> <span class="title class_">Boolean</span>(<span class="string">&#x27;fd&#x27;</span>);</span><br><span class="line">bool.<span class="title function_">valueOf</span>(); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Date这种特殊的对象，其原型<code>Date.prototype</code>上内置的<code>valueOf</code>函数将日期转换为日期的毫秒的形式的数值。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> <span class="title class_">Date</span>();</span><br><span class="line">a.<span class="title function_">valueOf</span>(); <span class="comment">// 1515143895500</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>除此之外返回的都为this，即对象本身。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> <span class="title class_">Array</span>();</span><br><span class="line">a.<span class="title function_">valueOf</span>() === a; <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> b = <span class="keyword">new</span> <span class="title class_">Object</span>(&#123;&#125;);</span><br><span class="line">b.<span class="title function_">valueOf</span>() === b; <span class="comment">// true</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="toString-NaN"><a href="#toString-NaN" class="headerlink" title="toString"></a>toString</h2><p><code>Number</code>、<code>Boolean</code>、<code>String</code>、<code>Array</code>、<code>Date</code>、<code>RegExp</code>、<code>Function</code>这几种构造函数生成的对象，通过<code>toString</code>转换后会变成相应的字符串的形式，因为这些构造函数上封装了自己的<code>toString</code>方法。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="keyword">new</span> <span class="title class_">Number</span>(<span class="string">&#x27;123sd&#x27;</span>);</span><br><span class="line">num.<span class="title function_">toString</span>(); <span class="comment">// &#x27;NaN&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> str = <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&#x27;12df&#x27;</span>);</span><br><span class="line">str.<span class="title function_">toString</span>(); <span class="comment">// &#x27;12df&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> bool = <span class="keyword">new</span> <span class="title class_">Boolean</span>(<span class="string">&#x27;fd&#x27;</span>);</span><br><span class="line">bool.<span class="title function_">toString</span>(); <span class="comment">// &#x27;true&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> arr = <span class="keyword">new</span> <span class="title class_">Array</span>(<span class="number">1</span>,<span class="number">2</span>);</span><br><span class="line">arr.<span class="title function_">toString</span>(); <span class="comment">// &#x27;1,2&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> d = <span class="keyword">new</span> <span class="title class_">Date</span>();</span><br><span class="line">d.<span class="title function_">toString</span>(); <span class="comment">// &quot;Wed Oct 11 2017 08:00:00 GMT+0800 (中国标准时间)&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> func = <span class="keyword">function</span> (<span class="params"></span>) &#123;&#125;</span><br><span class="line">func.<span class="title function_">toString</span>(); <span class="comment">// &quot;function () &#123;&#125;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>除这些对象及其实例化对象之外，其他对象返回的都是该对象的类型，都是继承的<code>Object.prototype.toString</code>方法。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = <span class="keyword">new</span> <span class="title class_">Object</span>(&#123;&#125;);</span><br><span class="line">obj.<span class="title function_">toString</span>(); <span class="comment">// &quot;[object Object]&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="title class_">Math</span>.<span class="title function_">toString</span>(); <span class="comment">// &quot;[object Math]&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="ToNumber"><a href="#ToNumber" class="headerlink" title="ToNumber"></a>ToNumber</h1><p>根据参数类型进行下面转换：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>undefined</td>
+<td><code>NaN</code></td>
+</tr>
+<tr>
+<td>null</td>
+<td>+0</td>
+</tr>
+<tr>
+<td>布尔值</td>
+<td>true转换1，false转换为+0</td>
+</tr>
+<tr>
+<td>数字</td>
+<td>无须转换</td>
+</tr>
+<tr>
+<td>字符串</td>
+<td>有字符串解析为数字，例如：‘324’转换为324，‘qwer’转换为<code>NaN</code></td>
+</tr>
+<tr>
+<td>对象(obj)</td>
+<td>先进行 <code>ToPrimitive(obj, Number)</code>转换得到原始值，在进行<code>ToNumber</code>转换为数字；空数组转换为0，非空数组、空对象、非空对象转换为<code>NaN</code></td>
+</tr>
+</tbody></table>
+<h1 id="ToString"><a href="#ToString" class="headerlink" title="ToString"></a>ToString</h1><p>根据参数类型进行下面转换：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>undefined</td>
+<td>‘undefined’</td>
+</tr>
+<tr>
+<td>null</td>
+<td>‘null’</td>
+</tr>
+<tr>
+<td>布尔值</td>
+<td>转换为’true’ 或 ‘false’</td>
+</tr>
+<tr>
+<td>数字</td>
+<td>数字转换字符串，比如：1.765转为’1.765’</td>
+</tr>
+<tr>
+<td>字符串</td>
+<td>无须转换</td>
+</tr>
+<tr>
+<td>对象(obj)</td>
+<td>先进行 <code>ToPrimitive(obj, String)</code>转换得到原始值，在进行<code>ToString</code>转换为字符串</td>
+</tr>
+</tbody></table>
+<h1 id="x3D-x3D-运算符隐式转换"><a href="#x3D-x3D-运算符隐式转换" class="headerlink" title="&#x3D;&#x3D; 运算符隐式转换"></a>&#x3D;&#x3D; 运算符隐式转换</h1><p>比较运算 x &#x3D;&#x3D; y，当x和y的类型相同时，没有类型转换，主要注意<code>NaN</code>不与任何值相等，包括它自己，即<code>NaN !== NaN</code>。</p>
+<p>类型不相同时：</p>
+<ol>
+<li>x、y 为null、undefined两者中一个   &#x2F;&#x2F; 返回true</li>
+<li>x、y为Number和String类型时，则转换为Number类型比较。</li>
+<li>有Boolean类型时，Boolean转化为Number类型比较。</li>
+<li>一个Object类型，一个String或Number类型，将Object类型进行原始转换后，按上面流程进行原始值比较。</li>
+</ol>
+<h1 id="加号运算符隐式转换"><a href="#加号运算符隐式转换" class="headerlink" title="加号运算符隐式转换"></a>加号运算符隐式转换</h1><p>运算x + y，当x、y其中一个为string类型时，将另一个值<code>ToString</code>后直接拼接；没有string类型时，<code>ToNumber</code>后进行比较。</p>
+<p>参考：</p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://juejin.cn/post/6844903557968166926?share_token=33decd56-6027-4ea9-85f3-9fbf164a0e20" >你所忽略的js隐式转换<i class="fas fa-external-link-alt"></i></a></p>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：js隐式转换</li>
+        <li>本文作者：灵感胜于汗水</li>
+        <li>创建时间：2022-12-01 17:48:46</li>
+        <li>
+            本文链接：https://cjhsyc.github.io/2022/12/01/js隐式转换/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+
+        
+            <div class="article-nav">
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2022/11/10/%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">内存泄漏</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2022&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">灵感胜于汗水</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89%E7%A7%8D%E9%9A%90%E5%BC%8F%E8%BD%AC%E6%8D%A2%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.</span> <span class="nav-text">三种隐式转换类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ToPrimitive"><span class="nav-number">2.</span> <span class="nav-text">ToPrimitive</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#valueOf%E5%92%8CtoString"><span class="nav-number">3.</span> <span class="nav-text">valueOf和toString</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#valueOf-NaN"><span class="nav-number">3.1.</span> <span class="nav-text">valueOf</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#toString-NaN"><span class="nav-number">3.2.</span> <span class="nav-text">toString</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ToNumber"><span class="nav-number">4.</span> <span class="nav-text">ToNumber</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ToString"><span class="nav-number">5.</span> <span class="nav-text">ToString</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#x3D-x3D-%E8%BF%90%E7%AE%97%E7%AC%A6%E9%9A%90%E5%BC%8F%E8%BD%AC%E6%8D%A2"><span class="nav-number">6.</span> <span class="nav-text">&#x3D;&#x3D; 运算符隐式转换</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8A%A0%E5%8F%B7%E8%BF%90%E7%AE%97%E7%AC%A6%E9%9A%90%E5%BC%8F%E8%BD%AC%E6%8D%A2"><span class="nav-number">7.</span> <span class="nav-text">加号运算符隐式转换</span></a></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>
