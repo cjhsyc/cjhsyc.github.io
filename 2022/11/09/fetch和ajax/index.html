@@ -191,9 +191,43 @@
         <span class="mobile">2022-11-09 16:46</span>
     </span>
     
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/JavaScript/">JavaScript</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/axios/">axios</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/ajax/">ajax</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/fetch/">fetch</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
     
 
     
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>617 字</span>
+        </span>
     
     
     
@@ -209,7 +243,33 @@
         
 
         <div class="article-content markdown-body">
-            
+            <h1 id="Ajax"><a href="#Ajax" class="headerlink" title="Ajax"></a>Ajax</h1><p>英文全称为 <code>Asynchronous JavaScript + XML</code> ，翻译过来就是<strong>异步JavaScript和XML</strong>。</p>
+<p>Ajax 是一个<strong>概念模型</strong>，是一个囊括了众多现有技术的<strong>集合</strong>，并不具体代指某项技术。</p>
+<p>它是用来描述一种使用现有技术集合的“新”方法的，这里的“新”方法主要涉及到:  HTML 或 XHTML、CSS、 JavaScript、DOM、XML、XSLT，以及最重要的 XMLHttpRequest。</p>
+<p>当使用结合了这些技术的 AJAX 模型以后， 网页应用能够快速地将增量更新呈现在用户界面上，而不需要重载（刷新）整个页面。这使得程序能够更快地回应用户的操作。</p>
+<p>Ajax 最重要的特性就是可以<strong>局部刷新页面</strong>。</p>
+<h1 id="Axios"><a href="#Axios" class="headerlink" title="Axios"></a>Axios</h1><p>Axios 是一个基于 Promise 网络请求库，作用于 Node.js 和浏览器中。 它是 isomorphic 的(即同一套代码可以运行在浏览器和 Node.js中)。在服务端它使用原生 Node.js http 模块，而在客户端则使用 XMLHttpRequest。</p>
+<p>客户端 Axios 的主要特性有：</p>
+<ul>
+<li>从浏览器创建 XMLHttpRequests</li>
+<li>支持 Promise API</li>
+<li>拦截请求和响应</li>
+<li>转换请求和响应数据</li>
+<li>取消请求</li>
+<li>自动转换JSON数据</li>
+<li>客户端支持防御XSRF</li>
+</ul>
+<h1 id="Fetch"><a href="#Fetch" class="headerlink" title="Fetch"></a>Fetch</h1><p>Fetch 提供了一个获取资源的接口（包括跨域请求）。</p>
+<p>Fetch 是一个现代的概念, 等同于 XMLHttpRequest。它提供了许多与 XMLHttpRequest 相同的功能，但被设计成<strong>更具可扩展性和高效性</strong>。</p>
+<p>Fetch 的核心在于<strong>对 HTTP 接口的抽象</strong>，包括 Request、Response、Headers 和 Body，以及用于初始化异步请求的 <code>global fetch</code>。得益于 JavaScript 实现的这些抽象好的 HTTP 模块，其他接口能够很方便的使用这些功能。</p>
+<p>除此之外，Fetch 还利用到了请求的异步特性——它是基于 Promise 的。</p>
+<p><code>fetch() </code> 方法必须接受一个参数——资源的路径。无论请求成功与否，它都返回一个 Promise 对象，resolve 对应请求的 Response。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>Ajax 是一种代表异步 JavaScript + XML 的模型（技术合集），所以 Fetch 也是 Ajax 的一个子集</p>
+<p>在之前，我们常说的 Ajax 默认是指以 XHR 为核心的技术合集，而在有了 Fetch 之后，Ajax 不再单单指 XHR 了，我们将以 XHR 为核心的 Ajax 技术称作<strong>传统 Ajax</strong>。</p>
+<p>Axios 属于传统 Ajax（XHR）的子集，因为它是基于 XHR 进行的封装。</p>
+<p>参考：</p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://juejin.cn/post/6997784981816737800" >有同学问我：Fetch 和 Ajax 有什么区别？<i class="fas fa-external-link-alt"></i></a></p>
+
         </div>
 
         
@@ -232,9 +292,40 @@
         
 
         
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/axios/">#axios</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/ajax/">#ajax</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/fetch/">#fetch</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
 
         
             <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2022/11/10/%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">内存泄漏</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
                 
                 
                     <div class="article-next">
@@ -369,7 +460,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Ajax"><span class="nav-number">1.</span> <span class="nav-text">Ajax</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Axios"><span class="nav-number">2.</span> <span class="nav-text">Axios</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Fetch"><span class="nav-number">3.</span> <span class="nav-text">Fetch</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol>
     </div>
 </div>
         </aside>
