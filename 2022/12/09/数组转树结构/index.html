@@ -9,7 +9,7 @@
     
     <title>
         
-            手写flat |
+            数组转树结构 |
         
         灵感胜于汗水
     </title>
@@ -168,7 +168,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">手写flat</span>
+            <span class="title-hover-animation">数组转树结构</span>
         </div>
 
         
@@ -187,8 +187,8 @@
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fas fa-edit"></i>&nbsp;
-        <span class="pc">2022-04-18 15:21:29</span>
-        <span class="mobile">2022-04-18 15:21</span>
+        <span class="pc">2022-12-09 20:19:33</span>
+        <span class="mobile">2022-12-09 20:19</span>
     </span>
     
         <span class="article-categories article-meta-item">
@@ -196,11 +196,7 @@
             <ul>
                 
                     <li>
-                        <a href="/categories/JavaScript/">JavaScript</a>&nbsp;
-                    </li>
-                
-                    <li>
-                        &gt; <a href="/categories/%E6%89%8B%E5%86%99/">手写</a>&nbsp;
+                        <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>&nbsp;
                     </li>
                 
             </ul>
@@ -212,7 +208,7 @@
             <ul>
                 
                     <li>
-                        <a href="/tags/flat/">flat</a>&nbsp;
+                        <a href="/tags/JavaScript/">JavaScript</a>&nbsp;
                     </li>
                 
             </ul>
@@ -222,7 +218,7 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>172 字</span>
+            <i class="fas fa-file-word"></i>&nbsp;<span>197 字</span>
         </span>
     
     
@@ -239,16 +235,8 @@
         
 
         <div class="article-content markdown-body">
-            <h1 id="手写flat（数组扁平化）"><a href="#手写flat（数组扁平化）" class="headerlink" title="手写flat（数组扁平化）"></a>手写flat（数组扁平化）</h1><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Array</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">_flat</span>=<span class="keyword">function</span> (<span class="params">depth=<span class="number">1</span></span>)&#123;</span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">flatten</span>(<span class="params">arr,depth</span>)&#123;</span><br><span class="line">    <span class="keyword">if</span>(depth&lt;=<span class="number">0</span>) <span class="keyword">return</span> [...arr]</span><br><span class="line">    <span class="keyword">return</span> arr.<span class="title function_">reduce</span>(<span class="function">(<span class="params">pre,cur</span>)=&gt;</span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="title class_">Array</span>.<span class="title function_">isArray</span>(cur)) pre.<span class="title function_">push</span>(...<span class="title function_">flatten</span>(cur,depth-<span class="number">1</span>)) <span class="comment">//是数组，递归</span></span><br><span class="line">      <span class="keyword">else</span> pre.<span class="title function_">push</span>(cur) <span class="comment">//不是数组，直接加入pre</span></span><br><span class="line">      <span class="keyword">return</span> pre</span><br><span class="line">    &#125;,[])</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="title function_">flatten</span>(<span class="variable language_">this</span>,depth)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+            <h1 id="数组转树结构"><a href="#数组转树结构" class="headerlink" title="数组转树结构"></a>数组转树结构</h1><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> data = [</span><br><span class="line">  &#123; <span class="attr">id</span>: <span class="number">0</span>, <span class="attr">parentId</span>: <span class="literal">null</span>, <span class="attr">name</span>: <span class="string">&#x27;生物&#x27;</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">id</span>: <span class="number">1</span>, <span class="attr">parentId</span>: <span class="number">0</span>, <span class="attr">name</span>: <span class="string">&#x27;动物&#x27;</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">id</span>: <span class="number">2</span>, <span class="attr">parentId</span>: <span class="number">0</span>, <span class="attr">name</span>: <span class="string">&#x27;植物&#x27;</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">id</span>: <span class="number">3</span>, <span class="attr">parentId</span>: <span class="number">0</span>, <span class="attr">name</span>: <span class="string">&#x27;微生物&#x27;</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">id</span>: <span class="number">4</span>, <span class="attr">parentId</span>: <span class="number">1</span>, <span class="attr">name</span>: <span class="string">&#x27;哺乳动物&#x27;</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">id</span>: <span class="number">5</span>, <span class="attr">parentId</span>: <span class="number">1</span>, <span class="attr">name</span>: <span class="string">&#x27;卵生动物&#x27;</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">id</span>: <span class="number">6</span>, <span class="attr">parentId</span>: <span class="number">2</span>, <span class="attr">name</span>: <span class="string">&#x27;种子植物&#x27;</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">id</span>: <span class="number">7</span>, <span class="attr">parentId</span>: <span class="number">2</span>, <span class="attr">name</span>: <span class="string">&#x27;蕨类植物&#x27;</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">id</span>: <span class="number">8</span>, <span class="attr">parentId</span>: <span class="number">4</span>, <span class="attr">name</span>: <span class="string">&#x27;大象&#x27;</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">id</span>: <span class="number">9</span>, <span class="attr">parentId</span>: <span class="number">4</span>, <span class="attr">name</span>: <span class="string">&#x27;海豚&#x27;</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">id</span>: <span class="number">10</span>, <span class="attr">parentId</span>: <span class="number">4</span>, <span class="attr">name</span>: <span class="string">&#x27;猩猩&#x27;</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">id</span>: <span class="number">11</span>, <span class="attr">parentId</span>: <span class="number">5</span>, <span class="attr">name</span>: <span class="string">&#x27;蟒蛇&#x27;</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">id</span>: <span class="number">12</span>, <span class="attr">parentId</span>: <span class="number">5</span>, <span class="attr">name</span>: <span class="string">&#x27;麻雀&#x27;</span> &#125;,</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="comment">// 数组转树结构</span></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">toTree</span> = (<span class="params">arr, pid = <span class="literal">null</span></span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> arr.<span class="title function_">filter</span>(<span class="function">(<span class="params">item</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (item.<span class="property">parentId</span> === pid) item.<span class="property">children</span> = <span class="title function_">toTree</span>(arr, item.<span class="property">id</span>)</span><br><span class="line">    <span class="keyword">return</span> item.<span class="property">parentId</span> === pid</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">toTree</span>(data)</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> arr=[<span class="number">1</span>,[<span class="number">2</span>,<span class="number">3</span>],[<span class="number">4</span>,[<span class="number">5</span>,<span class="number">6</span>]],<span class="number">7</span>]</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(arr.<span class="title function_">_flat</span>()) <span class="comment">//[1, 2, 3, 4, [5, 6], 7]</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(arr.<span class="title function_">_flat</span>(<span class="number">1</span>)) <span class="comment">//[1, 2, 3, 4, [5, 6], 7]</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(arr.<span class="title function_">_flat</span>(<span class="number">2</span>)) <span class="comment">//[1, 2, 3, 4, 5, 6, 7]</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(arr.<span class="title function_">_flat</span>(<span class="title class_">Infinity</span>)) <span class="comment">//[1, 2, 3, 4, 5, 6, 7]</span></span><br></pre></td></tr></table></figure>
-
-<p>代码简化：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Array</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">_flat</span> = <span class="keyword">function</span> (<span class="params">depth = <span class="number">1</span></span>) &#123;</span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">flatten</span>(<span class="params">arr, depth</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> depth &lt;= <span class="number">0</span> ?</span><br><span class="line">        [...arr] : arr.<span class="title function_">reduce</span>(<span class="function">(<span class="params">pre, cur</span>) =&gt;</span> <span class="title class_">Array</span>.<span class="title function_">isArray</span>(cur) ?</span><br><span class="line">            [...pre, ...<span class="title function_">flatten</span>(cur, depth - <span class="number">1</span>)] : [...pre, cur], [])</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="title function_">flatten</span>(<span class="variable language_">this</span>, depth)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p><a class="link"   target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1tL411M7hb?p=17&t=1067.8" >参考视频<i class="fas fa-external-link-alt"></i></a></p>
 
         </div>
 
@@ -256,11 +244,11 @@
             <div class="post-copyright-info">
                 <div class="article-copyright-info-container">
     <ul>
-        <li>本文标题：手写flat</li>
+        <li>本文标题：数组转树结构</li>
         <li>本文作者：灵感胜于汗水</li>
-        <li>创建时间：2022-04-18 15:21:29</li>
+        <li>创建时间：2022-12-09 20:19:33</li>
         <li>
-            本文链接：https://cjhsyc.github.io/2022/04/18/手写flat/
+            本文链接：https://cjhsyc.github.io/2022/12/09/数组转树结构/
         </li>
         <li>
             版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -275,7 +263,7 @@
             <ul class="post-tags-box">
                 
                     <li class="tag-item">
-                        <a href="/tags/flat/">#flat</a>&nbsp;
+                        <a href="/tags/JavaScript/">#JavaScript</a>&nbsp;
                     </li>
                 
             </ul>
@@ -284,29 +272,14 @@
         
             <div class="article-nav">
                 
-                    <div class="article-prev">
-                        <a class="prev"
-                           rel="prev"
-                           href="/2022/04/29/vue3%E4%BD%BF%E7%94%A8tsx/"
-                        >
-                            <span class="left arrow-icon flex-center">
-                              <i class="fas fa-chevron-left"></i>
-                            </span>
-                            <span class="title flex-center">
-                                <span class="post-nav-title-item">vue3使用tsx</span>
-                                <span class="post-nav-item">上一篇</span>
-                            </span>
-                        </a>
-                    </div>
-                
                 
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="/2022/04/10/MongoDB/"
+                           href="/2022/12/03/draggable%E5%8F%AF%E6%8B%96%E5%8A%A8%E5%85%83%E7%B4%A0/"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">MongoDB</span>
+                                <span class="post-nav-title-item">draggable可拖动元素</span>
                                 <span class="post-nav-item">下一篇</span>
                             </span>
                             <span class="right arrow-icon flex-center">
@@ -432,7 +405,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%89%8B%E5%86%99flat%EF%BC%88%E6%95%B0%E7%BB%84%E6%89%81%E5%B9%B3%E5%8C%96%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">手写flat（数组扁平化）</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E8%BD%AC%E6%A0%91%E7%BB%93%E6%9E%84"><span class="nav-number">1.</span> <span class="nav-text">数组转树结构</span></a></li></ol>
     </div>
 </div>
         </aside>

@@ -9,8 +9,6 @@
     
     <title>
         
-            标签: 插件 |
-        
         灵感胜于汗水
     </title>
     
@@ -64,7 +62,7 @@
                 <ul class="menu-list">
                     
                         <li class="menu-item">
-                            <a class=""
+                            <a class="active"
                                href="/"
                             >
                                 首页
@@ -88,7 +86,7 @@
                         </li>
                     
                         <li class="menu-item">
-                            <a class="active"
+                            <a class=""
                                href="/tags"
                             >
                                 标签
@@ -125,7 +123,7 @@
         <ul class="drawer-menu-list">
             
                 <li class="drawer-menu-item flex-center">
-                    <a class=""
+                    <a class="active"
                        href="/">首页</a>
                 </li>
             
@@ -140,7 +138,7 @@
                 </li>
             
                 <li class="drawer-menu-item flex-center">
-                    <a class="active"
+                    <a class=""
                        href="/tags">标签</a>
                 </li>
             
@@ -164,38 +162,98 @@
             <div class="main-content">
 
                 
-                    <div class="fade-in-down-animation">
-    <div class="tag-container">
-        <div class="tag-name"><i class="fas fa-tag"></i>&nbsp;插件
-        </div>
-        <div class="tag-post-list">
-            
-<div class="archive-list-container">
-    
-        <section class="archive-item">
-            <div class="archive-item-header">
-                <span class="archive-year">2022</span>
-                <span class="archive-year-post-count">[1]</span>
-            </div>
-            <ul class="article-list">
-                
-                    <li class="article-item">
-                        <a class="article-title"
-                           href="/2022/04/03/%E6%89%8B%E5%86%99vue-lazyload/"
-                        >手写vue-lazyload</a>
-                        <span class="article-date">04-03</span>
-                    </li>
-                
-            </ul>
-        </section>
-    
-</div>
+                    <div class="home-content-container fade-in-down-animation">
+    <ul class="home-article-list">
+        
+            <li class="home-article-item">
 
-        </div>
+                
+
+                <h3 class="home-article-title">
+                    <a href="/2022/03/07/webpack%E9%85%8D%E7%BD%AE/">
+                        webpack配置
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        webpack.config.js入口和出口文件123456789const path = require(&#x27;path&#x27;)//引入path模块module.exports = &#123;    entry: &#x27;./sr...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Mon Mar 07 2022 23:19:37 GMT+0800">2022-03-07</span></span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fas fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/webpack/">webpack</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
     </div>
 
-    <div class="tag-paginator">
+    <a href="/2022/03/07/webpack%E9%85%8D%E7%BD%AE/">阅读全文&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/2022/03/06/Echarts%E7%9A%84%E5%AE%B9%E5%99%A8%E5%AE%BD%E9%AB%98%E4%BD%BF%E7%94%A8rem%EF%BC%8C%E6%B8%B2%E6%9F%93%E5%87%BA%E7%9A%84%E5%9B%BE%E8%A1%A8%E5%BE%88%E5%B0%8F%E7%9A%84%E9%97%AE%E9%A2%98/">
+                        Echarts的容器宽高使用rem，渲染出的图表很小的问题
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        主要是因为div还没有创建出来echarts就已经加载了，因为获取不到宽高，所以会缩小在一起。参考了几篇文章，我在echarts配置后加入如下代码，解决了问题：
+123456789myChart.setOption(option); //延迟resi...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Sun Mar 06 2022 19:54:11 GMT+0800">2022-03-06</span></span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fas fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/Echarts/">Echarts</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2022/03/06/Echarts%E7%9A%84%E5%AE%B9%E5%99%A8%E5%AE%BD%E9%AB%98%E4%BD%BF%E7%94%A8rem%EF%BC%8C%E6%B8%B2%E6%9F%93%E5%87%BA%E7%9A%84%E5%9B%BE%E8%A1%A8%E5%BE%88%E5%B0%8F%E7%9A%84%E9%97%AE%E9%A2%98/">阅读全文&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+    </ul>
+
+    <div class="home-paginator">
         <div class="paginator">
+    
+        <a class="prev btn"
+           href="/page/8/"
+        >上一页</a>
     
 
     
@@ -332,6 +390,7 @@
     
 
 </main>
+
 
 
 

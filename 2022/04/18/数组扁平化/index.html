@@ -9,7 +9,7 @@
     
     <title>
         
-            内存泄漏 |
+            数组扁平化 |
         
         灵感胜于汗水
     </title>
@@ -168,7 +168,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">内存泄漏</span>
+            <span class="title-hover-animation">数组扁平化</span>
         </div>
 
         
@@ -187,8 +187,8 @@
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fas fa-edit"></i>&nbsp;
-        <span class="pc">2022-11-10 21:04:31</span>
-        <span class="mobile">2022-11-10 21:04</span>
+        <span class="pc">2022-04-18 15:21:29</span>
+        <span class="mobile">2022-04-18 15:21</span>
     </span>
     
         <span class="article-categories article-meta-item">
@@ -196,7 +196,7 @@
             <ul>
                 
                     <li>
-                        <a href="/categories/JavaScript/">JavaScript</a>&nbsp;
+                        <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>&nbsp;
                     </li>
                 
             </ul>
@@ -208,7 +208,11 @@
             <ul>
                 
                     <li>
-                        <a href="/tags/%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F/">内存泄漏</a>&nbsp;
+                        <a href="/tags/JavaScript/">JavaScript</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/flat/">flat</a>&nbsp;
                     </li>
                 
             </ul>
@@ -218,7 +222,7 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>480 字</span>
+            <i class="fas fa-file-word"></i>&nbsp;<span>172 字</span>
         </span>
     
     
@@ -235,22 +239,16 @@
         
 
         <div class="article-content markdown-body">
-            <h1 id="内存泄漏"><a href="#内存泄漏" class="headerlink" title="内存泄漏"></a>内存泄漏</h1><p>内存泄漏（Memory leak）是在计算机科学中，由于疏忽或错误造成程序未能释放已经不再使用的内存。</p>
-<p>并非指内存在物理上的消失，而是应用程序分配某段内存后，由于设计错误，导致在释放该段内存之前就失去了对该段内存的控制，从而造成了内存的浪费。</p>
-<p>对于持续运行的服务进程，必须及时释放不再用到的内存。否则，内存占用越来越高，轻则影响系统性能，重则导致进程崩溃。</p>
-<h1 id="常见内存泄露情况"><a href="#常见内存泄露情况" class="headerlink" title="常见内存泄露情况"></a>常见内存泄露情况</h1><h2 id="意外的全局变量"><a href="#意外的全局变量" class="headerlink" title="意外的全局变量"></a>意外的全局变量</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">foo</span>(<span class="params">arg</span>) &#123;</span><br><span class="line">    bar = <span class="string">&quot;this is a hidden global variable&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 另一种意外的全局变量可能由 this 创建</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">foo</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">variable</span> = <span class="string">&quot;potential accidental global&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// foo 调用自己，this 指向了全局对象（window）</span></span><br><span class="line"><span class="title function_">foo</span>();</span><br></pre></td></tr></table></figure>
+            <h1 id="手写flat（数组扁平化）"><a href="#手写flat（数组扁平化）" class="headerlink" title="手写flat（数组扁平化）"></a>手写flat（数组扁平化）</h1><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Array</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">_flat</span>=<span class="keyword">function</span> (<span class="params">depth=<span class="number">1</span></span>)&#123;</span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">flatten</span>(<span class="params">arr,depth</span>)&#123;</span><br><span class="line">    <span class="keyword">if</span>(depth&lt;=<span class="number">0</span>) <span class="keyword">return</span> [...arr]</span><br><span class="line">    <span class="keyword">return</span> arr.<span class="title function_">reduce</span>(<span class="function">(<span class="params">pre,cur</span>)=&gt;</span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="title class_">Array</span>.<span class="title function_">isArray</span>(cur)) pre.<span class="title function_">push</span>(...<span class="title function_">flatten</span>(cur,depth-<span class="number">1</span>)) <span class="comment">//是数组，递归</span></span><br><span class="line">      <span class="keyword">else</span> pre.<span class="title function_">push</span>(cur) <span class="comment">//不是数组，直接加入pre</span></span><br><span class="line">      <span class="keyword">return</span> pre</span><br><span class="line">    &#125;,[])</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="title function_">flatten</span>(<span class="variable language_">this</span>,depth)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><strong>解决方法：</strong>使用严格模式，可以避免意外的全局变量，此时上例中的this指向<code>undefined</code>。如果必须使用全局变量存储大量数据时，确保用完以后把它设置为 null 或者重新定义。</p>
-<h2 id="定时器"><a href="#定时器" class="headerlink" title="定时器"></a>定时器</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> someResource = <span class="title function_">getData</span>();</span><br><span class="line"><span class="built_in">setInterval</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> node = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;Node&#x27;</span>);</span><br><span class="line">    <span class="keyword">if</span>(node) &#123;</span><br><span class="line">        <span class="comment">// 处理 node 和 someResource</span></span><br><span class="line">        node.<span class="property">innerHTML</span> = <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(someResource));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;, <span class="number">1000</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> arr=[<span class="number">1</span>,[<span class="number">2</span>,<span class="number">3</span>],[<span class="number">4</span>,[<span class="number">5</span>,<span class="number">6</span>]],<span class="number">7</span>]</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(arr.<span class="title function_">_flat</span>()) <span class="comment">//[1, 2, 3, 4, [5, 6], 7]</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(arr.<span class="title function_">_flat</span>(<span class="number">1</span>)) <span class="comment">//[1, 2, 3, 4, [5, 6], 7]</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(arr.<span class="title function_">_flat</span>(<span class="number">2</span>)) <span class="comment">//[1, 2, 3, 4, 5, 6, 7]</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(arr.<span class="title function_">_flat</span>(<span class="title class_">Infinity</span>)) <span class="comment">//[1, 2, 3, 4, 5, 6, 7]</span></span><br></pre></td></tr></table></figure>
 
-<p>如果<code>id</code>为Node的元素从<code>DOM</code>中移除，该定时器仍会存在，同时，因为回调函数中包含对<code>someResource</code>的引用，定时器外面的<code>someResource</code>也不会被释放。</p>
-<h2 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a><a href="https://cjhsyc.github.io/2022/10/20/%E9%97%AD%E5%8C%85%E4%B8%8E%E4%BD%9C%E7%94%A8%E5%9F%9F/">闭包</a></h2><h2 id="未清理-DOM-的引用"><a href="#未清理-DOM-的引用" class="headerlink" title="未清理 DOM 的引用"></a>未清理 DOM 的引用</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> refA = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;refA&#x27;</span>);</span><br><span class="line"><span class="variable language_">document</span>.<span class="property">body</span>.<span class="title function_">removeChild</span>(refA); <span class="comment">// dom删除了</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(refA, <span class="string">&#x27;refA&#x27;</span>); <span class="comment">// 但是还存在引用能console出整个div 没有被回收</span></span><br><span class="line">refA = <span class="literal">null</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(refA, <span class="string">&#x27;refA&#x27;</span>); <span class="comment">// 解除引用</span></span><br></pre></td></tr></table></figure>
+<p>代码简化：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Array</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">_flat</span> = <span class="keyword">function</span> (<span class="params">depth = <span class="number">1</span></span>) &#123;</span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">flatten</span>(<span class="params">arr, depth</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> depth &lt;= <span class="number">0</span> ?</span><br><span class="line">        [...arr] : arr.<span class="title function_">reduce</span>(<span class="function">(<span class="params">pre, cur</span>) =&gt;</span> <span class="title class_">Array</span>.<span class="title function_">isArray</span>(cur) ?</span><br><span class="line">            [...pre, ...<span class="title function_">flatten</span>(cur, depth - <span class="number">1</span>)] : [...pre, cur], [])</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="title function_">flatten</span>(<span class="variable language_">this</span>, depth)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>包括使用事件监听<code>addEventListener</code>监听的时候，在不监听的情况下使用<code>removeEventListener</code>取消对事件监听。</p>
-<p>参考：</p>
-<ul>
-<li><a class="link"   target="_blank" rel="noopener" href="https://vue3js.cn/interview/JavaScript/memory_leak.html#%E9%9D%A2%E8%AF%95%E5%AE%98-%E8%AF%B4%E8%AF%B4-javascript-%E4%B8%AD%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E7%9A%84%E5%87%A0%E7%A7%8D%E6%83%85%E5%86%B5" >面试官：说说 JavaScript 中内存泄漏的几种情况？<i class="fas fa-external-link-alt"></i></a></li>
-</ul>
+
+
+<p><a class="link"   target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1tL411M7hb?p=17&t=1067.8" >参考视频<i class="fas fa-external-link-alt"></i></a></p>
 
         </div>
 
@@ -258,11 +256,11 @@
             <div class="post-copyright-info">
                 <div class="article-copyright-info-container">
     <ul>
-        <li>本文标题：内存泄漏</li>
+        <li>本文标题：数组扁平化</li>
         <li>本文作者：灵感胜于汗水</li>
-        <li>创建时间：2022-11-10 21:04:31</li>
+        <li>创建时间：2022-04-18 15:21:29</li>
         <li>
-            本文链接：https://cjhsyc.github.io/2022/11/10/内存泄漏/
+            本文链接：https://cjhsyc.github.io/2022/04/18/数组扁平化/
         </li>
         <li>
             版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -277,7 +275,11 @@
             <ul class="post-tags-box">
                 
                     <li class="tag-item">
-                        <a href="/tags/%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F/">#内存泄漏</a>&nbsp;
+                        <a href="/tags/JavaScript/">#JavaScript</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/flat/">#flat</a>&nbsp;
                     </li>
                 
             </ul>
@@ -289,13 +291,13 @@
                     <div class="article-prev">
                         <a class="prev"
                            rel="prev"
-                           href="/2022/12/01/js%E9%9A%90%E5%BC%8F%E8%BD%AC%E6%8D%A2/"
+                           href="/2022/04/29/vue3%E4%BD%BF%E7%94%A8tsx/"
                         >
                             <span class="left arrow-icon flex-center">
                               <i class="fas fa-chevron-left"></i>
                             </span>
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">js隐式转换</span>
+                                <span class="post-nav-title-item">vue3使用tsx</span>
                                 <span class="post-nav-item">上一篇</span>
                             </span>
                         </a>
@@ -305,10 +307,10 @@
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="/2022/11/09/fetch%E5%92%8Cajax/"
+                           href="/2022/04/10/MongoDB/"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">fetch和ajax</span>
+                                <span class="post-nav-title-item">MongoDB</span>
                                 <span class="post-nav-item">下一篇</span>
                             </span>
                             <span class="right arrow-icon flex-center">
@@ -434,7 +436,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">内存泄漏</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E5%86%85%E5%AD%98%E6%B3%84%E9%9C%B2%E6%83%85%E5%86%B5"><span class="nav-number">2.</span> <span class="nav-text">常见内存泄露情况</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%84%8F%E5%A4%96%E7%9A%84%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F"><span class="nav-number">2.1.</span> <span class="nav-text">意外的全局变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E6%97%B6%E5%99%A8"><span class="nav-number">2.2.</span> <span class="nav-text">定时器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AD%E5%8C%85"><span class="nav-number">2.3.</span> <span class="nav-text">闭包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%AA%E6%B8%85%E7%90%86-DOM-%E7%9A%84%E5%BC%95%E7%94%A8"><span class="nav-number">2.4.</span> <span class="nav-text">未清理 DOM 的引用</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%89%8B%E5%86%99flat%EF%BC%88%E6%95%B0%E7%BB%84%E6%89%81%E5%B9%B3%E5%8C%96%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">手写flat（数组扁平化）</span></a></li></ol>
     </div>
 </div>
         </aside>
