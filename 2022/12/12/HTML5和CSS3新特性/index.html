@@ -9,7 +9,7 @@
     
     <title>
         
-            数组转树结构 |
+            HTML5和CSS3新特性 |
         
         灵感胜于汗水
     </title>
@@ -168,7 +168,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">数组转树结构</span>
+            <span class="title-hover-animation">HTML5和CSS3新特性</span>
         </div>
 
         
@@ -187,8 +187,8 @@
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fas fa-edit"></i>&nbsp;
-        <span class="pc">2022-12-09 20:19:33</span>
-        <span class="mobile">2022-12-09 20:19</span>
+        <span class="pc">2022-12-12 12:48:14</span>
+        <span class="mobile">2022-12-12 12:48</span>
     </span>
     
         <span class="article-categories article-meta-item">
@@ -196,7 +196,7 @@
             <ul>
                 
                     <li>
-                        <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>&nbsp;
+                        <a href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>&nbsp;
                     </li>
                 
             </ul>
@@ -208,7 +208,11 @@
             <ul>
                 
                     <li>
-                        <a href="/tags/JavaScript/">JavaScript</a>&nbsp;
+                        <a href="/tags/HTML5/">HTML5</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/CSS3/">CSS3</a>&nbsp;
                     </li>
                 
             </ul>
@@ -218,7 +222,7 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>197 字</span>
+            <i class="fas fa-file-word"></i>&nbsp;<span>1.4k 字</span>
         </span>
     
     
@@ -235,8 +239,216 @@
         
 
         <div class="article-content markdown-body">
-            <h1 id="数组转树结构"><a href="#数组转树结构" class="headerlink" title="数组转树结构"></a>数组转树结构</h1><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> data = [</span><br><span class="line">  &#123; <span class="attr">id</span>: <span class="number">0</span>, <span class="attr">parentId</span>: <span class="literal">null</span>, <span class="attr">name</span>: <span class="string">&#x27;生物&#x27;</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">id</span>: <span class="number">1</span>, <span class="attr">parentId</span>: <span class="number">0</span>, <span class="attr">name</span>: <span class="string">&#x27;动物&#x27;</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">id</span>: <span class="number">2</span>, <span class="attr">parentId</span>: <span class="number">0</span>, <span class="attr">name</span>: <span class="string">&#x27;植物&#x27;</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">id</span>: <span class="number">3</span>, <span class="attr">parentId</span>: <span class="number">0</span>, <span class="attr">name</span>: <span class="string">&#x27;微生物&#x27;</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">id</span>: <span class="number">4</span>, <span class="attr">parentId</span>: <span class="number">1</span>, <span class="attr">name</span>: <span class="string">&#x27;哺乳动物&#x27;</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">id</span>: <span class="number">5</span>, <span class="attr">parentId</span>: <span class="number">1</span>, <span class="attr">name</span>: <span class="string">&#x27;卵生动物&#x27;</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">id</span>: <span class="number">6</span>, <span class="attr">parentId</span>: <span class="number">2</span>, <span class="attr">name</span>: <span class="string">&#x27;种子植物&#x27;</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">id</span>: <span class="number">7</span>, <span class="attr">parentId</span>: <span class="number">2</span>, <span class="attr">name</span>: <span class="string">&#x27;蕨类植物&#x27;</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">id</span>: <span class="number">8</span>, <span class="attr">parentId</span>: <span class="number">4</span>, <span class="attr">name</span>: <span class="string">&#x27;大象&#x27;</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">id</span>: <span class="number">9</span>, <span class="attr">parentId</span>: <span class="number">4</span>, <span class="attr">name</span>: <span class="string">&#x27;海豚&#x27;</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">id</span>: <span class="number">10</span>, <span class="attr">parentId</span>: <span class="number">4</span>, <span class="attr">name</span>: <span class="string">&#x27;猩猩&#x27;</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">id</span>: <span class="number">11</span>, <span class="attr">parentId</span>: <span class="number">5</span>, <span class="attr">name</span>: <span class="string">&#x27;蟒蛇&#x27;</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">id</span>: <span class="number">12</span>, <span class="attr">parentId</span>: <span class="number">5</span>, <span class="attr">name</span>: <span class="string">&#x27;麻雀&#x27;</span> &#125;,</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="comment">// 数组转树结构</span></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">toTree</span> = (<span class="params">arr, pid = <span class="literal">null</span></span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> arr.<span class="title function_">filter</span>(<span class="function">(<span class="params">item</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (item.<span class="property">parentId</span> === pid) item.<span class="property">children</span> = <span class="title function_">toTree</span>(arr, item.<span class="property">id</span>)</span><br><span class="line">    <span class="keyword">return</span> item.<span class="property">parentId</span> === pid</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">toTree</span>(data)</span><br></pre></td></tr></table></figure>
-
+            <h1 id="HTML5"><a href="#HTML5" class="headerlink" title="HTML5"></a>HTML5</h1><h2 id="语义化标签"><a href="#语义化标签" class="headerlink" title="语义化标签"></a>语义化标签</h2><ul>
+<li><code>header</code>: 描述了文档的头部区域，于定义内容的介绍展示区域。</li>
+<li><code>nav</code>：定义导航链接的部分。</li>
+<li><code>section</code>：定义文档中的节（section、区段）。比如章节、页眉、页脚或文档中的其他部分，section通常包含了⼀组内容及其标题。</li>
+<li><code>article</code>：定义独立的内容。</li>
+<li><code>aside</code>：定义页面主区域内容之外的内容（比如侧边栏）。</li>
+<li><code>figure</code>：标签规定独立的流内容（图像、图表、照片、代码等等）。</li>
+<li><code>figcaption</code>：定义<code>figure</code>元素的标题。</li>
+<li><code>main</code>：<code>main</code>元素代表文档的主内容区，它应当与文档直接相关，或者是文档的中心主题的扩展。一个页面中只能有一个<code>main</code>元素，不能将 <code>main</code>元素放在 <code>article</code>、<code>aside</code>、<code>header</code>、<code>footer</code>、<code>nav</code> 元素的里面，即<code>main</code>元素的级别不能低于这些元素。</li>
+</ul>
+<h2 id="内容标签"><a href="#内容标签" class="headerlink" title="内容标签"></a>内容标签</h2><ul>
+<li><code>mark</code>：定义带有记号的文本，请在需要突出显示文本时使用<code>mark</code>标签。</li>
+<li><code>progress</code> ：定义运行中的任务进度，与 <code>JavaScript</code> 一起使用来显示任务的进度。</li>
+</ul>
+<h2 id="新的input类型"><a href="#新的input类型" class="headerlink" title="新的input类型"></a>新的input类型</h2><ul>
+<li><p><code>color</code>：定义拾色器。</p>
+</li>
+<li><p><code>datetime-local/datetime</code>：定义日期字段（带有 calendar 和 time 控件）。</p>
+</li>
+<li><p><code>search</code>：定义用于搜索的文本字段。</p>
+</li>
+<li><p><code>email</code>：用于应该包含 e-mail 地址的输入域。在提交表单时，会自动验证 email 域的值。</p>
+</li>
+<li><p><code>url</code>：用于应该包含 URL 地址的输入域。在提交表单时，会自动验证 <code>url</code> 域的值。</p>
+</li>
+<li><p><code>number</code>：<code>number</code> 类型用于应该包含数值的输入域。</p>
+</li>
+</ul>
+<h2 id="Web存储"><a href="#Web存储" class="headerlink" title="Web存储"></a><a href="https://cjhsyc.github.io/2022/10/23/cookie%E3%80%81session%E5%92%8C%E6%9C%AC%E5%9C%B0%E5%AD%98%E5%82%A8/">Web存储</a></h2><ul>
+<li><code>localstorage</code>为永久储存</li>
+<li><code>sessionstorage</code>为临时储存</li>
+</ul>
+<h2 id="多媒体"><a href="#多媒体" class="headerlink" title="多媒体"></a>多媒体</h2><ul>
+<li><code>video</code>：定义视频，比如电影片段或其他视频流。默认情况下不允许用户自己控制播放停止。</li>
+<li><code>audio</code>：定义声音，比如音乐或其他音频流。</li>
+<li><code>source</code>：为媒介元素（比如 <code>video</code> 和 <code>audio</code>）定义媒介资源，允许您规定可替换的视频&#x2F;音频文件供浏览器根据它对媒体类型或者编解码器的支持进行选择。</li>
+<li><code>track</code>：为诸如 <code>video</code> 元素之类的媒介规定外部文本轨道。</li>
+<li><code>embed</code>：定义嵌入的内容，比如插件。</li>
+</ul>
+<h1 id="CSS3"><a href="#CSS3" class="headerlink" title="CSS3"></a>CSS3</h1><ul>
+<li><p>颜色：新增<code>RGBA</code>，<code>HSLA</code>模式</p>
+</li>
+<li><pre><code class="css">.red&#123;background-color: red&#125;
+.red_hex&#123;background-color: #ff0000&#125;
+.red_rgb&#123;background-color: rgb(255,0,0);&#125;
+.red_hsl&#123;background-color: hsl(0,100%,54%);&#125;
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- 文字阴影：`text-shadow`</span><br><span class="line"></span><br><span class="line">- 边框：新增圆角（`border-radius`）、边框阴影（`box-shadow`）、`border-image`</span><br><span class="line"></span><br><span class="line">- 盒子模型：`box-sizing`</span><br><span class="line"></span><br><span class="line">  ```css</span><br><span class="line">  //默认值 内容真正宽度 = 设置的宽度</span><br><span class="line">  box-sizing: content-box; </span><br><span class="line">  // 内容真正宽度width = 设置的width - 左右padding - 左右border</span><br><span class="line">  box-sizing: border-box; </span><br><span class="line">  // 规定从父元素继承此值</span><br><span class="line">  box-sizing: inherit;</span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+<li><p>背景：<code>background-size</code> 设置背景图片的尺寸；<code>background-origin</code> 设置背景图片的原点；background-clip 设置背景图片的裁切区域</p>
+</li>
+<li><p>渐变：<code>linear-gradient</code>、<code>radial-gradient</code></p>
+</li>
+<li><p>过渡：<code>transition</code></p>
+</li>
+<li><p>动画：<code>animation</code></p>
+</li>
+<li><p>转换：<code>transform</code></p>
+</li>
+<li><p>媒体查询</p>
+</li>
+</ul>
+<h2 id="新增选择器"><a href="#新增选择器" class="headerlink" title="新增选择器"></a>新增选择器</h2><h3 id="属性选择器"><a href="#属性选择器" class="headerlink" title="属性选择器"></a>属性选择器</h3><ol>
+<li><p><code>[attribute^=value]</code> 匹配属性值以指定值开头的每个元素。</p>
+</li>
+<li><p><code>[attribute$=value]</code> 匹配属性值以指定值结尾的每个元素。</p>
+</li>
+<li><p><code>[attribute*=value]</code> 匹配属性值中包含指定值的每个元素。</p>
+</li>
+</ol>
+<h3 id="层级选择器"><a href="#层级选择器" class="headerlink" title="层级选择器"></a>层级选择器</h3><p><code>E~F</code>：选择匹配的F元素，且位于匹配的E元素后的所有匹配的F元素</p>
+<h3 id="伪元素和伪类选择器"><a href="#伪元素和伪类选择器" class="headerlink" title="伪元素和伪类选择器"></a>伪元素和伪类选择器</h3><table>
+<thead>
+<tr>
+<th>选择器</th>
+<th>示例</th>
+<th>示例说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>:first-of-type</td>
+<td>p:first-of-type</td>
+<td>选择每个p元素是其父级的第一个p元素</td>
+</tr>
+<tr>
+<td>:last-of-type</td>
+<td>p:last-of-type</td>
+<td>选择每个p元素是其父级的最后一个p元素</td>
+</tr>
+<tr>
+<td>:only-of-type</td>
+<td>p:only-of-type</td>
+<td>选择每个p元素是其父级的唯一p元素</td>
+</tr>
+<tr>
+<td>:only-child</td>
+<td>p:only-child</td>
+<td>选择每个p元素是其父级的唯一子元素</td>
+</tr>
+<tr>
+<td>:nth-child(<em>n</em>)</td>
+<td>p:nth-child(2)</td>
+<td>选择每个p元素是其父级的第二个子元素</td>
+</tr>
+<tr>
+<td>:nth-last-child(<em>n</em>)</td>
+<td>p:nth-last-child(2)</td>
+<td>选择每个p元素的是其父级的第二个子元素，从最后一个子项计数</td>
+</tr>
+<tr>
+<td>:nth-of-type(<em>n</em>)</td>
+<td>p:nth-of-type(2)</td>
+<td>选择每个p元素是其父级的第二个p元素</td>
+</tr>
+<tr>
+<td>:nth-last-of-type(<em>n</em>)</td>
+<td>p:nth-last-of-type(2)</td>
+<td>选择每个p元素的是其父级的第二个p元素，从最后一个子项计数</td>
+</tr>
+<tr>
+<td>:last-child</td>
+<td>p:last-child</td>
+<td>选择每个p元素是其父级的最后一个子级。</td>
+</tr>
+<tr>
+<td>:root</td>
+<td>:root</td>
+<td>选择文档的根元素</td>
+</tr>
+<tr>
+<td>:empty</td>
+<td>p:empty</td>
+<td>选择每个没有任何子级的p元素（包括文本节点）</td>
+</tr>
+<tr>
+<td>:target</td>
+<td>#news:target</td>
+<td>选择当前活动的#news元素（包含该锚名称的点击的URL）</td>
+</tr>
+<tr>
+<td>:enabled</td>
+<td>input:enabled</td>
+<td>选择每一个已启用的输入元素</td>
+</tr>
+<tr>
+<td>:disabled</td>
+<td>input:disabled</td>
+<td>选择每一个禁用的输入元素</td>
+</tr>
+<tr>
+<td>:checked</td>
+<td>input:checked</td>
+<td>选择每个选中的输入元素</td>
+</tr>
+<tr>
+<td>:not(<em>selector</em>)</td>
+<td>:not(p)</td>
+<td>选择每个并非p元素的元素</td>
+</tr>
+<tr>
+<td>::selection</td>
+<td>::selection</td>
+<td>匹配元素中被用户选中或处于高亮状态的部分</td>
+</tr>
+<tr>
+<td>:out-of-range</td>
+<td>:out-of-range</td>
+<td>匹配值在指定区间之外的input元素</td>
+</tr>
+<tr>
+<td>:in-range</td>
+<td>:in-range</td>
+<td>匹配值在指定区间之内的input元素</td>
+</tr>
+<tr>
+<td>:read-write</td>
+<td>:read-write</td>
+<td>用于匹配可读及可写的元素</td>
+</tr>
+<tr>
+<td>:read-only</td>
+<td>:read-only</td>
+<td>用于匹配设置 “<code>readonly</code>“（只读） 属性的元素</td>
+</tr>
+<tr>
+<td>:optional</td>
+<td>:optional</td>
+<td>用于匹配可选的输入元素</td>
+</tr>
+<tr>
+<td>:required</td>
+<td>:required</td>
+<td>用于匹配设置了 “<code>required</code>“ 属性的元素</td>
+</tr>
+<tr>
+<td>:valid</td>
+<td>:valid</td>
+<td>用于匹配输入值为合法的元素</td>
+</tr>
+<tr>
+<td>:invalid</td>
+<td>:invalid</td>
+<td>用于匹配输入值为非法的元素</td>
+</tr>
+</tbody></table>
+<p>参考：</p>
+<ul>
+<li><a class="link"   target="_blank" rel="noopener" href="https://blog.csdn.net/m0_60263299/article/details/124724891" >HTML5和CSS3新特性<i class="fas fa-external-link-alt"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://www.php.cn/website-design-ask-485901.html" >css3有哪些新增的选择器<i class="fas fa-external-link-alt"></i></a></li>
+</ul>
 
         </div>
 
@@ -244,11 +456,11 @@
             <div class="post-copyright-info">
                 <div class="article-copyright-info-container">
     <ul>
-        <li>本文标题：数组转树结构</li>
+        <li>本文标题：HTML5和CSS3新特性</li>
         <li>本文作者：灵感胜于汗水</li>
-        <li>创建时间：2022-12-09 20:19:33</li>
+        <li>创建时间：2022-12-12 12:48:14</li>
         <li>
-            本文链接：https://cjhsyc.github.io/2022/12/09/数组转树结构/
+            本文链接：https://cjhsyc.github.io/2022/12/12/HTML5和CSS3新特性/
         </li>
         <li>
             版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -263,7 +475,11 @@
             <ul class="post-tags-box">
                 
                     <li class="tag-item">
-                        <a href="/tags/JavaScript/">#JavaScript</a>&nbsp;
+                        <a href="/tags/HTML5/">#HTML5</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/CSS3/">#CSS3</a>&nbsp;
                     </li>
                 
             </ul>
@@ -272,29 +488,14 @@
         
             <div class="article-nav">
                 
-                    <div class="article-prev">
-                        <a class="prev"
-                           rel="prev"
-                           href="/2022/12/12/HTML5%E5%92%8CCSS3%E6%96%B0%E7%89%B9%E6%80%A7/"
-                        >
-                            <span class="left arrow-icon flex-center">
-                              <i class="fas fa-chevron-left"></i>
-                            </span>
-                            <span class="title flex-center">
-                                <span class="post-nav-title-item">HTML5和CSS3新特性</span>
-                                <span class="post-nav-item">上一篇</span>
-                            </span>
-                        </a>
-                    </div>
-                
                 
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="/2022/12/03/draggable%E5%8F%AF%E6%8B%96%E5%8A%A8%E5%85%83%E7%B4%A0/"
+                           href="/2022/12/09/%E6%95%B0%E7%BB%84%E8%BD%AC%E6%A0%91%E7%BB%93%E6%9E%84/"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">draggable可拖动元素</span>
+                                <span class="post-nav-title-item">数组转树结构</span>
                                 <span class="post-nav-item">下一篇</span>
                             </span>
                             <span class="right arrow-icon flex-center">
@@ -420,7 +621,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E8%BD%AC%E6%A0%91%E7%BB%93%E6%9E%84"><span class="nav-number">1.</span> <span class="nav-text">数组转树结构</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#HTML5"><span class="nav-number">1.</span> <span class="nav-text">HTML5</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%AD%E4%B9%89%E5%8C%96%E6%A0%87%E7%AD%BE"><span class="nav-number">1.1.</span> <span class="nav-text">语义化标签</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E5%AE%B9%E6%A0%87%E7%AD%BE"><span class="nav-number">1.2.</span> <span class="nav-text">内容标签</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B0%E7%9A%84input%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.3.</span> <span class="nav-text">新的input类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Web%E5%AD%98%E5%82%A8"><span class="nav-number">1.4.</span> <span class="nav-text">Web存储</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E5%AA%92%E4%BD%93"><span class="nav-number">1.5.</span> <span class="nav-text">多媒体</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CSS3"><span class="nav-number">2.</span> <span class="nav-text">CSS3</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E%E9%80%89%E6%8B%A9%E5%99%A8"><span class="nav-number">2.1.</span> <span class="nav-text">新增选择器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B1%9E%E6%80%A7%E9%80%89%E6%8B%A9%E5%99%A8"><span class="nav-number">2.1.1.</span> <span class="nav-text">属性选择器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B1%82%E7%BA%A7%E9%80%89%E6%8B%A9%E5%99%A8"><span class="nav-number">2.1.2.</span> <span class="nav-text">层级选择器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%AA%E5%85%83%E7%B4%A0%E5%92%8C%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8"><span class="nav-number">2.1.3.</span> <span class="nav-text">伪元素和伪类选择器</span></a></li></ol></li></ol></li></ol>
     </div>
 </div>
         </aside>
